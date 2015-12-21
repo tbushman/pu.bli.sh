@@ -14,92 +14,33 @@ WebFontConfig = {
 })();
 
  
-//jQuery(window).load(function() {
+jQuery(window).load(function() {
+	$('#signoff').hide();	
+    $("#menu > li > a").click(function (e) { // binding onclick
+        if ($(this).parent().hasClass('selected')) {
+            $("#menu div div").slideUp(100); // hiding popups
+            $("#menu .selected").removeClass("selected");
+			$('#description').show();
 
-//});		
+        } else {
+            $("#menu div div").slideUp(100); // hiding popups
+            $("#menu .selected").removeClass("selected");
+
+            if ($(this).next(".dropdown").length) {
+                $(this).parent().addClass("selected"); // display popup
+                $(this).next(".dropdown").children().slideDown(200);
+				$('#description').hide();
+            }
+        }
+        e.stopPropagation();
+
+    }); 
+
+});
 
 
 function main() {
 
-		$('#signoff').hide();	
-	    $("#menu > li > a").click(function (e) { // binding onclick
-	        if ($(this).parent().hasClass('selected')) {
-	            $("#menu div div").slideUp(100); // hiding popups
-	            $("#menu .selected").removeClass("selected");
-				$('#description').show();
-
-	        } else {
-	            $("#menu div div").slideUp(100); // hiding popups
-	            $("#menu .selected").removeClass("selected");
-
-	            if ($(this).next(".dropdown").length) {
-	                $(this).parent().addClass("selected"); // display popup
-	                $(this).next(".dropdown").children().slideDown(200);
-					$('#description').hide();
-	            }
-	        }
-	        e.stopPropagation();
-
-	    }); 
-
-	    $("body").click(function () { // binding onclick to body
-	        $("#menu div div").slideUp(100); // hiding popups
-	        $("#menu .selected").removeClass("selected");
-			$('#description').show();
-	    }); 
-
-		$("#about").click(function () {
-			$('#signoff').hide();	
-			$('#catchphrase').html("");		
-			location.reload();
-		});
-
-		$("#resume").click(function (){
-			$('#signoff').show();	
-			$('#catchphrase').html("");		
-			$('what').html("");		
-			$("why").html("");
-			var url = "http://www.slideshare.net/slideshow/embed_code/key/DSh0iY9IQLwFaz";
-		      $('<iframe />', {
-		        name: 'frame',
-		        id:   'frame',
-		        width: '477px',
-		        height: '510px',
-		        frameborder: '0',
-		        seamless: 'seamless',
-		        scrolling: 'no',
-		        allowtransparency:'true', 
-		        allowfullscreen:'true',
-		        src: url
-		        }).appendTo('why');
-		});
-
-	/*<iframe width="700px" height="425px" src="http://online.fliphtml5.com/dfqn/cakv/#p=1" frameborder="0" allowfullscreen allowtransparency></iframe>*/
-
-
-		$("#timeline").click(function () {
-			$('#signoff').show();	
-			$('#catchphrase').html("");
-			$('#external').html("");
-			$('what').html("");
-			$('why').html("");
-			var url = "https://cdn.knightlab.com/libs/timeline/latest/embed/index.html?source=0AiVIr6BsFvSndEtMXy1RRGtid3o1Q3dsRUpObldTMHc&font=PT&maptype=toner&lang=en&height=600/";
-		      $('<iframe />', {
-		        name: 'frame',
-		        id:   'frame',
-		        width: '100%',
-		        height: '420px',
-		        frameborder: '0',
-		        seamless: 'seamless',
-		        scrolling: 'no',
-		        allowtransparency:'true', 
-		        allowfullscreen:'true',
-		        src: url
-		        }).appendTo('why');
-		});
-
-	/*	$(function() {*/
-    
 	var options = {
 	    hash_bookmark: false,
 	    initial_zoom: 1
@@ -153,151 +94,38 @@ function main() {
     	addCursorInteraction(sublayer);
      
     	lyr1.push(sublayer);
-		var clicked = [$(this).attr('id')];
-		lyr1.push(clicked);
 
     	var sql = new cartodb.SQL({ user: 'tbushman' });
 
-	//wire buttons (timeline)
-		$("#gallery").click(function (e, latlon, pxPos, data, layer) {
-			
-			$('#catchphrase').html("");
+		//wire buttons (timeline)
+		$('.tl-timemarker').click(function (sql_select, e, latlon, pxPos, data, layer){
 			$('what').html("");
 			$('why').html("");
-			$('why').append('<there><img src="http://pu.bli.sh/manyone/icons/landing_branding-01.svg" alt=""></img></there>').appendTo('why');
-			$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, name, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE pic1 IS NOT NULL", function(ret) {
-				var list = ret.rows;
-	        	$('what').html("<here></here>");
-	        	var i = 0;
-	        	for (i in list){
-	        		
-	            	$('here').append('<div id="'+list[i].cartodb_id+'" class="pic1"><a href="#" class="pic1" id="'+list[i].cartodb_id+'"><img class="items pic1" id="'+list[i].cartodb_id+'" src="'+list[i].pic1+'"></img></a></div><div id="'+list[i].cartodb_id+'" class="pic2"><a href="#" ><img class="items pic2" src="'+list[i].pic2+'"></img></a></div><div id="'+list[i].cartodb_id+'" class="pic3"><a href="#" ><img class="items pic3" id="'+list[i].cartodb_id+'" src="'+list[i].pic3+'"></img></a></div><div id="'+list[i].cartodb_id+'" class="pic4"><a href="#" ><img class="items pic4" id="'+list[i].cartodb_id+'" src="'+list[i].pic4+'"></img></a></div><div id="'+list[i].cartodb_id+'" class="pic5"><a href="#" ><img class="items pic5" id="'+list[i].cartodb_id+'" src="'+list[i].pic5+'"></img></a></div>');
-
-				}
-				$(".items").each(function(){     
-					if ($(this).attr("src") == "null") {
-					    $(this).remove();
-						$('here div a:empty').parent().remove();
-					}
-					else     {   
-						$(this).show();
-						return true;
-					}	
-				});
-                $(".items").click(function(){
-					$('#catchphrase').html("");
-					$('#external').html("");
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic1, pic2, pic3, pic4, pic5, name, link FROM portfolio_tb WHERE cartodb_id =" + $(this).attr('id'), function(ret) {
-						var list = ret.rows[0];
-						var pic2 = list.pic2;
-						var name = list.name;
-						console.log(pic2);
-						$('why').append('<there><img src="'+pic2+'"></img></there>');
-						$('#catchphrase').append(name);
-						$('#external').append('<a href='+link+' target="_blank">External link</a>');
-					  });
-				});
-
-
-
-	                	//Click on one of the list items
-
-				
-/*				$('.pic2').on('click', function () {
-					$('why').html("");
-					$('.tl-timemarker').removeClass('selected');
-			    	$(this).addClass('selected');
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2, name, link FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-						$('#catchphrase').html("");
-						$('#external').html("");
-						var list = ret.rows[0];
-						var pic2 = list.pic2;
-						var name = list.name;
-						console.log(pic2);
-						$('why').append('<there><img src="'+pic2+'"></img></there>');
-						$('#catchphrase').append(name);
-						$('#external').append('<a href='+link+' target="_blank">External link</a>');
-					});
-				});
-				$('.pic3').on('click', function () {
-					$('why').html("");
-					$('.tl-timemarker').removeClass('selected');
-			    	$(this).addClass('selected');
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic3, link FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-						$('#catchphrase').html("");
-						$('#external').html("");
-						var list = ret.rows[0];
-						var pic3 = list.pic3;
-						var name = list.name;
-						console.log(pic3);
-						$('why').append('<there><img src="'+pic3+'"></img></there>');
-						$('#catchphrase').append(name);
-						$('#external').append('<a href='+link+' target="_blank">External link</a>');
-					});
-				});
-				$('.pic4').on('click', function () {
-					$('why').html("");
-					$('.tl-timemarker').removeClass('selected');
-			    	$(this).addClass('selected');
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic4, link FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-						$('#catchphrase').html("");
-						$('#external').html("");
-						var list = ret.rows[0];
-						var pic4 = list.pic4;
-						var name = list.name;
-						console.log(pic4);
-						$('why').append('<there><img src="'+pic4+'"></img></there>');
-						$('#catchphrase').append(name);
-						$('#external').append('<a href='+link+' target="_blank">External link</a>');
-					});
-				});
-				$('.pic5').on('click', function () {
-					$('why').html("");
-					$('.tl-timemarker').removeClass('selected');
-			    	$(this).addClass('selected');
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic5, link FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-						$('#catchphrase').html("");
-						$('#external').html("");
-						var list = ret.rows[0];
-						var pic5 = list.pic5;
-						var name = list.name;
-						link = list.link;
-						console.log(pic5);
-						$('why').append('<there><img src="'+pic5+'"></img></there>');
-						$('#catchphrase').append(name);
-						$('#external').append('<a href='+link+' target="_blank">External link</a>');
-					});
-				});
-
-*/
-
-
-				$('.items').hover(function(){
-					$('#info').show();
-					var currentId = $(this).attr('name');
-					$('#info').append(currentId);
-					}, function() {
-						$('#info').html("");
-
-					});
-				});
-    		});
-        });
-        return true;
-    
-		$('.tl-timemarker').click(function (e, latlon, pxPos, data, layer){
 			$('.tl-timemarker').removeClass('selected');
 	    	$(this).addClass('selected');
 			var sql_init = new cartodb.SQL({ user: 'tbushman' });
-			sql_init.execute("SELECT cartodb_id, name, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'", function(ret){
+			var clicked = [$(this).attr('id')];
+			var sql_select = "SELECT cartodb_id, name, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'";
+			sql_init.execute(sql_select).done(function(ret){
 				var list = ret.rows[0];
 				var lat = list.lat;
 				delete list.lat;
 				var lon = list.lon;
 				delete list.lon;
 				map.setView(new L.LatLng(lat, lon),9);
-				$('what').html("");
-				$('why').html("");
+				
+/*				var markers = L.marker([lat, lon], {icon: L.icon({
+				    iconUrl: 'http://pu.bli.sh/images/thexicon.svg',
+
+				    iconSize:     [30, 30], // size of the icon
+				    shadowSize:   [50, 50], // size of the shadow
+				    iconAnchor:   [20, 20], // point of the icon which will correspond to marker's location
+				    shadowAnchor: [25, 25],  // the same for the shadow
+				    popupAnchor:  [-80, -80] // point from which the popup should open relative to the iconAnchor
+					})
+				});
+				//markers.clearLayers();
+				markers.addTo(map);*/
 
 				var name = list.name;
 		    	console.log(name);
@@ -363,11 +191,127 @@ function main() {
 						$('why').append('<there><img src="'+pic5+'"></img></there>');
 					});
 				});
-
 			});
 		});
-	    
+		lyr1[0].setSQL(sql_select);
+		return true;
+	});
+	$("body").click(function () { // binding onclick to body
+	    $("#menu div div").slideUp(100); // hiding popups
+	    $("#menu .selected").removeClass("selected");
+		$('#description').show();
+	}); 
 
+	$("#about").click(function () {
+		$('#signoff').hide();	
+		$('#catchphrase').html("");		
+		location.reload();
+	});
+
+	$("#resume").click(function (){
+		$('#catchphrase').html("");		
+		$('what').html("");		
+		$("why").html("");
+		var url = "http://www.slideshare.net/slideshow/embed_code/key/DSh0iY9IQLwFaz";
+	    $('<iframe />', {
+		        name: 'frame',
+		        id:   'frame',
+		        width: '477px',
+		        height: '510px',
+		        frameborder: '0',
+		        seamless: 'seamless',
+		        scrolling: 'no',
+		        allowtransparency:'true', 
+		        allowfullscreen:'true',
+		        src: url
+		        }).appendTo('why');
+	});
+
+
+	$("#gallery").click(function (e, latlon, pxPos, data, layer) {
+	
+		$('#catchphrase').html("");
+		$('what').html("");
+		$('why').html("");
+		$('why').append('<there><img src="http://pu.bli.sh/manyone/icons/landing_branding-01.svg" alt=""></img></there>').appendTo('why');
+		$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, name, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb", function(ret) {
+			var list = ret.rows;
+    		$('what').html("<here></here>");
+    		var i = 0;
+    		for (i in list){
+     		
+        		$('here').append('<div id="'+list[i].cartodb_id+'" class="pic1" name="'+ret.rows[i].name+'"><a href="#'+ret.rows[i].cartodb_id+'" class="pic1" id="'+list[i].cartodb_id+'"><img class="pic1" id="'+list[i].cartodb_id+'" src="'+list[i].pic1+'"></img></a></div><div id="'+list[i].cartodb_id+'" class="pic2" name="'+ret.rows[i].name+'"><a href="#'+ret.rows[i].cartodb_id+'" ><img class="items pic2" src="'+list[i].pic2+'"></img></a></div><div id="'+list[i].cartodb_id+'" class="pic3"><a href="#'+ret.rows[i].cartodb_id+'" ><img class="items pic3" id="'+list[i].cartodb_id+'" src="'+list[i].pic3+'"></img></a></div><div id="'+list[i].cartodb_id+'" class="pic4" name="'+ret.rows[i].name+'"><a href="#'+ret.rows[i].cartodb_id+'" ><img class="items pic4" id="'+list[i].cartodb_id+'" src="'+list[i].pic4+'"></img></a></div><div id="'+list[i].cartodb_id+'" class="pic5" name="'+ret.rows[i].name+'"><a href="#'+ret.rows[i].cartodb_id+'" ><img class="items pic5" id="'+list[i].cartodb_id+'" src="'+list[i].pic5+'"></img></a></div>');
+			}
+			$(".items").each(function(){     
+				if ($(this).attr("src") == "null") {
+			    	$(this).remove();
+					$('here div a:empty').parent().remove();
+				}
+				else  {     
+					$(this).show();
+					return true;
+     			}
+		    });
+			$('.pic1').click(function(){
+				$('why').html("");
+				$('#catchphrase').html("");
+				$('#external').html("");
+				$('.tl-timemarker').removeClass('selected');
+	    		$(this).addClass('selected');
+				var sql_init = new cartodb.SQL({ user: 'tbushman' });
+				var clicked = [$(this).attr('id')];
+				var sql_select = "SELECT cartodb_id, name, timeline, description, buttonid, pic1, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ $(this).attr('id');
+				sql_init.execute(sql_select).done(function(ret){
+					var list = ret.rows[0];
+					var pic1 = list.pic1;
+					var name = list.name;
+					console.log(pic1);
+					console.log(name);
+					$('why').append('<there><img src="'+pic1+'"></img></there>').appendTo('why');
+					$('#catchphrase').append(name);
+					$('#external').append('<a href='+link+' target="_blank">External link</a>');
+	    		});
+				//lyr1[0].setSQL(sql_select);
+				return false;
+			});
+			$('.pic2').click(function(){
+				$('why').html("");
+				$('#catchphrase').html("");
+				$('#external').html("");
+				$('.tl-timemarker').removeClass('selected');
+	    		$(this).addClass('selected');
+				var sql_init = new cartodb.SQL({ user: 'tbushman' });
+				var clicked = [$(this).attr('id')];
+				var sql_select = "SELECT cartodb_id, name, timeline, description, buttonid, pic2, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ $(this).attr('id');
+				sql_init.execute(sql_select).done(function(ret){
+					var list = ret.rows[0];
+					var pic2 = list.pic2;
+					var name = list.name;
+					console.log(pic2);
+					console.log(name);
+					$('why').append('<there><img src="'+pic2+'"></img></there>').appendTo('why');
+					$('#catchphrase').append(name);
+					$('#external').append('<a href='+link+' target="_blank">External link</a>');
+	    		});
+				//lyr1[0].setSQL(sql_select);
+				return false;
+			});
+		
+			$('.items').hover(function(){
+				$('#info').show();
+				var currentId = $(this).attr('name');
+				$('#info').append(currentId);					
+				}, function() {
+					$('#info').html("");
+				});
+			});
+	    });
+/*            
+*/
+//e.stopPropagation();
+
+//});
+	    
 //var LayerActions = { function() { TimelineClick("SELECT cartodb_id, name, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline ='"+ clicked +"'") }};
 		//LayerActions[$(this).attr('id')] ();
 
@@ -589,8 +533,7 @@ function addCursorInteraction(sublayer) {
 		});
 	}); 
 }
-}        
-              
+       }             
                
 window.onload = main;
 //				$('#map').on('click', function () {
