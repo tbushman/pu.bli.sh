@@ -1,74 +1,87 @@
 body {
- font-family: 'Yantramanav', Helvetica, sans-serif; 
- background: #fff;
+	font-family: 'Yantramanav', Helvetica, sans-serif; 
+	background: #fff;
 }
 
 #main {
- min-height: 480px;
- max-height: 480px;
- margin: 0px;
- padding: 0px;
- display: -webkit-flex;
- display:         flex;
- -webkit-flex-flow: row;
-         flex-flow: row;
- }
+	min-height: 480px;
+	max-height: 480px;
+	margin: 0px;
+	padding: 0px;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: -webkit-box;
+	display: flex;
+	-ms-flex-wrap: nowrap;
+	-webkit-flex-flow: row nowrap; 
+	flex-flow: row nowrap; 
+}
 
 #main > what {
- background-color: #fff;
- max-height: 500px;
- min-width: 33%;
- overflow-y: scroll;
- -webkit-flex: 1 6 0%;
-         flex: 1 6 0%;
- -webkit-order: 1;
-         order: 1;
- }
+	background-color: #fff;
+	max-height: 500px;
+	min-width: 33%;
+	overflow-y: scroll;
+	-webkit-flex: 1 6 0%; 
+	-webkit-box-flex: 1 6 0%;
+ 	-ms-flex: 1 6 0%;
+ 	flex: 1 6 0%; 
+	-webkit-order: 1;
+	-webkit-box-order: 1;
+	-ms-order: 1;
+	order: 1;
+}
 
 #main > what:focus {
- -webkit-flex: 6 1 33%;
-         flex: 6 1 33%;
- -webkit-order: 1;
-         order: 1;
- }   
+	-webkit-flex: 6 1 33%;
+	-webkit-box-flex: 6 1 33%;
+	-ms-flex: 6 1 33%;
+	flex: 6 1 33%;
+	-webkit-order: 1;
+	-webkit-box-order: 1;
+	-ms-order: 1;
+	order: 1;
+}   
 
 #main > where {
- background-color: #fff;
- -webkit-flex: 1 6 66%;
-         flex: 1 6 66%;
- -webkit-order: 2;
-         order: 2;
- }
+	background-color: #fff;
+	-webkit-flex: 1 6 66%;
+	-webkit-box-flex: 1 6 66%;
+	-ms-flex: 1 6 66%;
+	flex: 1 6 66%;
+	-webkit-order: 2;
+	-webkit-box-order: 2;
+	-ms-order: 2;
+	order: 2;
+}
 
-#main > where:focus {
- -webkit-flex: 6 1 66%;
-         flex: 6 1 66%;
- -webkit-order: 2;
-         order: 2;
- }   
 
 #main > why {
- background: #fff;
- -webkit-flex: 0 0 0%;
-         flex: 0 0 0%;
- -webkit-order: 3;
-         order: 3;
- position: relative;
- z-index: 9999999999999999999999;
- }
+	background: #fff;
+	-webkit-flex: 0 0 0%;
+	-webkit-box-flex: 0 0 0%;
+	-ms-flex: 0 0 0%;
+	flex: 0 0 0%;
+	-webkit-order: 3;
+	-webkit-box-order: 3;
+	-ms-order: 3;
+	order: 3;
+	position: relative;
+	z-index: 9999999999999999999999;
+}
 
 #main > why:focus {
- -webkit-flex: 6 1 66%;
-         flex: 6 1 66%;
- -webkit-order: 3;
-         order: 3;
- }   
+	-webkit-flex: 6 1 66%;
+	-webkit-box-flex: 6 1 66%;
+	-ms-flex: 6 1 66%;
+	flex: 6 1 66%;
+}   
 
 who, when {
- display: block;
- height: 4em;
- background: #fff;
- }
+	display: block;
+	height: 4em;
+	background: #fff;
+}
 
 when {
 	width: 100%;
@@ -78,28 +91,31 @@ what > ul {
 	list-style-type: none;
 }
 what {
-	  display: -ms-flexbox;
-	  -ms-flex-wrap: wrap;
-	  -webkit-flex-flow: row wrap; 
-	  flex-flow: row wrap; 
-	  display: -webkit-box;
-	  display: flex;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: -webkit-box;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	-webkit-flex-flow: row wrap; 
+	flex-flow: row wrap; 
 	width: 100%;
 }
 here {
-	  display: -ms-flexbox;
-	  -ms-flex-wrap: wrap;
-	  -webkit-flex-flow: row wrap; 
-	  flex-flow: row wrap; 
-	  display: -webkit-box;
-	  display: flex;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: -webkit-box;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	-webkit-flex-flow: row wrap; 
+	flex-flow: row wrap;
+	align-content: flex-start; 
 	width: 100%;
 	top: 0;
 }
 there img{
 	display: inline-block;
 	height: 480px;
-	z-index: 9999999999999999;
+	z-index: 99999999999999999999999999999;
 }
 what div {
 	position: relative;
@@ -110,6 +126,9 @@ what div {
 	margin-top: 0px;
 	margin-right: 16px;
 	margin-bottom: 16px;
+	-webkit-box-flex: 1 0 10;
+	-webkit-flex: 1 0 10; 
+	-ms-flex: 1 0 10;
 	flex: 1 0 10; 
 }
 
@@ -121,8 +140,8 @@ what div img {
 	height: 200%;
 	width: auto;
 	-webkit-transform: translate(-50%,-50%);
-	      -ms-transform: translate(-50%,-50%);
-	          transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
 }
 
 what div a {
@@ -252,12 +271,12 @@ what > ul > li {
 }
 
 #external {
-	width: 33%;
-    font-size: 1.8em;
+	width: 75%;
+    font-size: 1em;
     font-weight: 300;
-	top: 0;
+	bottom: 0;
 	height: 100%;
-	line-height: 2em;
+	line-height: 3em;
 	display: inline-block;
 	margin: 0, auto;
 	float: right;
@@ -398,7 +417,7 @@ what > ul > li {
 	margin-top: 0;
 }
 .drop {
-    background-color: rgba(255,255,255,.9);
+    background-color: rgba(255,255,255,.97);
     display: none;
     height: 2.75em;
 	font-size: .9em;
@@ -419,49 +438,50 @@ what > ul > li {
 	width: 100%;
 }
 
-/*.drop:hover {
-    background: #f7f9ec;
+.drop:hover {
 	background: linear-gradient(to right, #f7f9ec,  #fff);
 	background-repeat: no-repeat;
 	cursor: pointer;
-    /*box-shadow: 2px 2px 6px rgba(0,0,0,.2);*/
 }
 
-.drop a:hover {
-	color: #000;
-}
 
 #map {
 	z-index: 0;
+}
+
+.tl-slidenav-next[style], .tl-slidenav-previous[style] {
+	top: 0px !important;
+}
+
+.tl-storyslider[style] {
+	height: 0px !important;
 }
 
 /* Too narrow to support three columns */
 @media all and (max-width: 640px) {
 
  #main, #page {
-  -webkit-flex-flow: column;
-          flex-flow: column;
-          flex-direction: column;
+	-webkit-flex-flow: column;
+	flex-flow: column;
+	flex-direction: column;
  }
 
  #main > where, #main > what, #main > why, #main > when {
-  /* Return them to document order */
- /* -webkit-order: 0;
-          order: 0;*/
-		min-height: 50px;
-		max-height: 300px;
+	min-height: 50px;
+	max-height: 300px;
  }
 #main > where:focus {
- -webkit-flex: 1 6 66%;
-         flex: 1 6 66%;
- -webkit-order: 2;
-         order: 2;
+	-webkit-flex: 1 6 66%;
+	flex: 1 6 66%;
+	-webkit-order: 2;
+	order: 2;
  }   
 
- #main > what, #main > who {
-  min-height: 50px;
-  max-height: 300px;
- }
+#main > what, #main > who {
+	min-height: 50px;
+	max-height: 300px;
+}
+
 #timeline-embed[style] {
 	max-height: 30% !important;
 }
