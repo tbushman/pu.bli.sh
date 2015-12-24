@@ -125,6 +125,8 @@ function main() {
 
 		//wire buttons (timeline)
 		$('.tl-timemarker').click(function (sql_select, e, latlon, pxPos, data, layer){
+        	$('#external').html("");
+        	$('#catchphrase').html("");
 			$('what').html("");
 			$('why').html("");
 			$('.tl-timemarker').removeClass('selected');
@@ -449,6 +451,8 @@ function addCursorInteraction(sublayer) {
 		    var zoom = map.getZoom(zoom);
 		    console.log(zoom);
 		    map.setView(new L.LatLng(lat, lon)); 
+        	$('#external').html("");
+        	$('#catchphrase').html("");
             
               
            //This is the query for generating the list of nearby features
