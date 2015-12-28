@@ -84,7 +84,7 @@ function main() {
   	//leaflet map
   	map = L.map('map', {
     	zoomControl: true,
-    	center: [20, -100],
+    	center: [35, -100],
     	zoom: 3,
 		minZoom: 2,
     	maxZoom: 18
@@ -268,7 +268,9 @@ function main() {
 							delete list.lat;
 							var lon = list.lon;
 							delete list.lon;
-							map.setView(new L.LatLng(lat, lon),9);
+						    var zoom = map.getZoom(zoom);
+						    console.log(zoom);
+						    map.setView(new L.LatLng(lat, lon), zoom); 
 							var pic1 = list.pic1;
 							var name = list.name;
 							console.log(pic1);
@@ -303,7 +305,9 @@ function main() {
 							delete list.lat;
 							var lon = list.lon;
 							delete list.lon;
-							map.setView(new L.LatLng(lat, lon),9);
+						    var zoom = map.getZoom(zoom);
+						    console.log(zoom);
+						    map.setView(new L.LatLng(lat, lon), zoom); 
 							var pic2 = list.pic2;
 							var name = list.name;
 							console.log(pic2);
@@ -337,7 +341,9 @@ function main() {
 							delete list.lat;
 							var lon = list.lon;
 							delete list.lon;
-							map.setView(new L.LatLng(lat, lon),9);
+						    var zoom = map.getZoom(zoom);
+						    console.log(zoom);
+						    map.setView(new L.LatLng(lat, lon), zoom); 
 							var pic3 = list.pic3;
 							var name = list.name;
 							console.log(pic3);
@@ -371,7 +377,9 @@ function main() {
 							delete list.lat;
 							var lon = list.lon;
 							delete list.lon;
-							map.setView(new L.LatLng(lat, lon),9);
+						    var zoom = map.getZoom(zoom);
+						    console.log(zoom);
+						    map.setView(new L.LatLng(lat, lon), zoom); 
 							var pic4 = list.pic4;
 							var name = list.name;
 							console.log(pic4);
@@ -405,7 +413,9 @@ function main() {
 							delete list.lat;
 							var lon = list.lon;
 							delete list.lon;
-							map.setView(new L.LatLng(lat, lon),9);
+						    var zoom = map.getZoom(zoom);
+						    console.log(zoom);
+						    map.setView(new L.LatLng(lat, lon), zoom); 
 							var pic5 = list.pic5;
 							var name = list.name;
 							console.log(pic5);
@@ -450,7 +460,7 @@ function addCursorInteraction(sublayer) {
 		    delete ret.rows[0].lon;
 		    var zoom = map.getZoom(zoom);
 		    console.log(zoom);
-		    map.setView(new L.LatLng(lat, lon)); 
+		    map.setView(new L.LatLng(lat, lon), zoom+1); 
         	$('#external').html("");
         	$('#catchphrase').html("");
             
@@ -473,7 +483,7 @@ function addCursorInteraction(sublayer) {
                 		.attr('id', ret.rows[i].timeline)
                 		.html('<a href="#'+ret.rows[i].cartodb_id+'" class="cartodb_id tl-timemarker" id="'+ret.rows[i].timeline +'"> <h5 id="'+list[i].timeline+'">' +list[i].description +'</h5><h6 id="'+list[i].timeline+'">'+list[i].name +'</h6></a>');
                 		$('ul').append(newelement);
-                		map.setView(new L.LatLng(lat, lon), (zoom+2));
+                		map.setView(new L.LatLng(lat, lon), (zoom+1));
                 	}
                 	//Click on one of the list items
 					$('.tl-timemarker').click(function (e, latlon, pxPos, data, layer){
@@ -487,7 +497,9 @@ function addCursorInteraction(sublayer) {
 								delete list.lat;
 								var lon = list.lon;
 								delete list.lon;
-								map.setView(new L.LatLng(lat, lon),9);
+							    var zoom = map.getZoom(zoom);
+							    console.log(zoom);
+							    map.setView(new L.LatLng(lat, lon), zoom+1); 
 								$('what').html("");
 								$('why').html("");
 
@@ -579,7 +591,9 @@ function addCursorInteraction(sublayer) {
 			    		delete list.lat;
 			    		var lon = list.lon;
 			    		delete list.lon;
-			    		map.setView(new L.LatLng(lat, lon),9);
+					    var zoom = map.getZoom(zoom);
+					    console.log(zoom);
+					    map.setView(new L.LatLng(lat, lon), zoom+1); 
 						$('what').html("");
 						$('why').html("");
 

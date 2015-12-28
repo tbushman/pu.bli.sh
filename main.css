@@ -8,73 +8,56 @@ body {
 	max-height: 480px;
 	margin: 0px;
 	padding: 0px;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: -webkit-box;
-	display: flex;
-	-ms-flex-wrap: nowrap;
-	-webkit-flex-flow: row nowrap; 
-	flex-flow: row nowrap; 
+	display: block;
+	width: 100%;
 }
 
 #main > what {
 	background-color: #fff;
-	max-height: 500px;
-	min-width: 33%;
+	max-height: 480px;
+	max-width: 25%;
+	min-width: 0%;
 	overflow-y: scroll;
-	-webkit-flex: 1 6 0%; 
-	-webkit-box-flex: 1 6 0%;
- 	-ms-flex: 1 6 0%;
- 	flex: 1 6 0%; 
-	-webkit-order: 1;
-	-webkit-box-order: 1;
-	-ms-order: 1;
-	order: 1;
+	display: inline-block;
+	position: relative;
+	float: left;
+	margin: 0, auto;
+	padding-left: 1%;
 }
 
 #main > what:focus {
-	-webkit-flex: 6 1 33%;
-	-webkit-box-flex: 6 1 33%;
-	-ms-flex: 6 1 33%;
-	flex: 6 1 33%;
-	-webkit-order: 1;
-	-webkit-box-order: 1;
-	-ms-order: 1;
-	order: 1;
+	min-width: 30%;
 }   
 
 #main > where {
 	background-color: #fff;
-	-webkit-flex: 1 6 66%;
-	-webkit-box-flex: 1 6 66%;
-	-ms-flex: 1 6 66%;
-	flex: 1 6 66%;
-	-webkit-order: 2;
-	-webkit-box-order: 2;
-	-ms-order: 2;
-	order: 2;
+	min-height: 480px;
+	max-height: 480px;
+	width: 25%;
+	overflow-y: hidden;
+	display: inline-block;
+	position: relative;
+	float: left;
+	margin: 0;
 }
 
 
 #main > why {
-	background: #fff;
-	-webkit-flex: 0 0 0%;
-	-webkit-box-flex: 0 0 0%;
-	-ms-flex: 0 0 0%;
-	flex: 0 0 0%;
-	-webkit-order: 3;
-	-webkit-box-order: 3;
-	-ms-order: 3;
-	order: 3;
-	position: relative;
+	background-color: #fff;
+	max-height: 480px;
+	max-width: 50%;
+	min-width: 0%;
+	overflow-y: hidden;
+	display: inline-block;
+	position: absolute;
+	float: right;
+	margin: 0, auto;
 	z-index: 9999999999999999999999;
 }
 
 #main > why:focus {
-	-webkit-flex: 6 1 66%;
-	-webkit-box-flex: 6 1 66%;
-	-ms-flex: 6 1 66%;
-	flex: 6 1 66%;
+	min-width: 30%;
+	max-width: 40%;
 }   
 
 who, when {
@@ -85,12 +68,14 @@ who, when {
 
 when {
 	width: 100%;
+	bottom: 0;
 }
 
 what > ul {
 	list-style-type: none;
 }
-what {
+/*what {
+	
 	display: -ms-flexbox;
 	display: -webkit-flex;
 	display: -webkit-box;
@@ -99,7 +84,7 @@ what {
 	-webkit-flex-flow: row wrap; 
 	flex-flow: row wrap; 
 	width: 100%;
-}
+}*/
 here {
 	display: -ms-flexbox;
 	display: -webkit-flex;
@@ -110,7 +95,12 @@ here {
 	flex-flow: row wrap;
 	align-content: flex-start; 
 	width: 100%;
+	min-height: 0%;
+	max-height: 33%;
 	top: 0;
+}
+there {
+	max-width: 40%;
 }
 there img{
 	display: inline-block;
@@ -153,10 +143,12 @@ what div a {
 what li {
 	list-style-type: none;
 	line-height: 2em;
+	padding-right: 4em;
 }
 
 why > img {
 	max-height: 480px;
+	max-width: 30%;
 }
 
 what a {
@@ -174,6 +166,8 @@ what h2 {
     line-height: 1em;
     color: #000;
 	max-height: 7%;
+	padding-bottom: 1em;
+	padding-right: 4em;
 }
 what h3 {
 	font-weight: 300;
@@ -239,8 +233,8 @@ what > ul > li {
 	margin: 0;
 	padding: 0;
 	float: right;
-    width: 66%;
-	height: 100%;
+    width: 74%;
+	height: auto;
 }
 #brandbar img {
 	float: right;
@@ -317,7 +311,7 @@ what > ul > li {
 	position: relative;
 	display: inline-block;
 	float: left;
-    width: 33%;
+    width: 25%;
     height: 100%;
 }
 
@@ -459,27 +453,49 @@ what > ul > li {
 
 /* Too narrow to support three columns */
 @media all and (max-width: 640px) {
-
+#catchphrase {
+	font-size: 1em;
+	font-weight: 300;
+	line-height: .88em;
+	z-index: 999999999999999;
+	padding-left: 4em;
+	padding-top: .9em;
+	display: block;
+	float: none;
+}
+#external {
+	font-size: .68em;
+	font-weight: 400;
+	line-height: 0;
+	width: 80%;
+	padding-top: 4px;
+}
  #main, #page {
-	-webkit-flex-flow: column;
-	flex-flow: column;
-	flex-direction: column;
  }
 
  #main > where, #main > what, #main > why, #main > when {
-	min-height: 50px;
+	min-height: 200px;
 	max-height: 300px;
+	width: 100%;
+	min-width: 100%;
  }
 #main > where:focus {
-	-webkit-flex: 1 6 66%;
-	flex: 1 6 66%;
-	-webkit-order: 2;
-	order: 2;
+	min-width: 100%;
+	width: 100%;
  }   
 
 #main > what, #main > who {
-	min-height: 50px;
+	min-height: 0;
+	max-height: 180px;
+	min-width: 100%;
+	width: 100%;
+}
+#main > why {
+	min-height: 0;
 	max-height: 300px;
+	max-width: 100%;
+	min-width: 100%;
+	position: relative;
 }
 
 #timeline-embed[style] {
@@ -493,6 +509,22 @@ there {
 there img {
 	display: inline-block;
 	width: 100%;
+	height:auto;
 	
+}
+what {
+	padding-top: 1em;
+}
+what h2 {
+	font-size: 1.5em;
+}
+#brandbar img {
+	max-height: 2em;
+	padding-top: 1em;
+}
+#tablebar, #brandbar, #topbar {
+	display: inline-block;
+	width: 100%;
+	height: auto;
 }
 }
