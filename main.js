@@ -133,7 +133,7 @@ function main() {
 	    	$(this).addClass('selected');
 			var sql_init = new cartodb.SQL({ user: 'tbushman' });
 			var clicked = [$(this).attr('id')];
-			var sql_select = "SELECT cartodb_id, name, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'";
+			var sql_select = "SELECT cartodb_id, name, title, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'";
 			sql_init.execute(sql_select).done(function(ret){
 				var list = ret.rows[0];
 				var lat = list.lat;
@@ -154,11 +154,13 @@ function main() {
 				console.log(pic4);
 				var pic5 = list.pic5;
 				console.log(pic5);
+				var title = list.title;
+				console.log(title);
 		    	var description = list.description;
 		    	console.log(description);
 		    	var link = list.link;
 		    	console.log(link);
-		    	var content = $('<h2>' + name + '</h2><here><div id="'+list.cartodb_id+'" class="pic1"><a href="#" ><img class="items pic1" src="'+pic1+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic2"><a href="#" ><img class="items pic2" src="'+pic2+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic3"><a href="#" ><img class="items pic3" src="'+pic3+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic4"><a href="#" ><img class="items pic4" src="'+pic4+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic5"><a href="#" ><img class="items pic5" src="'+pic5+'"></img></a></div></here><h4>'+ description +'</h4><a href="' + link + '" target="_blank">Click here for more info.</a>');
+		    	var content = $('<h2>' + name + '</h2><h4>'+title+'</h4><h5>'+ description +'</h5><here><div id="'+list.cartodb_id+'" class="pic1"><a href="#" ><img class="items pic1" src="'+pic1+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic2"><a href="#" ><img class="items pic2" src="'+pic2+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic3"><a href="#" ><img class="items pic3" src="'+pic3+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic4"><a href="#" ><img class="items pic4" src="'+pic4+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic5"><a href="#" ><img class="items pic5" src="'+pic5+'"></img></a></div></here><a href="' + link + '" target="_blank">Click here for more info.</a>');
 				console.log(content);
 				$('what').html("");
 				$('what').append(content);
@@ -187,34 +189,34 @@ function main() {
 					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
 						var list = ret.rows[0];
 						var pic2 = list.pic2;
-						console.log(pic1);
+						console.log(pic2);
 						$('why').append('<there><img src="'+pic2+'"></img></there>');
 					});
 				});
 				$('.pic3').on('click', function () {
 					$('why').html("");
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
+					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic3 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
 						var list = ret.rows[0];
-						var pic2 = list.pic2;
-						console.log(pic1);
+						var pic3 = list.pic3;
+						console.log(pic3);
 						$('why').append('<there><img src="'+pic3+'"></img></there>');
 					});
 				});
 				$('.pic4').on('click', function () {
 					$('why').html("");
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
+					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic4 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
 						var list = ret.rows[0];
-						var pic2 = list.pic2;
-						console.log(pic1);
+						var pic4 = list.pic4;
+						console.log(pic4);
 						$('why').append('<there><img src="'+pic4+'"></img></there>');
 					});
 				});
 				$('.pic5').on('click', function () {
 					$('why').html("");
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
+					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic5 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
 						var list = ret.rows[0];
-						var pic2 = list.pic2;
-						console.log(pic1);
+						var pic5 = list.pic5;
+						console.log(pic5);
 						$('why').append('<there><img src="'+pic5+'"></img></there>');
 					});
 				});
@@ -468,7 +470,7 @@ function addCursorInteraction(sublayer) {
            //This is the query for generating the list of nearby features
            //Determine if there are coincident features on click, then either append a list of features or a single features' attributes to the sidepanel
 		   var sql = cartodb.SQL({ user: 'tbushman' });
-           sql.execute("select cartodb_id, name, description, timeline from portfolio_tb where st_distance( the_geom, st_GeomFromText('POINT("+lon+" "+lat+")', 4326), true ) < (SELECT CDB_XYZ_Resolution("+zoom+")*(("+zoom+")*1.15)) ORDER BY name", function (ret) { //this query uses screen distance from a clicked (top) feature: the multiplier, 1.15, means that all points that fall within 1.15 times the marker width are counted as coincident. 
+           sql.execute("select cartodb_id, name, title, timeline from portfolio_tb where st_distance( the_geom, st_GeomFromText('POINT("+lon+" "+lat+")', 4326), true ) < (SELECT CDB_XYZ_Resolution("+zoom+")*(("+zoom+")*1.15)) ORDER BY name", function (ret) { //this query uses screen distance from a clicked (top) feature: the multiplier, 1.15, means that all points that fall within 1.15 times the marker width are counted as coincident. 
              
 		   		var list = ret.rows;	
            		if (list.length > 1) {
@@ -481,7 +483,7 @@ function addCursorInteraction(sublayer) {
                 		var newelement = $('<li></li>');
                 		newelement
                 		.attr('id', ret.rows[i].timeline)
-                		.html('<a href="#'+ret.rows[i].cartodb_id+'" class="cartodb_id tl-timemarker" id="'+ret.rows[i].timeline +'"> <h5 id="'+list[i].timeline+'">' +list[i].description +'</h5><h6 id="'+list[i].timeline+'">'+list[i].name +'</h6></a>');
+                		.html('<a href="#'+ret.rows[i].cartodb_id+'" class="cartodb_id tl-timemarker" id="'+ret.rows[i].timeline +'"> <h5 id="'+list[i].timeline+'">' +list[i].title +'</h5><h6 id="'+list[i].timeline+'">'+list[i].name +'</h6></a>');
                 		$('ul').append(newelement);
                 		map.setView(new L.LatLng(lat, lon), (zoom+1));
                 	}
@@ -491,7 +493,7 @@ function addCursorInteraction(sublayer) {
 							$('.tl-timemarker').removeClass('selected');
 					    	$(this).addClass('selected');
 							var sql_init = new cartodb.SQL({ user: 'tbushman' });
-							sql_init.execute("SELECT cartodb_id, name, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'", function(ret){
+							sql_init.execute("SELECT cartodb_id, name, timeline, title, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'", function(ret){
 								var list = ret.rows[0];
 								var lat = list.lat;
 								delete list.lat;
@@ -515,11 +517,13 @@ function addCursorInteraction(sublayer) {
 								console.log(pic4);
 								var pic5 = list.pic5;
 								console.log(pic5);
+								var title = list.title;
+								console.log(title);
 						    	var description = list.description;
 						    	console.log(description);
 						    	var link = list.link;
 						    	console.log(link);
-						    	var content = $('<h2>' + name + '</h2><here><div id="'+list.cartodb_id+'" class="pic1"><a href="#" ><img class="items pic1" src="'+pic1+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic2"><a href="#" ><img class="items pic2" src="'+pic2+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic3"><a href="#" ><img class="items pic3" src="'+pic3+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic4"><a href="#" ><img class="items pic4" src="'+pic4+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic5"><a href="#" ><img class="items pic5" src="'+pic5+'"></img></a></div></here><h4>'+ description +'</h4><a href="' + link + '" target="_blank">Click here for more info.</a>');
+						    	var content = $('<h2>' + name + '</h2><h4>'+title+'</h4><h5>'+ description +'</h5><here><div id="'+list.cartodb_id+'" class="pic1"><a href="#" ><img class="items pic1" src="'+pic1+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic2"><a href="#" ><img class="items pic2" src="'+pic2+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic3"><a href="#" ><img class="items pic3" src="'+pic3+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic4"><a href="#" ><img class="items pic4" src="'+pic4+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic5"><a href="#" ><img class="items pic5" src="'+pic5+'"></img></a></div></here><a href="' + link + '" target="_blank">Click here for more info.</a>');
 								console.log(content);
 								$('what').append(content);
 								$(".items").each(function(){     
@@ -585,7 +589,7 @@ function addCursorInteraction(sublayer) {
              	else 
              	{
                 //If no coincident features within resolution: append only single feature info (no list)
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, name, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ data.cartodb_id, function(ret){
+					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, name, title, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ data.cartodb_id, function(ret){
 						var list = ret.rows[0];
 			    		var lat = list.lat;
 			    		delete list.lat;
@@ -609,11 +613,13 @@ function addCursorInteraction(sublayer) {
 						console.log(pic4);
 						var pic5 = list.pic5;
 						console.log(pic5);
+						var title = list.title;
+						console.log(title);
 				    	var description = list.description;
 				    	console.log(description);
 				    	var link = list.link;
 				    	console.log(link);
-				    	var content = $('<h2>' + name + '</h2><here><div id="'+list.cartodb_id+'" class="pic1"><a href="#" ><img class="items pic1" src="'+pic1+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic2"><a href="#" ><img class="items pic2" src="'+pic2+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic3"><a href="#" ><img class="items pic3" src="'+pic3+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic4"><a href="#" ><img class="items pic4" src="'+pic4+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic5"><a href="#" ><img class="items pic5" src="'+pic5+'"></img></a></div></here><h4>'+ description +'</h4><a href="' + link + '" target="_blank">Click here for more info.</a>');
+				    	var content = $('<h2>' + name + '</h2><h4>'+title+'</h4><h5>'+ description +'</h5><here><div id="'+list.cartodb_id+'" class="pic1"><a href="#" ><img class="items pic1" src="'+pic1+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic2"><a href="#" ><img class="items pic2" src="'+pic2+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic3"><a href="#" ><img class="items pic3" src="'+pic3+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic4"><a href="#" ><img class="items pic4" src="'+pic4+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic5"><a href="#" ><img class="items pic5" src="'+pic5+'"></img></a></div></here><a href="' + link + '" target="_blank">Click here for more info.</a>');
 						console.log(content);
 						$('what').append(content);
 						$(".items").each(function(){     
