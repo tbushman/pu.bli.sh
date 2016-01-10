@@ -483,15 +483,13 @@ function addCursorInteraction(sublayer) {
                 		var newelement = $('<li></li>');
                 		newelement
                 		.attr('id', ret.rows[i].timeline)
-                		.html('<a href="#'+ret.rows[i].cartodb_id+'" class="cartodb_id tl-timemarker" id="'+ret.rows[i].timeline +'"> <h5 id="'+list[i].timeline+'">' +list[i].title +'</h5><h6 id="'+list[i].timeline+'">'+list[i].name +'</h6></a>');
+                		.html('<a href="#'+ret.rows[i].cartodb_id+'" class="cartodb_id" id="'+ret.rows[i].timeline +'"> <h5 id="'+list[i].timeline+'">' +list[i].title +'</h5><h6 id="'+list[i].timeline+'">'+list[i].name +'</h6></a>');
                 		$('ul').append(newelement);
                 		map.setView(new L.LatLng(lat, lon), (zoom+1));
                 	}
                 	//Click on one of the list items
-					$('.tl-timemarker').click(function (e, latlon, pxPos, data, layer){
+					$('.cartodb_id').click(function (e, latlon, pxPos, data, layer){
 						var clicked = [$(this).attr('id')];
-							$('.tl-timemarker').removeClass('selected');
-					    	$(this).addClass('selected');
 							var sql_init = new cartodb.SQL({ user: 'tbushman' });
 							sql_init.execute("SELECT cartodb_id, name, timeline, title, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'", function(ret){
 								var list = ret.rows[0];
@@ -523,6 +521,9 @@ function addCursorInteraction(sublayer) {
 						    	console.log(description);
 						    	var link = list.link;
 						    	console.log(link);
+								var timeline = list.timeline;
+								console.log(timeline);
+								$('#'+timeline)[0].click();
 						    	var content = $('<h2>' + name + '</h2><h4>'+title+'</h4><h5>'+ description +'</h5><here><div id="'+list.cartodb_id+'" class="pic1"><a href="#" ><img class="items pic1" src="'+pic1+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic2"><a href="#" ><img class="items pic2" src="'+pic2+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic3"><a href="#" ><img class="items pic3" src="'+pic3+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic4"><a href="#" ><img class="items pic4" src="'+pic4+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic5"><a href="#" ><img class="items pic5" src="'+pic5+'"></img></a></div></here><a href="' + link + '" target="_blank">Click here for more info.</a>');
 								console.log(content);
 								$('what').append(content);
@@ -619,6 +620,9 @@ function addCursorInteraction(sublayer) {
 				    	console.log(description);
 				    	var link = list.link;
 				    	console.log(link);
+						var timeline = list.timeline;
+						console.log(timeline);
+						$('#'+timeline)[0].click();
 				    	var content = $('<h2>' + name + '</h2><h4>'+title+'</h4><h5>'+ description +'</h5><here><div id="'+list.cartodb_id+'" class="pic1"><a href="#" ><img class="items pic1" src="'+pic1+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic2"><a href="#" ><img class="items pic2" src="'+pic2+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic3"><a href="#" ><img class="items pic3" src="'+pic3+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic4"><a href="#" ><img class="items pic4" src="'+pic4+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic5"><a href="#" ><img class="items pic5" src="'+pic5+'"></img></a></div></here><a href="' + link + '" target="_blank">Click here for more info.</a>');
 						console.log(content);
 						$('what').append(content);
