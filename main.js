@@ -1,747 +1,824 @@
+//loop with 
 
-WebFontConfig = {
-  google: { families: [ 'Yantramanav:400,200,100,300,500,600,700:latin' ] }
-};
-(function() {
-  var wf = document.createElement('script');
-  wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-  wf.type = 'text/javascript';
-  wf.async = 'true';
-  var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(wf, s);
-})();
+var cdbidlist = document.getElementsByClassName("tltab");
 
- 
-jQuery(window).load(function() {
-	$('#signoff').hide();	
-	//Drop-down menu
-    $("#menu > li > a").click(function (e) { // binding onclick
-        if ($(this).parent().hasClass('selected')) {
-            $("#menu div div").slideUp(100); // hiding popups
-            $("#menu .selected").removeClass("selected");
-			$('#description').show();
+for (var i=0; i<cdbidlist.length; i++) {
 
-        } else {
-            $("#menu div div").slideUp(100); // hiding popups
-            $("#menu .selected").removeClass("selected");
+	cdbidlist[i].onmouseover=function() { //tl hover
+		this.title+=" sfhover"; //map hover
+	};
+	cdbidlist[i].onmouseout=function() {
+		this.title=this.title.replace(new RegExp(" sfhover\\\\b"), "");
+	};
+}
 
-            if ($(this).next(".dropdown").length) {
-                $(this).parent().addClass("selected"); // display popup
-                $(this).next(".dropdown").children().slideDown(200);
-				$('#description').hide();
-            }
-        }
-        e.stopPropagation();
-    });
-	$("body").click(function () { // binding onclick to body
-	    $("#menu div div").slideUp(100); // hiding popups
-	    $("#menu .selected").removeClass("selected");
-		$('#description').show();
-	}); 
-	$("#about").click(function () {
-		$('#signoff').hide();	
-		$('#catchphrase').html("");		
-		location.reload();
-	});
-	$("#resume").click(function (){
-		$('#catchphrase').html("");		
-		$('what').html("");		
-		$("why").html("");
-		var url = "http://www.slideshare.net/slideshow/embed_code/key/DSh0iY9IQLwFaz";
-	    $('<iframe />', {
-		        name: 'frame',
-		        id:   'frame',
-		        width: '477px',
-		        height: '510px',
-		        frameborder: '0',
-		        seamless: 'seamless',
-		        scrolling: 'no',
-		        allowtransparency:'true', 
-		        allowfullscreen:'true',
-		        src: url
-		        }).appendTo('why');
-	});
-
-});
-
-
+		////////////////////////////////////////////////////////////////////////////////////////////
+	
 
 function main() {
-	//Timeline JS
-	var options = {
-	    hash_bookmark: false,
-	    initial_zoom: 1,
-		timenav_position: 'top'
-	  };
-  	var timeline;
-	timeline = new TL.Timeline('timeline-embed',
-	'https://docs.google.com/spreadsheets/d/1UplTJNeC-vGyXjvty5yaAIdQjPP6ACNPjcufswrFT1g/pubhtml', options);
-  
-    //Leaflet Map
+	
+	$("input").html(""); //trying to clear search input on load...	
+	var map = $('#map'); 
+	map.click(function(){ //click on map to close gallery
+		$('#mainlabel').removeClass('expand');
+		$('#mainlabel').removeClass('point');
+		$('#mainlabel').removeClass('search');
+		$('#mainlabel').addClass('point');
+		$('lightbox > img').remove();
+	});
+	$('#cv').click(function(){ //click on 'CV' to append pdf to gallery
+	
+        $("#menu div div").slideUp(100); // hiding dropdown
+        $("#menu .selected").removeClass("selected");
+		$('#mainlabel').removeClass('expand');
+		$('#mainlabel').removeClass('point');
+		$('#mainlabel').removeClass('search');
+		$('#mainlabel').addClass('expand');
+		$('#mainlabel').html('<here></here>');
+		$('here').append('<embed src="images/cv2015.pdf" type ="application/pdf" width="100%" height="100%" alt="pdf"></embed>');
+		
+	});
+	$('#about').click(function(){ //click on 'ABOUT' for short intro and external links
+	
+        $("#menu div div").slideUp(100); // hiding dropdown
+        $("#menu .selected").removeClass("selected");
+		$('#mainlabel').removeClass('expand');
+		$('#mainlabel').removeClass('point');
+		$('#mainlabel').removeClass('search');
+		$('#mainlabel').addClass('point');
+		$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb ORDER BY datebegin", function(ret) {
+			
+			var item = ret.rows[0];
+			var title = item.title;
+			var image = item.pic1;
+			var blurb = item.description;
+			var link = item.link;
+			$('#mainlabel').html('<here><h2 id="external"></h2><h6><a href="mailto:thex@pu.bli.sh?Subject=Design%20Services%20Request" target="_top">THex</a> | 801-940-3464</h6><there><h4 id="blurb"></h4></there></here>');
+			$('#external').append(title);
+			$('#blurb').append(blurb);
+			$('here').append('<a href="'+link+'">Go to GitHub</a>');
+			//$('lightbox').append(image);
+		
+		});
+	});
+	$('#gallery').click(function(){ //init gallery
+	
+        $("#menu div div").slideUp(100); // hiding dropdown
+        $("#menu .selected").removeClass("selected");
+		var mainlabel = $('#mainlabel');
+		mainlabel.html('');
+		mainlabel.removeClass('point');
+		mainlabel.removeClass('search');
+		mainlabel.addClass('expand');
+		mainlabel.append('<here><images></images><lightbox><h2 id="external"></h2><h4 id="blurb"></h4></lightbox></here>'); //prepare substrates
+		$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb", function(ret) {
+			var list = ret.rows;
+			var i = 0;
+    		for (i in list){
+					
+				item = ret.rows[i];
+				var lightboxobject = $('<a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic1" name="'+item.title+'"><img src="'+item.pic1+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic2" name="'+item.title+'"><img src="'+item.pic2+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic3" name="'+item.title+'"><img src="'+item.pic3+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic4" name="'+item.title+'"><img src="'+item.pic4+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic5" name="'+item.title+'"><img src="'+item.pic5+'"></img></a>');
+				$('images').append(lightboxobject);	//thumbnail propagation
+			
+			}
+
+			$("img").each(function(){  
+				if ($(this).attr("src") == "null") { //remove empties
+			    	$(this).remove();
+					$('images a:empty').remove();
+				}
+				else  {     
+					$(this).show();
+					return true;
+     			}
+		    });
+			
+			$('lightbox').append('<img src="images/landing_branding-01.svg" style="width:100%"></img>'); //intro image
+    		
+			$('.pic1').hover(function(){
+
+				$('#external').html('');
+				var currentId = $(this).attr('name');
+				$('#external').append(currentId); //display item name on hover				
+
+				$('.pic1').off('click').on('click',function(){
+					
+					$('#blurb').html('');
+					$('lightbox > img').remove();
+					var clicked = [$(this).attr('id')];
+					var sql_init = new cartodb.SQL({ user: 'tbushman' });
+					//get pic1 where cartodb_id = 'clicked'
+					var sql_select = "SELECT cartodb_id, name, timeline, description, pic1, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					sql_init.execute(sql_select).done(function(ret){
+						
+						var item = ret.rows[0];
+						var pic1 = item.pic1;
+						var blurb = item.description;
+						$('lightbox').append('<img src="'+pic1+'"></img>');
+						$('#blurb').append(blurb);
+						
+					});
+				});
+			});
+    		$('.pic2').hover(function(){
+
+				$('#external').html('');
+				var currentId = $(this).attr('name');
+				$('#external').append(currentId);					
+
+				$('.pic2').off('click').on('click',function(){
+					$('#blurb').html('');
+					$('lightbox > img').remove();
+					var clicked = [$(this).attr('id')];
+					var sql_init = new cartodb.SQL({ user: 'tbushman' });
+					var sql_select = "SELECT cartodb_id, name, timeline, description, pic2, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					sql_init.execute(sql_select).done(function(ret){
+						
+						var item = ret.rows[0];
+						var pic2 = item.pic2;
+						var blurb = item.description;
+						$('lightbox').append('<img src="'+pic2+'"></img>');
+						$('#blurb').append(blurb);
+						
+					});
+				});
+			});
+    		$('.pic3').hover(function(){
+
+				$('#external').html('');
+				var currentId = $(this).attr('name');
+				$('#external').append(currentId);					
+
+				$('.pic3').off('click').on('click',function(){
+					$('#blurb').html('');
+					$('lightbox > img').remove();
+					var clicked = [$(this).attr('id')];
+					var sql_init = new cartodb.SQL({ user: 'tbushman' });
+					var sql_select = "SELECT cartodb_id, name, timeline, description, pic3, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					sql_init.execute(sql_select).done(function(ret){
+						
+						var item = ret.rows[0];
+						var pic3 = item.pic3;
+						var blurb = item.description;
+						$('lightbox').append('<img src="'+pic3+'"></img>');
+						$('#blurb').append(blurb);
+						
+					});
+				});
+			});
+    		$('.pic4').hover(function(){
+
+				$('#external').html('');
+				var currentId = $(this).attr('name');
+				$('#external').append(currentId);					
+
+				$('.pic4').off('click').on('click',function(){
+					$('#blurb').html('');
+					$('lightbox > img').remove();
+					var clicked = [$(this).attr('id')];
+					var sql_init = new cartodb.SQL({ user: 'tbushman' });
+					var sql_select = "SELECT cartodb_id, name, timeline, description, pic4, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					sql_init.execute(sql_select).done(function(ret){
+						
+						var item = ret.rows[0];
+						var pic4 = item.pic4;
+						var blurb = item.description;
+						$('lightbox').append('<img src="'+pic4+'"></img>');
+						$('#blurb').append(blurb);
+						
+					});
+				});
+			});
+    		$('.pic5').hover(function(){
+
+				$('#external').html('');
+				var currentId = $(this).attr('name');
+				$('#external').append(currentId);					
+
+				$('.pic5').off('click').on('click',function(){
+					$('#blurb').html('');
+					$('lightbox > img').remove();
+					var clicked = [$(this).attr('id')];
+					var sql_init = new cartodb.SQL({ user: 'tbushman' });
+					var sql_select = "SELECT cartodb_id, name, timeline, description, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					sql_init.execute(sql_select).done(function(ret){
+						
+						var item = ret.rows[0];
+						var pic5 = item.pic5;
+						var blurb = item.description;
+						$('lightbox').append('<img src="'+pic5+'"></img>');
+						$('#blurb').append(blurb);
+						
+					});
+				});
+			});
+		});
+	});
+	
+
+	$("#menu > li > a").click(function (e, data) { // menu icon init dropdown
+
+	    if ($(this).parent().hasClass('selected')) {
+
+	        $("#menu div div").slideUp(100); // hiding dropdown
+	        $("#menu .selected").removeClass("selected");
+
+	    } 
+		else 
+		{
+	        $("#menu div div").slideUp(100); // hiding dropdown
+	        $("#menu .selected").removeClass("selected");
+
+	        if ($(this).next(".dropdown").length) {
+
+	            $(this).parent().addClass("selected"); // display dropdown
+	            $(this).next(".dropdown").children().slideDown(200);
+
+	    	}
+	    }
+	    e.stopPropagation();
+	});
+	
+	var wrapper = $('#wrapper');
+	console.log(wrapper);
+	wrapper.css('left', 50+'%'); //'#wrapper' encloses the moving timeline, with initiation mid-screen
+
 	var map;
 
-  	//leaflet map
-  	map = L.map('map', {
-    	zoomControl: true,
-    	center: [35, -100],
-    	zoom: 3,
+	//leaflet map
+	map = new L.map('map', { //Leaflet map
+	  	zoomControl: true,
+	  	center: [40.75, -111.9],
+	  	zoom: 9,
 		minZoom: 2,
-    	maxZoom: 18
-  	});
-  
-  
-  	// add a base layer with names layer
+	  	maxZoom: 18
+	});
+	//wip
+	//define CartoDB api url
+	// add a base layer with names layer
 	var options2 = {
-  		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Map tiles by <a href="http://maps.stamen.com/#terrain/12/37.7707/-122.3781">Stamen Design</a>, under CC BY 3.0., &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Map tiles by <a href="http://maps.stamen.com/#terrain/12/37.7707/-122.3781">Stamen Design</a>, under CC BY 3.0., &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 	};  
-	L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg', options2).addTo(map);
-	L.tileLayer('http://{s}.tiles.mapbox.com/v3/tbushman.i6fcm2a5/{z}/{x}/{y}.png').addTo(map); //names
-  	//as an alternative basemap, use: 
-  
-  	//L.tileLayer('http://{s}.tiles.mapbox.com/v3/tbushman.cii3lpj0k003a99lwsbmu9r67/{z}/{x}/{y}.png').addTo(map);
-  
-  	//define CartoDB api url
-  	var layerUrl = 'https://tbushman.cartodb.com/api/v2/viz/2c8ad242-a11f-11e5-a138-0e674067d321/viz.json'; 
-        
-  	// create layer and add to the map, then add some interactivity
-  	var lyr1 = [];//aka 'sublayers' in some other maps  
-  	cartodb.createLayer(map, layerUrl)
-   	.addTo(map)      
-   	.on('done', function(layer) {
-    	var subLayerOptions = {
-       		sql: "SELECT * FROM portfolio_tb",
+	var options3 = {
+		attribution: '&copy; Map tiles by <a href="http://mapbox.com/">Mapbox</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+	};  
+
+//	L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg', options2).addTo(map); //Stamen Watercolor
+//	L.tileLayer('http://{s}.tiles.mapbox.com/v3/tbushman.i6fcm2a5/{z}/{x}/{y}.png').addTo(map); //Place/Water labels TileMill
+	L.tileLayer('http://{s}.tiles.mapbox.com/v3/tbushman.iba1gl27/{z}/{x}/{y}.png', options3).addTo(map); //Mapbox Terrain Attribution
+
+	var layerUrl = 'https://tbushman.cartodb.com/api/v2/viz/2c8ad242-a11f-11e5-a138-0e674067d321/viz.json'; //CartoDB .json
+	console.log(layerUrl);
+
+	var lyr1 = [];
+	cartodb.createLayer(map, layerUrl)
+	.addTo(map)
+	.on('done', function(layer){
+		var subLayerOptions = {
+			sql: "SELECT * FROM portfolio_tb",
+			interactivity: 'cartodb_id'
+		};
+		var sublayer = layer.getSubLayer(0);
+		sublayer.setInteraction(true);
+		addCursorInteraction(sublayer);
+		addTimeline();
+		lyr1.push(sublayer);
+
+		var sql = new cartodb.SQL({ user: 'tbushman' });
 		
-       		interactivity: 'cartodb_id, timeline'
-    	};
-     	//create sublayer
-    	var sublayer = layer.getSubLayer(0);
-    	sublayer.setInteraction(true);
-    	addCursorInteraction(sublayer);
-    	lyr1.push(sublayer);
+		var sql_select = 'select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb ORDER BY dateend DESC';
+		console.log(sql_select);
+		
+		sql.execute(sql_select).done(function(ret){
 
-    	var sql = new cartodb.SQL({ user: 'tbushman' });
-
-		//wire buttons (timeline)
-		$('.tl-timemarker').click(function(e, latlon, pxPos, data, layer){
-			$('.tl-timemarker').removeClass('selected');
-	    	$(this).addClass('selected');
-        	$('#external').html("");
-        	$('#catchphrase').html("");
-			$('what').html("");
-			$('why').html("");
-			var clicked = [$(this).attr('id')];
-			var sql_init = new cartodb.SQL({ user: 'tbushman' });
-			sql_init.execute("SELECT cartodb_id, name, title, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'", function(ret){
-				var list = ret.rows[0];
-				var lat = list.lat;
-				delete list.lat;
-				var lon = list.lon;
-				delete list.lon;
-			    var zoom = map.getZoom(zoom);
-			    console.log(zoom);
-			    map.setView(new L.LatLng(lat, lon), zoom); 
-				
-				var name = list.name;
-		    	console.log(name);
-				var pic1 = list.pic1;
-				console.log(pic1);
-				var pic2 = list.pic2;
-				console.log(pic2);
-				var pic3 = list.pic3;
-				console.log(pic3);
-				var pic4 = list.pic4;
-				console.log(pic4);
-				var pic5 = list.pic5;
-				console.log(pic5);
-				var title = list.title;
-				console.log(title);
-		    	var description = list.description;
-		    	console.log(description);
-		    	var link = list.link;
-		    	console.log(link);
-		    	var content = $('<h2>' + name + '</h2><h4>'+title+'</h4><h5>'+ description +'</h5><here><div id="'+list.cartodb_id+'" class="pic1"><a href="#" ><img class="items pic1" src="'+pic1+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic2"><a href="#" ><img class="items pic2" src="'+pic2+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic3"><a href="#" ><img class="items pic3" src="'+pic3+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic4"><a href="#" ><img class="items pic4" src="'+pic4+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic5"><a href="#" ><img class="items pic5" src="'+pic5+'"></img></a></div></here><a href="' + link + '" target="_blank">Click here for more info.</a>');
-				console.log(content);
-				$('what').html("");
-				$('what').append(content);
-				$(".items").each(function(){     
-					if ($(this).attr("src") == "null") {
-				    	$(this).remove();
-						$('here div a:empty').parent().remove();
-					}
-					else  {     
-						$(this).show();
-						return true;
-	     			}
-			    });
-				
-				$('.pic1').on('click', function () {
-					$('why').html("");
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic1 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-						var list = ret.rows[0];
-						var pic1 = list.pic1;
-						console.log(pic1);
-						$('why').append('<there><img src="'+pic1+'"></img></there>');
-					});
-				});
-				$('.pic2').on('click', function () {
-					$('why').html("");
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-						var list = ret.rows[0];
-						var pic2 = list.pic2;
-						console.log(pic2);
-						$('why').append('<there><img src="'+pic2+'"></img></there>');
-					});
-				});
-				$('.pic3').on('click', function () {
-					$('why').html("");
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic3 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-						var list = ret.rows[0];
-						var pic3 = list.pic3;
-						console.log(pic3);
-						$('why').append('<there><img src="'+pic3+'"></img></there>');
-					});
-				});
-				$('.pic4').on('click', function () {
-					$('why').html("");
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic4 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-						var list = ret.rows[0];
-						var pic4 = list.pic4;
-						console.log(pic4);
-						$('why').append('<there><img src="'+pic4+'"></img></there>');
-					});
-				});
-				$('.pic5').on('click', function () {
-					$('why').html("");
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic5 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-						var list = ret.rows[0];
-						var pic5 = list.pic5;
-						console.log(pic5);
-						$('why').append('<there><img src="'+pic5+'"></img></there>');
-					});
-				});
-			});
+			var first = ret.rows[0]; //get top feature
+			console.log(first);
+			var clic = first.cartodb_id;
+			LayerSelect(sql_select);
+			//$('#'+clic+'.tltab').click();
+			
 		});
-		
-		//wire buttons (menu)
-		$("#gallery").click(function (e, latlon, pxPos, data, layer) {
-			$('#catchphrase').show();
-			$('#catchphrase').html("");
-			$('what').html("");
-			$('why').html("");
-			$('why').append('<there><img src="http://pu.bli.sh/manyone/icons/landing_branding-01.svg" alt=""></img></there>').appendTo('why');
-			$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, name, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb", function(ret) {
-				var list = ret.rows;
-	    		$('what').html("<here></here>");
-	    		var i = 0;
-	    		for (i in list){
+	});
+	//lyr1 createD
+	function LayerSelect(sql_select) {
 
-					$('here').append('<div id="'+ret.rows[i].cartodb_id+'" class="pic1" name="'+ret.rows[i].name+'"><a href="#'+ret.rows[i].cartodb_id+'" class="pic1" id="'+ret.rows[i].timeline+'"><img class="items pic1" id="'+ret.rows[i].timeline+'" src="'+list[i].pic1+'"></img></a></div><div id="'+list[i].cartodb_id+'" class="pic2" name="'+ret.rows[i].name+'"><a href="#'+ret.rows[i].cartodb_id+'" class="pic2" id="'+ret.rows[i].cartodb_id+'"><img class="items pic2" id="'+ret.rows[i].cartodb_id+'" src="'+list[i].pic2+'"></img></a></div><div id="'+list[i].cartodb_id+'" class="pic3" name="'+ret.rows[i].name+'"><a href="#'+ret.rows[i].cartodb_id+'" class="pic3” id="'+list[i].cartodb_id+'"><img class="items pic3" id="'+list[i].cartodb_id+'" src="'+list[i].pic3+'"></img></a></div><div id="'+list[i].cartodb_id+'" class="pic4" name="'+ret.rows[i].name+'"><a href="#'+ret.rows[i].cartodb_id+'" class="pic4” id="'+list[i].cartodb_id+'"><img class="items pic4" id="'+list[i].cartodb_id+'" src="'+list[i].pic4+'"></img></a></div><div id="'+list[i].cartodb_id+'" class="pic5" name="'+ret.rows[i].name+'"><a href="#'+ret.rows[i].cartodb_id+'" class="pic5” id="'+list[i].cartodb_id+'"><img class="items pic5" id="'+list[i].cartodb_id+'" src="'+list[i].pic5+'"></img></a></div>');
+		var sql_init = new cartodb.SQL({ user: 'tbushman' });
+		sql_init.execute(sql_select).done(function(ret){
+			
+			var first = ret.rows[0];
+			console.log(first);
+			var list = ret.rows;
+			var cdbid = first.cartodb_id;
+			console.log(cdbid);	
+			var lat = first.lat;
+			console.log(lat);
+		   	delete first.lat;
+		   	var lon = first.lon;
+			console.log(lon);
+		   	delete first.lon;
+		   	var zoom = map.getZoom(zoom);
+		   	console.log(zoom);
+		 	map.setView(new L.LatLng(lat, lon), 11); //initial zoom/latlon
+			
+			var sql_get = 'select cartodb_id, name, description, link, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id='+ cdbid +'';
+			console.log(sql_get);
+
+			TlSelect(sql_get);
+		});
+		lyr1[0].setSQL(sql_select);					
+		return true;
+	};
+
+	function TlSelect(sql_get) {
+
+		$('#mainlabel').html("");
+		$('#mainlabel').removeClass('expand');
+		$('#mainlabel').removeClass('point');
+		$('#mainlabel').removeClass('search');
+		$('#mainlabel').addClass('point'); //'#mainlabel' becomes a map tooltip
+
+		var sql_init = new cartodb.SQL({ user: 'tbushman' });
+		sql_init.execute(sql_get).done(function(ret){
+			var item = ret.rows[0];
+			console.log(item);
+			var lat = item.lat;
+		   	delete item.lat;
+		   	var lon = item.lon;
+		   	delete item.lon;
+		   	var zoom = map.getZoom(zoom);
+		   	console.log(zoom);
+		 	map.setView(new L.LatLng(lat, lon), 12); //zoom to single feature
+
+			var item = ret.rows[0];
+			var name = item.name;
+	    	console.log(name);
+			var datebegin = new Date(item.datebegin);
+			console.log(datebegin);
+			var yearbeginint = datebegin.getFullYear();
+			var yearbegin = parseInt(yearbeginint);
+			console.log(yearbegin);
+			var monthbegin = datebegin.getMonth();
+			console.log(monthbegin);
+			var dateend = new Date(item.dateend);
+			console.log(dateend);
+			var yearendint = dateend.getFullYear();
+			var monthend = dateend.getMonth();
+			console.log(monthend);
+			var yearend = parseInt(yearendint);
+			console.log(yearend);
+
+			var pic1 = item.pic1;
+			console.log(pic1);
+			var pic2 = item.pic2;
+			console.log(pic2);
+			var pic3 = item.pic3;
+			console.log(pic3);
+			var pic4 = item.pic4;
+			console.log(pic4);
+			var pic5 = item.pic5;
+			console.log(pic5);
+	    	var description = item.description;
+	    	console.log(description);
+	    	var link = item.link;
+	    	console.log(link);
+			
+			var header = $('<here><lightbox><h2>' + name + '</h2><h6>'+(monthbegin+1)+'/'+yearbegin+' – '+(monthend+1)+'/'+yearend+'</h6><h4>'+ description +'</h4></lightbox><images></images><a href="' + link + '" target="_blank">'+link+'</a></here>');
+			console.log(header);
+			$('#mainlabel').append(header); //Single feature attribute appendage
+
+			var cdbid = item.cartodb_id;
+			console.log(cdbid);				
+
+			$('a').each(function(){ //remove empties
+				if ($(this).attr("href") == "null") {
+			    	$(this).remove();
+					$('here a:empty').remove();
 				}
-				$(".items").each(function(){     
-					if ($(this).attr("src") == "null") {
-				    	$(this).remove();
-						$('here div a:empty').parent().remove();
-					}
-					else  {     
-						$(this).show();
-						return true;
-	     			}
-			    });
+				else  {     
+					$(this).show();
+					return true;
+				}
+		    });
 
-				$('.pic1').hover(function(e, latlon, pxPos, data, layer){
-					$('#external').show();
-					$('#external').html('');
-					var currentId = $(this).attr('name');
-					$('#external').append(currentId);					
-					$('.pic1').off('click').on('click',function(e, latlon, pxPos, data, layer){
-						$('.tl-timemarker').removeClass('selected');
-						$('why').html("");
-						$('#catchphrase').show();
-						$('#catchphrase').html("");
-						$('#external').html("");
-						var clicked = [$(this).attr('id')];
-						$('.tl-timemarker',this).addClass('selected');
-						var sql_init = new cartodb.SQL({ user: 'tbushman' });
-						sql_init.execute("SELECT cartodb_id, name, title, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = '"+clicked+"'", function(ret){
+			var lightboxobject = $('<a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic1" name="'+item.title+'"><img src="'+item.pic1+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic2" name="'+item.title+'"><img src="'+item.pic2+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic3" name="'+item.title+'"><img src="'+item.pic3+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic4" name="'+item.title+'"><img src="'+item.pic4+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic5" name="'+item.title+'"><img src="'+item.pic5+'"></img></a>');
+			$('images').append(lightboxobject);	//thumbails from single feature
 
-								var list = ret.rows[0];
-								var lat = list.lat;
-								delete list.lat;
-								var lon = list.lon;
-								delete list.lon;
-							    var zoom = map.getZoom(zoom);
-							    console.log(zoom);
-							    map.setView(new L.LatLng(lat, lon), zoom); 
+			$("img").each(function(){ //remove empties
+				if ($(this).attr("src") == "null") {
+			    	$(this).remove();
+					$('images a:empty').remove();
+				}
+				else  {     
+					$(this).show();
+					return true;
+     			}
+		    });
 
-								var name = list.name;
-						    	console.log(name);
-								var pic1 = list.pic1;
-								console.log(pic1);
-								var title = list.title;
-								console.log(title);
-						    	var description = list.description;
-						    	console.log(description);
-						    	var link = list.link;
-						    	console.log(link);
-								var timeline = list.timeline;
-								console.log(timeline);
-								$('why').append('<there><img src="'+pic1+'"></img></there>').appendTo('why');
-								$('#catchphrase').append(name);
-								$('#external').append('<a href='+link+' target="_blank">External link</a>');
-				    	});
-					});
-//					
-				});
-				$('.pic2').hover(function(){
-					$('#external').show();
-					$('#external').html('');
-					var currentId = $(this).attr('name');
-					$('#external').append(currentId);					
-					$('.pic2').off('click').on('click',function(){
-						$('why').html("");
-						$('#catchphrase').show();
-						$('#catchphrase').html("");
-						$('#external').html("");
-						$('.tl-timemarker').removeClass('selected');
-			    		$(this).addClass('selected');
-						var clicked = [$(this).attr('id')];
-						var sql_select = "SELECT cartodb_id, name, title, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'";
-						TimelineSelect(sql_select).done(function(ret){
+			$('.pic1').hover(function(){
 
-								var list = ret.rows[0];
-								var lat = list.lat;
-								delete list.lat;
-								var lon = list.lon;
-								delete list.lon;
-							    var zoom = map.getZoom(zoom);
-							    console.log(zoom);
-							    map.setView(new L.LatLng(lat, lon), zoom+1); 
-								$('what').html("");
-								$('why').html("");
+				$('#external').html('');
+				var currentId = $(this).attr('name');
+				$('#external').append(currentId); //display item name on hover				
 
-								var name = list.name;
-						    	console.log(name);
-								var pic2 = list.pic2;
-								console.log(pic2);
-								var title = list.title;
-								console.log(title);
-						    	var description = list.description;
-						    	console.log(description);
-						    	var link = list.link;
-						    	console.log(link);
-								var timeline = list.timeline;
-								console.log(timeline);
-								$('#'+timeline)[0].click();
-								$('why').append('<there><img src="'+pic2+'"></img></there>').appendTo('why');
-								$('#catchphrase').append(name);
-								$('#external').append('<a href='+link+' target="_blank">External link</a>');
-				    		});
-					});
-				});
-				
-				$('.pic3').hover(function(){
-					$('#external').show();
-					$('#external').html('');
-					var currentId = $(this).attr('name');
-					$('#external').append(currentId);					
-					$('.pic3').off('click').on('click',function(){
-						$('why').html("");
-						$('#catchphrase').show();
-						$('#catchphrase').html("");
-						$('#external').html("");
-						$('.tl-timemarker').removeClass('selected');
-			    		$(this).addClass('selected');
-						var clicked = [$(this).attr('id')];
-						var sql_select = "SELECT cartodb_id, name, title, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'";
-						TimelineSelect(sql_select).done(function(ret){
+				$('.pic1').off('click').on('click',function(){
 
-								var list = ret.rows[0];
-								var lat = list.lat;
-								delete list.lat;
-								var lon = list.lon;
-								delete list.lon;
-							    var zoom = map.getZoom(zoom);
-							    console.log(zoom);
-							    map.setView(new L.LatLng(lat, lon), zoom+1); 
-								$('what').html("");
-								$('why').html("");
+					$('#mainlabel').removeClass('expand');
+					$('#mainlabel').removeClass('point');
+					$('#mainlabel').removeClass('search');
+					$('#mainlabel').addClass('expand'); //gallery substrate
+					$('lightbox > img').remove();
+					var clicked = [$(this).attr('id')];
+					var sql_init = new cartodb.SQL({ user: 'tbushman' });
+					//get pic1 where cartodb_id = 'clicked'
+					var sql_select = "SELECT cartodb_id, name, timeline, description, pic1, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					sql_init.execute(sql_select).done(function(ret){
 
-								var name = list.name;
-						    	console.log(name);
-								var pic3 = list.pic3;
-								console.log(pic3);
-								var title = list.title;
-								console.log(title);
-						    	var description = list.description;
-						    	console.log(description);
-						    	var link = list.link;
-						    	console.log(link);
-								var timeline = list.timeline;
-								console.log(timeline);
-								$('#'+timeline)[0].click();
-								$('why').append('<there><img src="'+pic3+'"></img></there>').appendTo('why');
-								$('#catchphrase').append(name);
-								$('#external').append('<a href='+link+' target="_blank">External link</a>');
-				    		});
-					});
-				});
-				
-				$('.pic4').hover(function(){
-					$('#external').show();
-					$('#external').html('');
-					var currentId = $(this).attr('name');
-					$('#external').append(currentId);					
-					$('.pic4').off('click').on('click',function(){
-						$('why').html("");
-						$('#catchphrase').show();
-						$('#catchphrase').html("");
-						$('#external').html("");
-						$('.tl-timemarker').removeClass('selected');
-			    		$(this).addClass('selected');
-						var clicked = [$(this).attr('id')];
-						var sql_select = "SELECT cartodb_id, name, title, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'";
-						TimelineSelect(sql_select).done(function(ret){
+						var item = ret.rows[0];
+						var pic1 = item.pic1;
+						$('lightbox').append('<img src="'+pic1+'"></img>');
 
-								var list = ret.rows[0];
-								var lat = list.lat;
-								delete list.lat;
-								var lon = list.lon;
-								delete list.lon;
-							    var zoom = map.getZoom(zoom);
-							    console.log(zoom);
-							    map.setView(new L.LatLng(lat, lon), zoom+1); 
-								$('what').html("");
-								$('why').html("");
-
-								var name = list.name;
-						    	console.log(name);
-								var pic4 = list.pic4;
-								console.log(pic4);
-								var title = list.title;
-								console.log(title);
-						    	var description = list.description;
-						    	console.log(description);
-						    	var link = list.link;
-						    	console.log(link);
-								var timeline = list.timeline;
-								console.log(timeline);
-								$('#'+timeline)[0].click();
-								$('why').append('<there><img src="'+pic4+'"></img></there>').appendTo('why');
-								$('#catchphrase').append(name);
-								$('#external').append('<a href='+link+' target="_blank">External link</a>');
-				    		});
-					});
-				});
-				
-				$('.pic5').hover(function(){
-					$('#external').show();
-					$('#external').html('');
-					var currentId = $(this).attr('name');
-					$('#external').append(currentId);					
-					$('.pic5').off('click').on('click',function(){
-						$('why').html("");
-						$('#catchphrase').show();
-						$('#catchphrase').html("");
-						$('#external').html("");
-						$('.tl-timemarker').removeClass('selected');
-			    		$(this).addClass('selected');
-						var clicked = [$(this).attr('id')];
-						var sql_select = "SELECT cartodb_id, name, title, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'";
-						TimelineSelect(sql_select).done(function(ret){
-
-								var list = ret.rows[0];
-								var lat = list.lat;
-								delete list.lat;
-								var lon = list.lon;
-								delete list.lon;
-							    var zoom = map.getZoom(zoom);
-							    console.log(zoom);
-							    map.setView(new L.LatLng(lat, lon), zoom+1); 
-								$('what').html("");
-								$('why').html("");
-
-								var name = list.name;
-						    	console.log(name);
-								var pic5 = list.pic5;
-								console.log(pic5);
-								var title = list.title;
-								console.log(title);
-						    	var description = list.description;
-						    	console.log(description);
-						    	var link = list.link;
-						    	console.log(link);
-								var timeline = list.timeline;
-								console.log(timeline);
-								$('#'+timeline)[0].click();
-								$('why').append('<there><img src="'+pic5+'"></img></there>').appendTo('why');
-								$('#catchphrase').append(name);
-								$('#external').append('<a href='+link+' target="_blank">External link</a>');
-				    		});
 					});
 				});
 			});
-	});
-				
-});
-function addCursorInteraction(sublayer) {
-        
-	var hovers = [];
-    //1 is the points: 'pointer' when mouse over
-        sublayer.bind('featureOver', function(e, latlon, pxPos, data, layer) {
-          hovers[layer] = 1;
-          if(_.any(hovers)) {
-            $('#map').css('cursor', 'pointer');
-          }
-        });
-       //0 is the base layer. Cursor 'auto' if mouse over
-        sublayer.bind('featureOut', function(m, layer) {
-          hovers[layer] = 0;
-          if(!_.any(hovers)) {
-            $('#map').css('cursor', 'auto');
-          }
-    });
+    		$('.pic2').hover(function(){
 
-        //when feature clicked, move to location, then append items to sidepanel:
-    sublayer.bind('featureClick', function (e, latlon, pxPos, data, layer) {
-		$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, name, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ data.cartodb_id , function(ret){
-			var list = ret.rows[0];
-		    var lat = ret.rows[0].lat;
-		    delete ret.rows[0].lat;
-		    var lon = ret.rows[0].lon;
-		    delete ret.rows[0].lon;
-		    var zoom = map.getZoom(zoom);
-		    console.log(zoom);
-		    map.setView(new L.LatLng(lat, lon), zoom+1); 
-        	$('#external').html("");
-        	$('#catchphrase').html("");
-            
-              
-           //This is the query for generating the list of nearby features
-           //Determine if there are coincident features on click, then either append a list of features or a single features' attributes to the sidepanel
-		   var sql = cartodb.SQL({ user: 'tbushman' });
-           sql.execute("select cartodb_id, name, title, timeline from portfolio_tb where st_distance( the_geom, st_GeomFromText('POINT("+lon+" "+lat+")', 4326), true ) < (SELECT CDB_XYZ_Resolution("+zoom+")*(("+zoom+")*1.15)) ORDER BY name", function (ret) { //this query uses screen distance from a clicked (top) feature: the multiplier, 1.15, means that all points that fall within 1.15 times the marker width are counted as coincident. 
-             	
-			$('th').click(function(){
-				
-			});
+				$('#external').show();
+				$('#external').html('');
+				var currentId = $(this).attr('name');
+				$('#external').append(currentId);					
 
-		   		var list = ret.rows;	
-           		if (list.length > 1) {
-                	$('what').html("");
-                	$('why').html("");
-                	$('what').html(list.length + " programs at this location:");
-                	$('.append').html("<what><ul></ul></what>");
-                	var i = 0;
-                	for (i in list){
-                		var newelement = $('<li></li>');
-                		newelement
-                		.attr('id', ret.rows[i].timeline)
-                		.html('<a href="#'+ret.rows[i].cartodb_id+'" class="cartodb_id" id="'+ret.rows[i].timeline +'"> <h5 id="'+list[i].timeline+'">' +list[i].title +'</h5><h6 id="'+list[i].timeline+'">'+list[i].name +'</h6></a>');
-                		$('ul').append(newelement);
-                		map.setView(new L.LatLng(lat, lon), (zoom+1));
-                	}
-                	//Click on one of the list items
-					$('.cartodb_id').click(function (e, latlon, pxPos, data, layer){
-						var clicked = [$(this).attr('id')];
-							var sql_init = new cartodb.SQL({ user: 'tbushman' });
-							sql_init.execute("SELECT cartodb_id, name, timeline, title, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE timeline = '"+clicked+"'", function(ret){
-								var list = ret.rows[0];
-								var lat = list.lat;
-								delete list.lat;
-								var lon = list.lon;
-								delete list.lon;
-							    var zoom = map.getZoom(zoom);
-							    console.log(zoom);
-							    map.setView(new L.LatLng(lat, lon), zoom+1); 
-								$('what').html("");
-								$('why').html("");
+				$('.pic2').off('click').on('click',function(){
+					$('#mainlabel').removeClass('expand');
+					$('#mainlabel').removeClass('point');
+					$('#mainlabel').removeClass('search');
+					$('#mainlabel').addClass('expand');
+					$('lightbox > img').remove();
+					var clicked = [$(this).attr('id')];
+					var sql_init = new cartodb.SQL({ user: 'tbushman' });
+					var sql_select = "SELECT cartodb_id, name, timeline, description, pic2, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					sql_init.execute(sql_select).done(function(ret){
 
-								var name = list.name;
-						    	console.log(name);
-								var pic1 = list.pic1;
-								console.log(pic1);
-								var pic2 = list.pic2;
-								console.log(pic2);
-								var pic3 = list.pic3;
-								console.log(pic3);
-								var pic4 = list.pic4;
-								console.log(pic4);
-								var pic5 = list.pic5;
-								console.log(pic5);
-								var title = list.title;
-								console.log(title);
-						    	var description = list.description;
-						    	console.log(description);
-						    	var link = list.link;
-						    	console.log(link);
-								var timeline = list.timeline;
-								console.log(timeline);
-								$('#'+timeline)[0].click();
-						    	var content = $('<h2>' + name + '</h2><h4>'+title+'</h4><h5>'+ description +'</h5><here><div id="'+list.cartodb_id+'" class="pic1"><a href="#" ><img class="items pic1" src="'+pic1+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic2"><a href="#" ><img class="items pic2" src="'+pic2+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic3"><a href="#" ><img class="items pic3" src="'+pic3+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic4"><a href="#" ><img class="items pic4" src="'+pic4+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic5"><a href="#" ><img class="items pic5" src="'+pic5+'"></img></a></div></here><a href="' + link + '" target="_blank">Click here for more info.</a>');
-								console.log(content);
-								$('what').append(content);
-								$(".items").each(function(){     
-									if ($(this).attr("src") == "null") {
-								    	$(this).remove();
-										$('here div a:empty').parent().remove();
-									}
-									else  {     
-										$(this).show();
-										return true;
-					     			}
-							    });
-								
-								$('.pic1').on('click', function () {
-									$('why').html("");
-									$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic1 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-										var list = ret.rows[0];
-										var pic1 = list.pic1;
-										console.log(pic1);
-										$('why').append('<there><img src="'+pic1+'"></img></there>');
-									});
-								});
-								$('.pic2').on('click', function () {
-									$('why').html("");
-									$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-										var list = ret.rows[0];
-										var pic2 = list.pic2;
-										console.log(pic1);
-										$('why').append('<there><img src="'+pic2+'"></img></there>');
-									});
-								});
-								$('.pic3').on('click', function () {
-									$('why').html("");
-									$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-										var list = ret.rows[0];
-										var pic2 = list.pic2;
-										console.log(pic1);
-										$('why').append('<there><img src="'+pic3+'"></img></there>');
-									});
-								});
-								$('.pic4').on('click', function () {
-									$('why').html("");
-									$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-										var list = ret.rows[0];
-										var pic2 = list.pic2;
-										console.log(pic1);
-										$('why').append('<there><img src="'+pic4+'"></img></there>');
-									});
-								});
-								$('.pic5').on('click', function () {
-									$('why').html("");
-									$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-										var list = ret.rows[0];
-										var pic2 = list.pic2;
-										console.log(pic1);
-										$('why').append('<there><img src="'+pic5+'"></img></there>');
-									});
-								});
+						var item = ret.rows[0];
+						var pic2 = item.pic2;
+						$('lightbox').append('<img src="'+pic2+'"></img>');
 
-							});
-						});
-            	}
-             	else 
-             	{
-                //If no coincident features within resolution: append only single feature info (no list)
-					$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, name, title, timeline, description, buttonid, pic1, pic2, pic3, pic4, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ data.cartodb_id, function(ret){
-						var list = ret.rows[0];
-			    		var lat = list.lat;
-			    		delete list.lat;
-			    		var lon = list.lon;
-			    		delete list.lon;
-					    var zoom = map.getZoom(zoom);
-					    console.log(zoom);
-					    map.setView(new L.LatLng(lat, lon), zoom+1); 
-						$('what').html("");
-						$('why').html("");
-
-						var name = list.name;
-				    	console.log(name);
-						var pic1 = list.pic1;
-						console.log(pic1);
-						var pic2 = list.pic2;
-						console.log(pic2);
-						var pic3 = list.pic3;
-						console.log(pic3);
-						var pic4 = list.pic4;
-						console.log(pic4);
-						var pic5 = list.pic5;
-						console.log(pic5);
-						var title = list.title;
-						console.log(title);
-				    	var description = list.description;
-				    	console.log(description);
-				    	var link = list.link;
-				    	console.log(link);
-						var timeline = list.timeline;
-						console.log(timeline);
-						$('#'+timeline)[0].click();
-				    	var content = $('<h2>' + name + '</h2><h4>'+title+'</h4><h5>'+ description +'</h5><here><div id="'+list.cartodb_id+'" class="pic1"><a href="#" ><img class="items pic1" src="'+pic1+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic2"><a href="#" ><img class="items pic2" src="'+pic2+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic3"><a href="#" ><img class="items pic3" src="'+pic3+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic4"><a href="#" ><img class="items pic4" src="'+pic4+'"></img></a></div><div id="'+list.cartodb_id+'" class="pic5"><a href="#" ><img class="items pic5" src="'+pic5+'"></img></a></div></here><a href="' + link + '" target="_blank">Click here for more info.</a>');
-						console.log(content);
-						$('what').append(content);
-						$(".items").each(function(){     
-							if ($(this).attr("src") == "null") {
-						    	$(this).remove();
-								$('here div a:empty').parent().remove();
-							}
-							else  {     
-								$(this).show();
-								return true;
-			     			}
-					    });
-						
-						$('.pic1').on('click', function () {
-							$('why').html("");
-							$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic1 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-								var list = ret.rows[0];
-								var pic1 = list.pic1;
-								console.log(pic1);
-								$('why').append('<there><img src="'+pic1+'"></img></there>');
-							});
-						});
-						$('.pic2').on('click', function () {
-							$('why').html("");
-							$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-								var list = ret.rows[0];
-								var pic2 = list.pic2;
-								console.log(pic1);
-								$('why').append('<there><img src="'+pic2+'"></img></there>');
-							});
-						});
-						$('.pic3').on('click', function () {
-							$('why').html("");
-							$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-								var list = ret.rows[0];
-								var pic2 = list.pic2;
-								console.log(pic1);
-								$('why').append('<there><img src="'+pic3+'"></img></there>');
-							});
-						});
-						$('.pic4').on('click', function () {
-							$('why').html("");
-							$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-								var list = ret.rows[0];
-								var pic2 = list.pic2;
-								console.log(pic1);
-								$('why').append('<there><img src="'+pic4+'"></img></there>');
-							});
-						});
-						$('.pic5').on('click', function () {
-							$('why').html("");
-							$.get("http://tbushman.cartodb.com/api/v2/sql?q=SELECT cartodb_id, pic2 FROM portfolio_tb WHERE cartodb_id="  + $(this).attr('id'), function(ret) {
-								var list = ret.rows[0];
-								var pic2 = list.pic2;
-								console.log(pic1);
-								$('why').append('<there><img src="'+pic5+'"></img></there>');
-							});
-						});
 					});
-            	};
-        	});
+				});
+			});
+    		$('.pic3').hover(function(){
+
+				$('#external').show();
+				$('#external').html('');
+				var currentId = $(this).attr('name');
+				$('#external').append(currentId);					
+
+				$('.pic3').off('click').on('click',function(){
+					$('#mainlabel').removeClass('expand');
+					$('#mainlabel').removeClass('point');
+					$('#mainlabel').removeClass('search');
+					$('#mainlabel').addClass('expand');
+					$('lightbox > img').remove();
+					var clicked = [$(this).attr('id')];
+					var sql_init = new cartodb.SQL({ user: 'tbushman' });
+					var sql_select = "SELECT cartodb_id, name, timeline, description, pic3, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					sql_init.execute(sql_select).done(function(ret){
+
+						var item = ret.rows[0];
+						var pic3 = item.pic3;
+						$('lightbox').append('<img src="'+pic3+'"></img>');
+
+					});
+				});
+			});
+    		$('.pic4').hover(function(){
+
+				$('#external').show();
+				$('#external').html('');
+				var currentId = $(this).attr('name');
+				$('#external').append(currentId);					
+
+				$('.pic4').off('click').on('click',function(){
+					$('#mainlabel').removeClass('expand');
+					$('#mainlabel').removeClass('point');
+					$('#mainlabel').removeClass('search');
+					$('#mainlabel').addClass('expand');
+					$('lightbox > img').remove();
+					var clicked = [$(this).attr('id')];
+					var sql_init = new cartodb.SQL({ user: 'tbushman' });
+					var sql_select = "SELECT cartodb_id, name, timeline, description, pic4, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					sql_init.execute(sql_select).done(function(ret){
+
+						var item = ret.rows[0];
+						var pic4 = item.pic4;
+						$('lightbox').append('<img src="'+pic4+'"></img>');
+
+					});
+				});
+			});
+    		$('.pic5').hover(function(){
+
+				$('#external').show();
+				$('#external').html('');
+				var currentId = $(this).attr('name');
+				$('#external').append(currentId);					
+
+				$('.pic5').off('click').on('click',function(){
+					$('#mainlabel').removeClass('expand');
+					$('#mainlabel').removeClass('point');
+					$('#mainlabel').removeClass('search');
+					$('#mainlabel').addClass('expand');
+					$('lightbox > img').remove();
+					var clicked = [$(this).attr('id')];
+					var sql_init = new cartodb.SQL({ user: 'tbushman' });
+					var sql_select = "SELECT cartodb_id, name, timeline, description, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					sql_init.execute(sql_select).done(function(ret){
+
+						var item = ret.rows[0];
+						var pic5 = item.pic5;
+						$('lightbox').append('<img src="'+pic5+'"></img>');
+
+					});
+				});
+			});
 		});
+	}
+	$('#next').click(function (e, latlon, pxPos, data, layer, event){ //to move timeline left in 10% increments
+
+		$('#mainlabel').hide();
+		$('#mainlabel').html("");
+		$('#mainlabel').removeClass('expand');
+		$('#mainlabel').removeClass('point');
+		$('#mainlabel').removeClass('search');
+		$('images').html('');
+		$('.tltab').removeClass('selected');
+		var wrapper = $('#wrapper');
+		console.log(wrapper);
+		wrapper.hide();
+		wrapper.animate({'left' : "-=10%"});
+		wrapper.show();
+		$('#mainlabel').show();
+		event.stopPropagation();
+
 	});
-	$('#catchphrase').hide();		 
+	$('#prev').click(function (e, latlon, pxPos, data, layer, event){ //to move timeline right in 10% increments
+
+		$('#mainlabel').hide();
+		$('#mainlabel').html("");
+		$('#mainlabel').removeClass('expand');
+		$('#mainlabel').removeClass('point');
+		$('#mainlabel').removeClass('search');
+		$('images').html('');
+		$('.tltab').removeClass('selected');
+		var wrapper = $('#wrapper');
+		console.log(wrapper);
+		wrapper.hide();
+		wrapper.animate({'left' : "+=10%"});
+		wrapper.show();
+		$('#mainlabel').show();
+		event.stopPropagation();
+
+	});
+
+//search///////////////////////////////////////////////////////////////////////////////////////
+	$( "input" ).autocomplete({
+
+		source: function(request, response) { 
+
+			var sql_search = new cartodb.SQL({ user: 'tbushman' });
+			sql_search.execute("select cartodb_id, name, title, place, (name ilike'%"+request.term +"%') AS full_match from portfolio_tb where name ilike '%" + request.term + "%' OR place ilike '%"+request.term +"%' OR title ilike '%"+request.term +"%' ORDER BY title ", function(ret) { 
+
+				var list = ret.rows;
+
+				$('#mainlabel').html('');
+				$('#mainlabel').removeClass('expand');
+				$('#mainlabel').removeClass('point');
+				$('#mainlabel').removeClass('search');
+				$('#mainlabel').addClass('search'); 
+				$('images').remove();
+
+				$('#mainlabel').append('<here><h6>'+list.length + ' matching search results:</h6></here>');
+	        	$('here').append('<there><ul></ul></there>');
+				var i = 0;
+				for (i in list) {
+
+					var item = ret.rows[i];
+					console.log(item);
+					var clicked = item.cartodb_id;
+					console.log(clicked);
+
+					var $listelement = $('<a href="#'+clicked+'" id="'+clicked+'" class="cartodb_id"><h5>'+item.title+'</h5><h6>'+item.name+'</h6></a>');
+					$('ul').append($listelement); //list of matching search queries
+					$('#'+clicked+'').click(function(){
+
+						var cdbid = [$(this).attr('id')];
+						$("#"+cdbid+".tltab").click();
+						
+					});
+				}
+			});
+		},	
+		minLength: 2
+	});
+		
+	/////////////UI
+
+	function addTimeline(){
+
+		//get all features, ordered
+		$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb ORDER BY dateend desc", function(ret) {
+
+			var item = ret.rows[0]; //latest item .. should be an item that spans the timeline length, for getting min datebegin and max dateend
+			console.log(item);
+			var list = ret.rows;
+			console.log(list);
+			var length = list.length;
+			console.log(length);
+			var wrapper = $('#wrapper');
+			wrapper.append('<div id="wrappertwo"></div>');
+			wrapper.hide();
+			
+			var maxdate = new Date(item.dateend);
+			var maxyearint = maxdate.getFullYear();
+			console.log(maxyearint);
+			var maxmonth = maxdate.getMonth();
+			var maxyear = maxyearint+(maxmonth/12);
+			console.log(maxyear);
+			var mindate = new Date(ret.rows[0].datebegin);
+			var yearzero = mindate.getFullYear();
+			console.log(yearzero);
+			var year = parseInt(yearzero);
+			console.log(year);
+			var minmonth = mindate.getMonth();
+			console.log(minmonth);
+			var minyear = yearzero+(minmonth/12);
+			console.log(minyear);
+			var tabnumber = (maxyearint+1) - yearzero;
+			console.log(tabnumber);
+
+			for (var i = 0; i < tabnumber; i++) {
+				var increment = year+i;
+				var $labels = $('<div/>', {
+					id: "tllabel"+increment+"",
+					class: "tllabel",
+					text: ''+increment+''
+				});
+				$('#wrappertwo').append($labels);						
+				$labels.css('left', i*10+'%');
+			}
+
+			for ( i in list ) {
+
+				var datebegin = new Date(ret.rows[i].datebegin);
+				console.log(datebegin);
+				var yearbeginint = datebegin.getFullYear();
+				var monthbegin = datebegin.getMonth();
+				var yearbegin = yearbeginint+(monthbegin/12);
+				console.log(yearbegin); //each timeline button css 'left' depends on var 'yearbegin'
+
+				var dateend = new Date(ret.rows[i].dateend);
+				console.log(dateend);
+				var yearendint = dateend.getFullYear();
+				var monthend = dateend.getMonth();
+				var yearend = yearendint+(monthend/12);
+				console.log(yearend); //each timeline button css 'width' depends on var 'yearend'
+
+				var yduration = yearend - yearbegin;
+				console.log(yduration);
+
+				var tabposition = yearbegin - minyear +1; //screen position of each tl button relative to '#wrapper'
+				//Append all buttons
+				$('#wrapper').append('<a href="#'+ret.rows[i].cartodb_id+'" id="'+ret.rows[i].cartodb_id+'" class="tltab cartodb_id" onclick="return false" name="'+tabposition*10+'" alt="cartodb_id"><span>'+ret.rows[i].title+'</span></a>');
+
+				var tl = $("#"+ ret.rows[i].cartodb_id+".tltab"); //each button 
+				console.log(tl);
+				tl.css('left',  tabposition*10+'%' ); //position
+				tl.css('width', yduration*10+'%' );	//width
+
+				tl.click(function(e, latlon, pxPos, layer, data, ret){ //each button
+
+					$('.tltab').removeClass('selected');
+					$(this).addClass('selected');
+
+					var clic = $(this).attr('id');
+					console.log(clic);
+
+					var left = [$(this).attr('name')];
+					console.log(left); //log position of clicked button, recorded in Append as attr('name')			
+					var initmid = 50;
+					console.log(initmid);
+					var wrapleft = initmid - left ;
+					console.log(wrapleft); //'#wrapper' position to put clicked button at map center
+
+					var wrapper = $('#wrapper');
+					wrapper.hide();
+					wrapper.css('left','');				
+					wrapper.attr('style', wrapper.attr('style') + 'left: '+wrapleft+'% !important'); //move '#wrapper' to position clicked button at map center
+					wrapper.show();
+
+					var cdbid = [$(this).attr('id')];
+					var sql_select = 'select cartodb_id, name, description, link, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id='+cdbid+'';
+					LayerSelect(sql_select);
+				});
+			}
+			wrapper.show();
+		});
+	};
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////
+
+
+	//DEMARCATION
+
+
+	////////////////////////////////////////////////////////////////////////////////
+
+
+	//*/ALWAYS KEEP THIS AT THE END!!*//*/*//*Map selection only*/*//it'll make sense later
+	function addCursorInteraction(sublayer){
+		
+		var hovers = [];
+	    //1 is the points: 'pointer' when mouse over
+	    sublayer.bind('featureOver', function(e, latlon, pxPos, data, layer) {
+	          hovers[layer] = 1;
+	          if(_.any(hovers)) {
+	            $('#map').css('cursor', 'pointer');
+	          }
+	    });
+	    //0 is the base layer. Cursor 'auto' if mouse over
+	    sublayer.bind('featureOut', function(m, layer) {
+	          hovers[layer] = 0;
+	          if(!_.any(hovers)) {
+	            $('#map').css('cursor', 'auto');
+	          }
+	    });
+
+	    //when feature clicked, move to location, then append items to sidepanel:
+	    sublayer.bind('featureClick', function (e, latlon, pxPos, data, layer) {
+
+			var mainlabel = $('#mainlabel');
+			mainlabel.html('');
+			mainlabel.removeClass('search');
+			mainlabel.removeClass('point');
+			mainlabel.addClass('point');
+			
+			var sql_init = new cartodb.SQL({ user: 'tbushman' });
+			var sql_select = 'select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id='+ data.cartodb_id ;
+			console.log(sql_select);
+			sql_init.execute(sql_select).done(function(ret){
+
+				$('images').remove();
+				var item = ret.rows[0]; //return top-clicked feature attribute data
+		   		var lat = item.lat;
+		   		delete item.lat;
+		   		var lon = item.lon;
+		   		delete item.lon;
+		   		var zoom = map.getZoom(zoom);
+		   		console.log(zoom);
+		 		map.setView(new L.LatLng(lat, lon), 11); //zoom to top-clicked feature
+
+				var sql_init = new cartodb.SQL({ user: "tbushman" });
+				var bounds_select = "select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend from portfolio_tb where st_distance( the_geom, st_GeomFromText('POINT("+lon+" "+lat+")', 4326), true ) < (SELECT CDB_XYZ_Resolution("+zoom+")*(("+zoom+")*1.15)) ";
+				//query for nearby features
+				sql_init.execute(bounds_select).done(function(ret) {
+
+					var list = ret.rows;
+
+					if (list.length > 1 ) {
+
+						var i = 0;
+
+						mainlabel.append('<here><h6>'+list.length + ' records in this area:</h6></here>');
+			        	$('here').append('<there><ul></ul></there>');
+						for (i in list) {
+
+							var item = ret.rows[i];
+
+							//build feature list
+							var listobject = $('<a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="cartodb_id"><li><h5>'+item.title+'</h5><h6>'+item.name+'</h6></li></a>');
+							$('ul').append(listobject);
+							var clicked = item.cartodb_id;
+							$('#'+clicked+'').click(function(){
+
+								var cdbid = [$(this).attr('id')];
+								$('#'+cdbid+'.tltab').click();
+
+							});
+						}
+					}
+					else 
+					{
+						$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id="+data.cartodb_id, function(ret) {						var cdbid = list[0].cartodb_id;
+							
+							var cdbid = ret.rows[0].cartodb_id;
+							$('#'+cdbid+'.tltab').click();
+							
+						});
+					}
+				});	
+			});
+		});
+	}
 }
-}
+
 window.onload = main;
