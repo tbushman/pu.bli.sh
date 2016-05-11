@@ -1,5 +1,5 @@
 # pu.bli.sh
-Initial availability to beta testers with an interest in having a pu.bli.sh/x url: example running: pu.bli.sh/tbushman. Email thex@pu.bli.sh for inquiry.
+Initial availability to beta testers with an interest in having a pu.bli.sh/x url: example running: http://pu.bli.sh/tbushman. Email thex@pu.bli.sh for inquiry.
 
 #about
 pu.bli.sh is a self-publishing domain. The example shown demonstrates the design portfolio/CV application of pu.bli.sh, but any content is supported with associated script edits (i.e. change img to iframe or something like this). 
