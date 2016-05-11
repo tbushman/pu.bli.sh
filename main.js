@@ -46,7 +46,7 @@ function main() {
 		$('#mainlabel').removeClass('point');
 		$('#mainlabel').removeClass('search');
 		$('#mainlabel').addClass('point');
-		$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb ORDER BY datebegin", function(ret) {
+		$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, link, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb ORDER BY datebegin", function(ret) {
 			
 			var item = ret.rows[0];
 			var title = item.title;
