@@ -34,8 +34,8 @@ function main() {
 		$('#mainlabel').removeClass('point');
 		$('#mainlabel').removeClass('search');
 		$('#mainlabel').addClass('expand');
-		$('#mainlabel').html('<here></here>');
-		$('here').append('<embed src="images/cv2015.pdf" type ="application/pdf" width="100%" height="100%" alt="pdf"></embed>').appendTo('#mainlabel');
+		$('#mainlabel').html('');
+		$('#mainlabel').append('<embed src="images/cv2015.pdf" type ="application/pdf" width="100%" height="100%" alt="pdf"></embed>').appendTo('#mainlabel');
 	});
 	$('#about').click(function(){ //click on 'ABOUT' for short intro and external links
 	
