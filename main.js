@@ -5,7 +5,7 @@ var cdbidlist = document.getElementsByClassName("tltab");
 for (var i=0; i<cdbidlist.length; i++) {
 
 	cdbidlist[i].onmouseover=function() { //tl hover
-		this.title+=" sfhover"; //map hover
+		this.title+=" sfhover"; //tl hover
 	};
 	cdbidlist[i].onmouseout=function() {
 		this.title=this.title.replace(new RegExp(" sfhover\\\\b"), "");
@@ -27,14 +27,14 @@ function main() {
 		$('lightbox > img').remove();
 	});
 	$('#cv').click(function(){ //click on 'CV' to append pdf to gallery
-	
-        $("#menu div div").slideUp(100); // hiding dropdown
-        $("#menu .selected").removeClass("selected");
 		$('#mainlabel').removeClass('expand');
 		$('#mainlabel').removeClass('point');
 		$('#mainlabel').removeClass('search');
 		$('#mainlabel').addClass('expand');
 		$('#mainlabel').html('');
+		
+        $("#menu div div").slideUp(100); // hiding dropdown
+        $("#menu .selected").removeClass("selected");
 		$('#mainlabel').append('<embed src="images/cv2015.pdf" type ="application/pdf" width="100%" height="100%" alt="pdf"></embed>').appendTo('#mainlabel');
 	});
 	$('#about').click(function(){ //click on 'ABOUT' for short intro and external links
@@ -300,8 +300,11 @@ function main() {
 			console.log(first);
 			var clic = first.cartodb_id;
 			LayerSelect(sql_select);
-			//$('#'+clic+'.tltab').click();
-			
+			$('why').append('<a href="https://github.com/tbushman/pu.bli.sh" target="_blank"><img src="images/publish_logo.svg"></img></a>');
+			$('why').css('left', 50+'%');
+//			$('.tllabel').css('box-shadow', '2px 0px 0px rgba(0,0,0,0.3)');
+			$('.tltab').css('box-shadow', '0px 0px 1px 0px rgba(0,0,0,0.3)');
+			$('#mainlabel').css('box-shadow', '1px 0px 1px 0px rgba(0,0,0,0.3)');
 		});
 	});
 	//lyr1 createD
@@ -335,12 +338,6 @@ function main() {
 	};
 
 	function TlSelect(sql_get) {
-
-		$('#mainlabel').html("");
-		$('#mainlabel').removeClass('expand');
-		$('#mainlabel').removeClass('point');
-		$('#mainlabel').removeClass('search');
-		$('#mainlabel').addClass('point'); //'#mainlabel' becomes a map tooltip
 
 		var sql_init = new cartodb.SQL({ user: 'tbushman' });
 		sql_init.execute(sql_get).done(function(ret){
@@ -391,6 +388,13 @@ function main() {
 			
 			var header = $('<text><here><h2>' + name + '</h2><h6>'+(monthbegin+1)+'/'+yearbegin+' – '+(monthend+1)+'/'+yearend+'</h6></here><there><h4>'+ description +'</h4></there></text><lightbox></lightbox><images></images><a href="' + link + '" target="_blank">'+linktext+'</a>');
 			console.log(header);
+
+			$('#mainlabel').html("");
+			$('#mainlabel').removeClass('expand');
+			$('#mainlabel').removeClass('point');
+			$('#mainlabel').removeClass('search');
+			$('#mainlabel').addClass('point'); //'#mainlabel' becomes a map tooltip
+
 			$('#mainlabel').append(header); //Single feature attribute appendage
 
 			var cdbid = item.cartodb_id;
