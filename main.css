@@ -12,11 +12,11 @@ html {
 	-webkit-box-sizing: inherit;
 	-moz-box-sizing: inherit;
 	box-sizing: inherit;
-	
+
 }
 
 body {
-	
+
 	margin: 0;
 	padding: 0;
 	font-family: 'Open Sans', Helvetica, sans-serif; 
@@ -57,7 +57,7 @@ h3 {
 }
 
 h4 {
-	
+
 	font-size: .53em;
 	position: relative;
 	display: inline-block;
@@ -92,21 +92,22 @@ h6 {
     color: #555;
 	margin: 0;
 	letter-spacing: .03em;
-	
+
 }
 
 ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+
 }
 
 ul a {
-	
+
 	text-decoration: none;
 	margin: 0;
 	padding: 0;
-	
+
 }
 
 li {
@@ -138,7 +139,7 @@ bottom {
 }
 
 when {
-	
+
 	background-color: none;
 	width: 100%;
 	max-width: 100%;
@@ -154,7 +155,7 @@ when {
 }
 
 why {
-	
+
 	background-color: none;
 	height: auto;
 	width: auto;
@@ -172,9 +173,9 @@ why {
 
 }
 why a {
-	
+
 	pointer-events: auto;
-	
+
 }
 
 where {
@@ -188,11 +189,12 @@ where {
 	background-color: #EEF4DE;
 	z-index: 0;
 	-webkit-transform: translateZ(0);
+	overflow: hidden;
 
 }
 
 #mainlabel {
-	
+
 	left: 50%;
 	width: auto;
 	right: 10px;
@@ -206,13 +208,13 @@ where {
 	bottom: 50%;
 	display: block;
 	pointer-events: none;
-	z-index: 4;
-	-webkit-transform: translateZ(3);
+	z-index: 8;
+	-webkit-transform: translateZ(7);
 
 }
 
 #mainlabel.point {
-	
+
 	left: 50%;
 	width: auto;
 	right: 10px;
@@ -231,7 +233,7 @@ where {
 	max-height: 50%;
 	z-index: 8;
 	-webkit-transform: translateZ(7);
-	
+
 }
 
 #mainlabel.expand {
@@ -256,11 +258,11 @@ where {
 }
 
 #mainlabel.search {
-	
+
 	left: auto;
 	width: 160px;
 	bottom: 50%;
-	
+
 	right: 10px;
 	float: none;
 	position: fixed;
@@ -277,53 +279,84 @@ where {
 	-webkit-transform: translateZ(7);
 }
 
+#mainlabel.search there {
+	
+	overflow-y: scroll;
+	height: 70%;
+	
+}
+
 here {
 
 	display: inline-block;
 	position: relative;
 	width: 100%;
-	max-height: 100%;
-	height: 100%;
+	max-height: 30%;
+	height: auto;
 	top: 0;
+	bottom: 0;
 	overflow-y: hidden;
 	overflow-x: hidden;
 	pointer-events: auto;
-	padding: .75em .5em .5em .5em;
-	z-index: 13;
-	-webkit-transform: translateZ(12);
+	padding: .75em .5em .5em .6em;
+	z-index: 7;
+	-webkit-transform: translateZ(6);
 
 }
 here > h6 {
-	
-	margin-top: .6em;
-	
+
+    padding: .6em 0 .6em 0; 
+
 }
 here > a {
-	
+
 	text-decoration: none;
 	color: #EEF4DE;
-	bottom: 10px;
+	top: 10px;
 	position: absolute;
-	width: 100%;
-	left: 20px;
+	width: auto;
+	right: 10px;
 	font-size: .66em;
-	
+	bottom: auto;
+	left: auto;
+	pointer-events: auto;
+	z-index: 11;
+	-webkit-transform: translateZ(10);
+
 }
+
+#mainlabel > a {
+
+	text-decoration: none;
+	color: #EEF4DE;
+	top: 10px;
+	position: absolute;
+	width: auto;
+	right: 10px;
+	font-size: .66em;
+	bottom: auto;
+	left: auto;
+	pointer-events: auto;
+	z-index: 11;
+	-webkit-transform: translateZ(10);
+
+}
+
 here > h6 > a {
-	
+
 	text-decoration: none;
 	color: #555;
 	width: 100%;
 	left: 20px;
-	
+
 }
-here a:hover {
-	
+#mainlabel a:hover {
+
 	 color: #D93B20;
-	
+
 }
 here > img {
-	
+
 	display: inline-block;
 	position: relative;
 	height: auto;
@@ -339,63 +372,107 @@ here > img {
 }
 
 there {
-	
-	position: relative;
+
 	display: inline-block;
-	height: 84%;
+	position: relative;
+	height: auto;
 	width: 100%;
 	margin: 0;
-	top: -.15em;
 	left: 0;
 	overflow-y: scroll;
-	bottom: 0;
+	bottom: auto;
 	right: 0;
+	padding: .1em .5em .5em .6em;
+	pointer-events: auto;
+
+}
+
+#mainlabel.point there {
+
+	max-height: 40%;	
+
+}
+
+here h6 {
+	
+	padding: 0 0 0 0;
+	
+}
+
+there h6 {
+	
+	padding: 0 0 1.6em 0;
+	
+}
+
+#mainlabel.expand here {
+
+	height: auto;
+	max-height: auto;
+
+}
+
+#mainlabel.expand there {
+
+	height: auto;
+	max-height: 15%;
+	top: -.8em;
+	bottom: 30%;
+
+}
+
+embed {
+	
+	pointer-events: auto;
 	
 }
 
 lightbox {
-	
+
 	display: block;
 	margin: 0 auto;
-	top: 0px;
-	right: 0px;
-	left: 0px;
+	top: -1.2em;
+	left: 0;
+	right: auto;
 	position: relative;
 	height: auto;
-	min-height: 70%;
-	max-height: 70%;
+	max-height: 60%;
 	width: auto;
 	float: left;
 	width: 100%;
 	overflow-y: hidden;
+	bottom: auto;
+	padding: 0 .5em .5em .5em;
 
 }
 
 lightbox img {
-	
-	width: 100%;
-	height: auto;
+
+	max-width: 100%;
+	width: auto;
+	max-height: 100%;
 	display: inline-block;
-	float: none;
+	float: left;
 	position: relative;
-	bottom: 10px;
-	top: 10px;
+	bottom: auto;
+	top: 0;
 	left: 0;
 	right: auto;
+	margin: 0 auto;
 	overflow-y: hidden;
 	pointer-events: auto;
 
 }
 
 images {
-	
+
 	position: absolute;
 	width: auto;
-	max-height: 60px;
+	max-height: 30%;
 	bottom: 0;
 	top: auto;
 	left: auto;
-	min-height: 100px;
+	min-height: 50px;
 	overflow-y: scroll;
 	right: 0;
 	margin: 0, auto;
@@ -410,11 +487,12 @@ images {
 	background-color: none;
 	pointer-events: auto;	
 	float: right;
+	padding: 0 0 .5em .5em;
 
 } 
 
 .items {
-	
+
 	-webkit-box-flex: 1 0 10;
 	-webkit-flex: 1 0 10; 
 	-ms-flex: 1 0 10;
@@ -431,7 +509,7 @@ images {
 	margin-top: 10px;
 	margin-right: 10px;
 	margin-bottom: 0px;
-	
+
 }
 .items img {
 	position: absolute;
@@ -451,7 +529,7 @@ images {
 }
 
 .external {
-	
+
 	color: #EEF4DE;
 	text-decoration: none;
 	right: 0;
@@ -521,7 +599,7 @@ images {
 	pointer-events: none;
 	z-index: 12;
 	-webkit-transform: translateZ(11);
-    
+
 }
 
 #drop {
@@ -562,7 +640,7 @@ images {
 }
 
 #mySearch {
-	
+
 	outline: none;
 	border:0px solid #dbdbdb;
 	height: 100%;
@@ -580,11 +658,11 @@ images {
 	background: linear-gradient(to right, rgba(255, 255, 255, 0.2),  #EEF4DE);
 	background-color: none;
 	pointer-events: auto;
-		
+
 }
 
 .search {
-	
+
 	display: inline-block;
 	bottom: 56px;
 	right: 10px;
@@ -606,7 +684,7 @@ images {
 
 }
 .search img {
-	
+
 	display: inline-block;
 	background-color: rgba(255, 255, 255, 0.1);
 	position: fixed;
@@ -622,7 +700,7 @@ images {
 }
 
 #wrapper {
-	
+
 	display: inline-block;
 	position: fixed;
     width: auto;
@@ -639,21 +717,21 @@ images {
 	float: none;
 	z-index: 3;
 	-webkit-transform: translateZ(2);
-		
+
 }
 #wrapper a {
-	
+
 	text-decoration: none;
     color: #000;
 	outline: none;
 	pointer-events:auto;
 	overflow-x: visible;
 	width: auto;
-	
+
 }
 
 #wrappertwo {
-	
+
 	display: inline-block;
 	position: relative;
     width: auto;
@@ -672,7 +750,7 @@ images {
 }
 
 .tllabel {
-	
+
 	background-color: none;
 	border: 0px solid white;
 	width: 10%;
@@ -682,14 +760,14 @@ images {
 	font-weight: 300;
     font-size: .65em ;
     line-height: 35px;
-	border-left: 1px solid #555555;
+	border-left: 1px solid #fff;
 	pointer-events:none;
 	padding: 8px 0 0 4.2px;
-	
+
 }
 
 .tlnav {
-	
+
 	background-color: none;
 	border: 0px solid white;
 	min-width: 20px;
@@ -702,11 +780,11 @@ images {
 	margin: 0;
 	padding: 0;
 	pointer-events:none;
-	
+
 }
 
 #prevarrow {
-	
+
 	top:60%;
 	left:0;
 	right: auto;
@@ -722,7 +800,7 @@ images {
 }
 
 #nextarrow {
-	
+
 	top: 60%;
 	position: fixed;
 	right: 10px;
@@ -731,7 +809,7 @@ images {
 	float: right;
 	border-left: 0px solid #fff;
 	z-index: 3;
-	
+
 }
 
 .tltab {
@@ -748,7 +826,7 @@ images {
 	top: 15px;
 	overflow: visible;
 	pointer-events: auto;
-	
+
 }
 .tltab:hover {
 	background-color: rgba(255, 255, 255, 0.5);
@@ -760,7 +838,7 @@ images {
 	overflow-x: visible;
 	width: auto;
 	pointer-events: auto;
-	
+
 }
 .tltab.selected {
 	background-image:
@@ -776,7 +854,7 @@ images {
 	overflow-x: visible;
 	width: auto;
 	pointer-events: auto;
-	
+
 }
 .tltab span {	
 	display:none;
@@ -796,7 +874,7 @@ images {
 	    1px -1px 0 #fff,
 	    -1px 1px 0 #fff,
 	     1px 1px 0 #fff;
-	
+
 }
 .tltab:hover span, [title~="sfhover"] span {	
     display:block;
@@ -809,139 +887,255 @@ images {
 	margin-left:-50px;
 	margin-top:50px;
 	overflow: visible;
-	
-}
-
-
-@media all and (min-width: 420px) {
-
-h4 {
-
-	font-size: .6em;
 
 }
 
-images {
+@media all and (min-width: 600px) {
 
-	bottom: 10px;
-	max-height:15%;
-
-}
-
-lightbox {
+#mainlabel.point there {
 
 	display: inline-block;
-	max-height: 80%;
 
-}
-
-lightbox > img {
-
-	max-width: 100%;
-	max-height: 84%;
-}
-
-.items {
-	
-	width: 44px;
-	height: 44px;
-	
 }
 }
 
-@media all and (min-width: 693px) {
+@media all and (min-width: 768px) {
 
-h2 {
-	
-	font-size: 1.2em ;
-    line-height: 1.3em;
-	
-}
+	h2 {
 
-h4 {
-	
-	font-size: .69em;
-	overflow-y: hidden;
-	
-}
+		font-size: 1.2em ;
+	    line-height: 1em;
 
-h6 {
-	
-	font-size: .66em;
-	
-}
+	}
 
-#mainlabel.point {
-	
-	right: 10px;
-	
-}
+	h4 {
 
-here {
-	
-	padding: .75em;
-	
-}
+		font-size: .6em;
+		overflow-y: hidden;
 
-there {
-	
-	min-height: 70%;
-	
-}
+	}
 
-lightbox img {
-	
-	width: auto;
-	max-height:84%;
+	h6 {
 
-	bottom: auto;
-	right: auto;
+		font-size: .66em;
 
-}
+	}
 
-lightbox {
-	
-	position: relative;
-	width: 75%;
-	float: left;
-	height: 100%;
-	max-height: 100%;
-}
+	#mainlabel.point {
 
-images {
-	
-	position: relative;
-	width: 25%;
-	max-height: 100%;
-	margin-right: -10px;
-	margin-top: 5px;
-	
-}
+		right: 10px;
 
-.items {
-	
-	margin-right: 10px;
-	
-}
+	}
+
+	#mainlabel.point there {
+
+		padding: 0 .5em 0 .6em;	
+
+	}
+
+	lightbox img {
+
+		width: auto;
+		max-height:88%;
+		max-width: 100%;
+		bottom: auto;
+		right: auto;
+
+	}
+
+	lightbox {
+
+		position: relative;
+		width: 75%;
+		float: left;
+		height: 100%;
+		max-height: 100%;
+		display: inline-block;
+		padding-left: .6em;
+		top: 0;
+
+	}
+
+	#mainlabel.expand images {
+
+		margin: 6px 5px 0 0;
+
+	}
+
+	.items {
+
+		width: 44px;
+		height: 44px;
+
+	}
 
 }
-@media all and (min-width: 920px) {
 
-#mainlabel.point {
-	
-	right: 170px;
-	
-}
-here {
-	
-	padding: 1em;
-	
-}
+@media all and (orientation:portrait) {
+    /* Styles for Portrait screen */
 
-#mainlabel.search > here {
-	
-	padding: .675em;
-	
-}
 
 }
+
+@media all and (orientation:landscape) {
+
+    /* Styles for Landscape screen */
+
+	#mainlabel.point {
+
+		right: 10px;
+
+	}
+
+	#mainlabel.point there {
+		
+		display: none;
+		
+	}
+
+	lightbox {
+
+		max-height: 100%;
+		width: 66%!important;
+		float: left;
+		margin: 0 auto;
+		display: inline-block;
+		top: .6em;
+		height: 100%;
+		min-height: 100%;
+
+	}
+
+	#mainlabel.expand text {
+
+		display: inline-block;
+		position: relative;
+		pointer-events: auto;
+		width: 23%;
+		float: right;
+		margin: 0 auto;
+		height: 100%;
+		right: 12%;	
+		height: 100%;
+	}
+
+	#mainlabel.expand > a {
+
+		bottom: 10px;
+		top: auto;
+
+	}
+
+	#mainlabel.expand here, #mainlabel.expand there {
+
+		padding-right: 0;
+
+	}
+	
+	#mainlabel.expand here h6 {
+		
+		padding-bottom: .6em;
+		
+	}
+	
+	 #mainlabel.expand there {
+
+		min-height: 100%;
+		width: 100%;
+		height: 100%;
+		padding: .06em 0 0 .6em;
+
+	}
+
+	#mainlabel.expand images {
+
+		position: absolute;
+		width: 10%;
+		min-height: auto;
+		max-height: 100%;
+		height: auto;
+		bottom: auto;
+		max-height: auto;
+		padding-bottom: .6em;
+
+	}
+
+	#mainlabel.search > here {
+
+		padding: .675em;
+
+	}
+
+	#mainlabel.point here {
+
+		max-height: 55%;
+
+	}
+
+
+	@media all and (min-width: 768px) {
+
+		#mainlabel.point there {
+
+			display: inline-block;
+
+		}
+		
+	}
+
+	@media all and (min-width: 960px) {
+	
+		#mainlabel.point {
+
+			right: 170px;
+
+		}
+		
+		#mainlabel.expand images {
+			
+			width: 15%;
+			
+		}
+
+		#mainlabel.expand text {
+			
+			overflow-y: hidden;
+			width: 19%;
+			right: 15.5%;
+			
+		}
+
+		#mainlabel.expand lightbox{
+
+			top: .75em;
+
+		}
+
+
+	}
+
+
+	@media all and (min-width: 1140px) {
+
+	lightbox img {
+
+		margin: 0;
+		overflow-y: hidden;
+		min-height: auto!important;
+		max-height: 97.5%;
+		max-width: 100%;
+		bottom: 0;
+		top: 0;
+
+	}
+
+	#mainlabel.expand here, #mainlabel.expand there {
+
+		width: 100%;
+		float: left;
+
+	}
+
+}
+}
+
