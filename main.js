@@ -34,9 +34,8 @@ function main() {
 		$('#mainlabel').removeClass('point');
 		$('#mainlabel').removeClass('search');
 		$('#mainlabel').addClass('expand');
-		$('#mainlabel').html('');
-		$('#mainlabel').append('<embed src="images/cv2015.pdf" type ="application/pdf" width="100%" height="100%" alt="pdf"></embed>');
-		
+		$('#mainlabel').html('<here></here>');
+		$('here').append('<embed src="images/cv2015.pdf" type ="application/pdf" width="100%" height="100%" alt="pdf"></embed>').appendTo('#mainlabel');
 	});
 	$('#about').click(function(){ //click on 'ABOUT' for short intro and external links
 	
@@ -67,6 +66,7 @@ function main() {
         $("#menu .selected").removeClass("selected");
 		var mainlabel = $('#mainlabel');
 		mainlabel.html('');
+		mainlabel.removeClass('expand');
 		mainlabel.removeClass('point');
 		mainlabel.removeClass('search');
 		mainlabel.addClass('expand');
@@ -214,8 +214,8 @@ function main() {
 						$('#blurb').append(blurb);
 						
 					});
+					e.preventDefault();
 				});
-				e.preventDefault();
 			});
 		});
 	});
@@ -549,8 +549,8 @@ function main() {
 						$('lightbox').append('<img src="'+pic5+'"></img>');
 
 					});
+					e.preventDefault();
 				});
-				e.preventDefault();
 			});
 		});
 	}
