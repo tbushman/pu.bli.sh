@@ -27,6 +27,17 @@ function main() {
 		$('lightbox > img').remove();
 		$('#map').css('z-index', '0');
 	});
+	$('.go').click(function(){
+
+		$('#mainlabel').removeClass('expand');
+		$('#mainlabel').removeClass('point');
+		$('#mainlabel').removeClass('search');
+		$('#mainlabel').html('');
+		var cdbid = [$(this).attr('id')];
+		
+		$("#"+cdbid+".tltab").click();
+
+	});
 	$('#cv').click(function(){ //click on 'CV' to append pdf to gallery
 		$('#mainlabel').removeClass('expand');
 		$('#mainlabel').removeClass('point');
@@ -256,7 +267,7 @@ function main() {
 	map = new L.map('map', { //Leaflet map
 	  	zoomControl: true,
 	  	center: [40.75, -111.9],
-	  	zoom: 9,
+	  	zoom: 11,
 		minZoom: 2,
 	  	maxZoom: 18
 	});
@@ -267,7 +278,7 @@ function main() {
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Map tiles by <a href="http://maps.stamen.com/#terrain/12/37.7707/-122.3781">Stamen Design</a>, under CC BY 3.0., &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 	};  
 	var options3 = {
-		attribution: '&copy; Map tiles by <a href="http://mapbox.com/">Mapbox</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+		attribution: '&copy; <a href="http://cartodb.com/attributions">CartoDB</a> | Map tiles by <a href="http://mapbox.com/">Mapbox</a>'
 	};  
 
 //	L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg', options2).addTo(map); //Stamen Watercolor
@@ -303,12 +314,10 @@ function main() {
 			console.log(first);
 			var clic = first.cartodb_id;
 			
+			//return false;
+
 			LayerSelect(sql_select);
 
-		});
-		$('#go').click(function(){
-		
-			$('#1.tltab').click();
 		});
 	});
 	//lyr1 createD
@@ -337,8 +346,8 @@ function main() {
 
 			TlSelect(sql_get);
 
+
 		});
-		$('text').append('<a href="#1" id="1" class="tltab">Initiate the Timeline</a>');
 		lyr1[0].setSQL(sql_select);					
 		return true;
 	};
@@ -761,7 +770,7 @@ function main() {
 			wrapper.show();
 			
 		});
-		
+		//return false;
 	};
 	
 	
