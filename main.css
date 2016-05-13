@@ -15,6 +15,11 @@ html {
 
 }
 
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
+
 body {
 
 	margin: 0;
@@ -161,8 +166,8 @@ why {
 	width: auto;
 	position: fixed;
 	top: 10px;
-	left: auto;
-	bottom: auto;
+	left: 10px;
+	bottom: 34px;
 	right: 10px;
 	display: block;
 	overflow-y: hidden;
@@ -175,7 +180,6 @@ why {
 why a {
 
 	pointer-events: auto;
-
 }
 
 where {
@@ -208,6 +212,7 @@ where {
 	bottom: 50%;
 	display: block;
 	pointer-events: none;
+	box-shadow: 1px 0px 1px 0px rgba(0,0,0,0.3);
 	z-index: 11;
 	-webkit-transform: translateZ(10);
 
@@ -251,7 +256,7 @@ where {
 	top: 68px;
 	display: block;
 	pointer-events: none;
-	bottom: 34px;
+	bottom: 34px!important;
 	z-index: 13;
 	-webkit-transform: translateZ(12);
 
@@ -416,9 +421,14 @@ there h6 {
 
 	height: auto;
 	max-height: 15%;
-	top: -.8em;
-	bottom: 30%;
+	top: -.3em;
+	margin-bottom: 1em;
+}
 
+#mainlabel.expand images {
+	
+	overflow: auto;
+	
 }
 
 embed {
@@ -468,22 +478,33 @@ images {
 
 	position: absolute;
 	width: auto;
-	max-height: 30%;
+	max-height: 23%;
 	bottom: 0;
 	top: auto;
 	left: auto;
 	min-height: 50px;
-	overflow-y: scroll;
+	overflow: auto;
 	right: 0;
 	margin: 0, auto;
+	
+	display: -webkit-box;
+	display: -moz-box;
 	display: -ms-flexbox;
 	display: -webkit-flex;
-	display: -webkit-box;
 	display: flex;
+
 	-ms-flex-wrap: wrap;
 	-webkit-flex-flow: row wrap; 
+	-webkit-box-flow: row wrap; 
+	-moz-box-flow: row wrap; 
 	flex-flow: row wrap;
+	
+	-webkit-box-align: end;
+	-webkit-justify-content: flex-end;
+	-moz-justify-content: flex-end;
+	-ms-justify-content: flex-end;
 	justify-content: flex-end; 
+
 	background-color: none;
 	pointer-events: auto;	
 	float: right;
@@ -494,6 +515,7 @@ images {
 .items {
 
 	-webkit-box-flex: 1 0 10;
+	-moz-box-flex: 1 0 10;
 	-webkit-flex: 1 0 10; 
 	-ms-flex: 1 0 10;
 	flex: 1 0 10; 
@@ -545,7 +567,7 @@ images {
 	padding: 0;
 	position: relative;
 	width: 150px;
-    height: 100%;
+    height: auto;
     display: inline-block;
 	border: 0;
 	float: right;
@@ -826,7 +848,8 @@ images {
 	top: 15px;
 	overflow: visible;
 	pointer-events: auto;
-
+	box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.3);
+	
 }
 .tltab:hover {
 	background-color: rgba(255, 255, 255, 0.5);
@@ -1057,6 +1080,7 @@ images {
 		bottom: auto;
 		max-height: auto;
 		padding-bottom: .6em;
+		overflow-y: scroll;
 
 	}
 

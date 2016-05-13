@@ -18,6 +18,7 @@ for (var i=0; i<cdbidlist.length; i++) {
 function main() {
 	
 	$("input").html(""); //trying to clear search input on load...	
+	$('why').append('<a href="https://github.com/tbushman/pu.bli.sh" id="publish" target="_blank"><img src="images/publish_logo.svg"></img></a>');
 	var map = $('#map'); 
 	map.click(function(){ //click on map to close gallery
 		$('#mainlabel').removeClass('expand');
@@ -25,6 +26,7 @@ function main() {
 		$('#mainlabel').removeClass('search');
 		$('#mainlabel').addClass('point');
 		$('lightbox > img').remove();
+		$('#map').css('z-index', '0');
 	});
 	$('#cv').click(function(){ //click on 'CV' to append pdf to gallery
 		$('#mainlabel').removeClass('expand');
@@ -241,6 +243,7 @@ function main() {
 
 	    	}
 	    }
+	
 	    e.stopPropagation();
 	});
 	
@@ -287,6 +290,7 @@ function main() {
 		sublayer.setInteraction(true);
 		addCursorInteraction(sublayer);
 		addTimeline();
+
 		lyr1.push(sublayer);
 
 		var sql = new cartodb.SQL({ user: 'tbushman' });
@@ -299,12 +303,8 @@ function main() {
 			var first = ret.rows[0]; //get top feature
 			console.log(first);
 			var clic = first.cartodb_id;
+			
 			LayerSelect(sql_select);
-			$('why').append('<a href="https://github.com/tbushman/pu.bli.sh" target="_blank"><img src="images/publish_logo.svg"></img></a>');
-			$('why').css('left', 50+'%');
-//			$('.tllabel').css('box-shadow', '2px 0px 0px rgba(0,0,0,0.3)');
-			$('.tltab').css('box-shadow', '0px 0px 1px 0px rgba(0,0,0,0.3)');
-			$('#mainlabel').css('box-shadow', '1px 0px 1px 0px rgba(0,0,0,0.3)');
 		});
 	});
 	//lyr1 createD
@@ -555,8 +555,10 @@ function main() {
 					});
 					e.preventDefault();
 				});
-			});
+			});			
 		});
+		$('#map').css('z-index', '0');
+		return true;
 	}
 	$('#next').click(function (e, latlon, pxPos, data, layer, event){ //to move timeline left in 10% increments
 
@@ -738,7 +740,9 @@ function main() {
 				//e.preventDefault();
 			}
 			wrapper.show();
+			
 		});
+		
 	};
 	
 	
@@ -760,6 +764,7 @@ function main() {
 	          hovers[layer] = 1;
 	          if(_.any(hovers)) {
 	            $('#map').css('cursor', 'pointer');
+				$('#map').css('z-index', '0');
 	          }
 	    });
 	    //0 is the base layer. Cursor 'auto' if mouse over
@@ -767,6 +772,7 @@ function main() {
 	          hovers[layer] = 0;
 	          if(!_.any(hovers)) {
 	            $('#map').css('cursor', 'auto');
+				$('#map').css('z-index', '0');
 	          }
 	    });
 
@@ -838,6 +844,9 @@ function main() {
 					}
 				});	
 			});
+			$('#map').css('z-index', '0');
+			return true;
+			
 		});
 	}
 }
