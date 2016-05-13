@@ -18,7 +18,6 @@ for (var i=0; i<cdbidlist.length; i++) {
 function main() {
 	
 	$("input").html(""); //trying to clear search input on load...	
-	$('why').append('<a href="https://github.com/tbushman/pu.bli.sh" id="publish" target="_blank"><img src="images/publish_logo.svg"></img></a>');
 	var map = $('#map'); 
 	map.click(function(){ //click on map to close gallery
 		$('#mainlabel').removeClass('expand');
@@ -305,6 +304,11 @@ function main() {
 			var clic = first.cartodb_id;
 			
 			LayerSelect(sql_select);
+
+		});
+		$('#go').click(function(){
+		
+			$('#1.tltab').click();
 		});
 	});
 	//lyr1 createD
@@ -332,7 +336,9 @@ function main() {
 			console.log(sql_get);
 
 			TlSelect(sql_get);
+
 		});
+		$('text').append('<a href="#1" id="1" class="tltab">Initiate the Timeline</a>');
 		lyr1[0].setSQL(sql_select);					
 		return true;
 	};
@@ -562,38 +568,51 @@ function main() {
 	}
 	$('#next').click(function (e, latlon, pxPos, data, layer, event){ //to move timeline left in 10% increments
 
-		$('#mainlabel').hide();
-		$('#mainlabel').html("");
-		$('#mainlabel').removeClass('expand');
-		$('#mainlabel').removeClass('point');
-		$('#mainlabel').removeClass('search');
-		$('images').html('');
-		$('.tltab').removeClass('selected');
-		var wrapper = $('#wrapper');
-		console.log(wrapper);
-		wrapper.hide();
-		wrapper.animate({'left' : "-=10%"});
-		wrapper.show();
-		$('#mainlabel').show();
-		event.stopPropagation();
+		var datebegin = [$('.selected').attr('alt')];
+		
+		var sql = new cartodb.SQL({ user: 'tbushman' });
 
+		var sql_select = "select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE datebegin >'"+datebegin+"' ORDER BY datebegin ASC";
+		console.log(sql_select);
+
+		sql.execute(sql_select).done(function(ret){
+			
+			var cdbid = ret.rows[0].cartodb_id;
+
+			$('#mainlabel').html("");
+			$('#mainlabel').removeClass('expand');
+			$('#mainlabel').removeClass('point');
+			$('#mainlabel').removeClass('search');
+			$('#mainlabel').addClass('point'); 
+
+			$("#"+cdbid+".tltab").click();
+			
+		});
+		return true;
 	});
 	$('#prev').click(function (e, latlon, pxPos, data, layer, event){ //to move timeline right in 10% increments
 
-		$('#mainlabel').hide();
-		$('#mainlabel').html("");
-		$('#mainlabel').removeClass('expand');
-		$('#mainlabel').removeClass('point');
-		$('#mainlabel').removeClass('search');
-		$('images').html('');
-		$('.tltab').removeClass('selected');
-		var wrapper = $('#wrapper');
-		console.log(wrapper);
-		wrapper.hide();
-		wrapper.animate({'left' : "+=10%"});
-		wrapper.show();
-		$('#mainlabel').show();
-		event.stopPropagation();
+		var datebegin = [$('.selected').attr('alt')];
+		
+		var sql = new cartodb.SQL({ user: 'tbushman' });
+
+		var sql_select = "select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE datebegin <'"+datebegin+"' ORDER BY datebegin DESC";
+		console.log(sql_select);
+
+		sql.execute(sql_select).done(function(ret){
+			
+			var cdbid = ret.rows[0].cartodb_id;
+
+			$('#mainlabel').html("");
+			$('#mainlabel').removeClass('expand');
+			$('#mainlabel').removeClass('point');
+			$('#mainlabel').removeClass('search');
+			$('#mainlabel').addClass('point'); 
+
+			$("#"+cdbid+".tltab").click();
+			
+		});
+		return true;
 
 	});
 
@@ -705,7 +724,7 @@ function main() {
 
 				var tabposition = yearbegin - minyear +1; //screen position of each tl button relative to '#wrapper'
 				//Append all buttons
-				$('#wrapper').append('<a href="#'+ret.rows[i].cartodb_id+'" id="'+ret.rows[i].cartodb_id+'" class="tltab cartodb_id" onclick="return false" name="'+tabposition*10+'" alt="cartodb_id"><span>'+ret.rows[i].title+'</span></a>');
+				$('#wrapper').append('<a href="#'+ret.rows[i].cartodb_id+'" id="'+ret.rows[i].cartodb_id+'" class="tltab cartodb_id" onclick="return false" name="'+tabposition*10+'" alt="'+ret.rows[i].datebegin+'" title="'+yearbegin+'"><span>'+ret.rows[i].title+'</span></a>');
 
 				var tl = $("#"+ ret.rows[i].cartodb_id+".tltab"); //each button 
 				console.log(tl);
