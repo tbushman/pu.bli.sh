@@ -583,10 +583,10 @@ function main() {
 
 		var sql_select = "select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE datebegin >'"+datebegin+"' ORDER BY datebegin ASC";
 		console.log(sql_select);
-
-		sql.execute(sql_select).done(function(ret){
+		//each button has it's begin date encoded in the 'alt' attr. 
+		sql.execute(sql_select).done(function(ret){ //return all later records in ascending order.
 			
-			var cdbid = ret.rows[0].cartodb_id;
+			var cdbid = ret.rows[0].cartodb_id; //first in list is next on tl
 
 			$('#mainlabel').html("");
 			$('#mainlabel').removeClass('expand');
@@ -608,9 +608,9 @@ function main() {
 		var sql_select = "select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE datebegin <'"+datebegin+"' ORDER BY datebegin DESC";
 		console.log(sql_select);
 
-		sql.execute(sql_select).done(function(ret){
+		sql.execute(sql_select).done(function(ret){ //return all earlier records in descending order.
 			
-			var cdbid = ret.rows[0].cartodb_id;
+			var cdbid = ret.rows[0].cartodb_id; //first in list is one previous on tl
 
 			$('#mainlabel').html("");
 			$('#mainlabel').removeClass('expand');
@@ -712,7 +712,7 @@ function main() {
 				$labels.css('left', i*10+'%');
 			}
 
-			for ( i in list ) {
+			for ( i in list ) { //tl button configuration
 
 				var datebegin = new Date(ret.rows[i].datebegin);
 				console.log(datebegin);
@@ -733,7 +733,7 @@ function main() {
 
 				var tabposition = yearbegin - minyear +1; //screen position of each tl button relative to '#wrapper'
 				//Append all buttons
-				$('#wrapper').append('<a href="#'+ret.rows[i].cartodb_id+'" id="'+ret.rows[i].cartodb_id+'" class="tltab cartodb_id" onclick="return false" name="'+tabposition*10+'" alt="'+ret.rows[i].datebegin+'" title="'+yearbegin+'"><span>'+ret.rows[i].title+'</span></a>');
+				$('#wrapper').append('<a href="#'+ret.rows[i].cartodb_id+'" id="'+ret.rows[i].cartodb_id+'" class="tltab cartodb_id" onclick="return false" name="'+tabposition*10+'" alt="'+ret.rows[i].datebegin+'"><span>'+ret.rows[i].title+'</span></a>');
 
 				var tl = $("#"+ ret.rows[i].cartodb_id+".tltab"); //each button 
 				console.log(tl);
@@ -765,12 +765,9 @@ function main() {
 					var sql_select = 'select cartodb_id, name, description, link, linktext, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id='+cdbid+'';
 					LayerSelect(sql_select);
 				});
-				//e.preventDefault();
 			}
 			wrapper.show();
-			
 		});
-		//return false;
 	};
 	
 	
