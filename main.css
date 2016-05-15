@@ -376,12 +376,6 @@ where {
 	
 }
 
-#mainlabel a:hover {
-
-	 color: #D93B20;
-
-}
-
 #mainlabel.point > a, #mainlabel.expand > a {
 
 	text-decoration: none;
@@ -631,6 +625,12 @@ images {
 	
 	overflow: auto;
 	
+}
+
+#mainlabel a:hover {
+
+	 color: #D93B20;
+
 }
 
 .items {
