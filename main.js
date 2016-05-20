@@ -66,7 +66,7 @@ function main() {
 		mainlabel.removeClass('expand');
 		mainlabel.removeClass('list');
 		mainlabel.addClass('point');
-		$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, link, linktext, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb ORDER BY datebegin", function(ret) {
+		$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, title, place, link, linktext, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb ORDER BY datebegin", function(ret) {
 			
 			var item = ret.rows[0];
 			var title = item.title;
@@ -92,7 +92,7 @@ function main() {
 		mainlabel.removeClass('search');
 		mainlabel.addClass('expand');
 		mainlabel.append('<text><here><h2 id="external"></h2></here><there><h4 id="blurb"></h4></there></text><lightbox></lightbox><images></images>'); //prepare substrates
-		$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb", function(ret) {
+		$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb", function(ret) {
 			var list = ret.rows;
 			var i = 0;
     		for (i in list){
@@ -129,7 +129,7 @@ function main() {
 					var clicked = [$(this).attr('id')];
 					var sql_init = new cartodb.SQL({ user: 'tbushman' });
 					//get pic1 where cartodb_id = 'clicked'
-					var sql_select = "SELECT cartodb_id, name, timeline, description, pic1, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					var sql_select = "SELECT cartodb_id, name, description, pic1, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
 					sql_init.execute(sql_select).done(function(ret){
 						
 						var item = ret.rows[0];
@@ -153,7 +153,7 @@ function main() {
 					$('lightbox > img').remove();
 					var clicked = [$(this).attr('id')];
 					var sql_init = new cartodb.SQL({ user: 'tbushman' });
-					var sql_select = "SELECT cartodb_id, name, timeline, description, pic2, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					var sql_select = "SELECT cartodb_id, name, description, pic2, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
 					sql_init.execute(sql_select).done(function(ret){
 						
 						var item = ret.rows[0];
@@ -177,7 +177,7 @@ function main() {
 					$('lightbox > img').remove();
 					var clicked = [$(this).attr('id')];
 					var sql_init = new cartodb.SQL({ user: 'tbushman' });
-					var sql_select = "SELECT cartodb_id, name, timeline, description, pic3, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					var sql_select = "SELECT cartodb_id, name, description, pic3, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
 					sql_init.execute(sql_select).done(function(ret){
 						
 						var item = ret.rows[0];
@@ -201,7 +201,7 @@ function main() {
 					$('lightbox > img').remove();
 					var clicked = [$(this).attr('id')];
 					var sql_init = new cartodb.SQL({ user: 'tbushman' });
-					var sql_select = "SELECT cartodb_id, name, timeline, description, pic4, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					var sql_select = "SELECT cartodb_id, name, description, pic4, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
 					sql_init.execute(sql_select).done(function(ret){
 						
 						var item = ret.rows[0];
@@ -225,7 +225,7 @@ function main() {
 					$('lightbox > img').remove();
 					var clicked = [$(this).attr('id')];
 					var sql_init = new cartodb.SQL({ user: 'tbushman' });
-					var sql_select = "SELECT cartodb_id, name, timeline, description, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					var sql_select = "SELECT cartodb_id, name, description, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
 					sql_init.execute(sql_select).done(function(ret){
 						
 						var item = ret.rows[0];
@@ -317,7 +317,7 @@ function main() {
 
 		var sql = new cartodb.SQL({ user: 'tbushman' });
 		
-		var sql_select = 'select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb ORDER BY dateend DESC';
+		var sql_select = 'select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb ORDER BY dateend DESC';
 		console.log(sql_select);
 		
 		sql.execute(sql_select).done(function(ret){
@@ -347,7 +347,7 @@ function main() {
 		   	console.log(zoom);
 		 	map.setView(new L.LatLng(lat, lon), 11); //initial zoom/latlon
 			
-			var sql_get = 'select cartodb_id, name, description, link, linktext, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id='+ cdbid +'';
+			var sql_get = 'select cartodb_id, name, description, link, linktext, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id='+ cdbid +'';
 			console.log(sql_get);
 
 			TlSelect(sql_get); //Infowindow for TL
@@ -467,7 +467,7 @@ function main() {
 					var clicked = [$(this).attr('id')];
 					var sql_init = new cartodb.SQL({ user: 'tbushman' });
 					//get pic1 where cartodb_id = 'clicked'
-					var sql_select = "SELECT cartodb_id, name, timeline, description, pic1, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					var sql_select = "SELECT cartodb_id, name, description, pic1, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
 					sql_init.execute(sql_select).done(function(ret){
 
 						var item = ret.rows[0];
@@ -495,7 +495,7 @@ function main() {
 					$('lightbox > img').remove();
 					var clicked = [$(this).attr('id')];
 					var sql_init = new cartodb.SQL({ user: 'tbushman' });
-					var sql_select = "SELECT cartodb_id, name, timeline, description, pic2, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					var sql_select = "SELECT cartodb_id, name, description, pic2, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
 					sql_init.execute(sql_select).done(function(ret){
 
 						var item = ret.rows[0];
@@ -523,7 +523,7 @@ function main() {
 					$('lightbox > img').remove();
 					var clicked = [$(this).attr('id')];
 					var sql_init = new cartodb.SQL({ user: 'tbushman' });
-					var sql_select = "SELECT cartodb_id, name, timeline, description, pic3, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					var sql_select = "SELECT cartodb_id, name, description, pic3, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
 					sql_init.execute(sql_select).done(function(ret){
 
 						var item = ret.rows[0];
@@ -551,7 +551,7 @@ function main() {
 					$('lightbox > img').remove();
 					var clicked = [$(this).attr('id')];
 					var sql_init = new cartodb.SQL({ user: 'tbushman' });
-					var sql_select = "SELECT cartodb_id, name, timeline, description, pic4, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					var sql_select = "SELECT cartodb_id, name, description, pic4, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
 					sql_init.execute(sql_select).done(function(ret){
 
 						var item = ret.rows[0];
@@ -579,7 +579,7 @@ function main() {
 					$('lightbox > img').remove();
 					var clicked = [$(this).attr('id')];
 					var sql_init = new cartodb.SQL({ user: 'tbushman' });
-					var sql_select = "SELECT cartodb_id, name, timeline, description, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
+					var sql_select = "SELECT cartodb_id, name, description, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id = "+ clicked +"";
 					sql_init.execute(sql_select).done(function(ret){
 
 						var item = ret.rows[0];
@@ -600,7 +600,7 @@ function main() {
 		
 		var sql = new cartodb.SQL({ user: 'tbushman' });
 
-		var sql_select = "select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE datebegin >'"+datebegin+"' ORDER BY datebegin ASC";
+		var sql_select = "select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE datebegin >'"+datebegin+"' ORDER BY datebegin ASC";
 		console.log(sql_select);
 		//each button has it's begin date encoded in the 'alt' attr. 
 		sql.execute(sql_select).done(function(ret){ //return all later records in ascending order.
@@ -626,7 +626,7 @@ function main() {
 		
 		var sql = new cartodb.SQL({ user: 'tbushman' });
 
-		var sql_select = "select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE datebegin <'"+datebegin+"' ORDER BY datebegin DESC";
+		var sql_select = "select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE datebegin <'"+datebegin+"' ORDER BY datebegin DESC";
 		console.log(sql_select);
 
 		sql.execute(sql_select).done(function(ret){ //return all earlier records in descending order.
@@ -695,7 +695,7 @@ function main() {
 	function addTimeline(){ //Build TL
 
 		//get all features, ordered
-		$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb ORDER BY dateend desc", function(ret) {
+		$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb ORDER BY dateend desc", function(ret) {
 
 			var item = ret.rows[0]; //latest item .. should be an item that spans the timeline length, for getting min datebegin and max dateend
 			console.log(item);
@@ -786,7 +786,7 @@ function main() {
 					wrapper.show();
 
 					var cdbid = [$(this).attr('id')];
-					var sql_select = 'select cartodb_id, name, description, link, linktext, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id='+cdbid+'';
+					var sql_select = 'select cartodb_id, name, description, link, linktext, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id='+cdbid+'';
 					LayerSelect(sql_select);
 				});
 			}
@@ -831,7 +831,7 @@ function main() {
 			var mainlabel = $('#mainlabel');
 			
 			var sql_init = new cartodb.SQL({ user: 'tbushman' });
-			var sql_select = 'select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id='+ data.cartodb_id ;
+			var sql_select = 'select cartodb_id, name, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id='+ data.cartodb_id ;
 			console.log(sql_select);
 			sql_init.execute(sql_select).done(function(ret){
 
@@ -894,7 +894,7 @@ function main() {
 						mainlabel.removeClass('list');
 						mainlabel.addClass('point');
 						//single feature cartodb_id query
-						$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id="+data.cartodb_id, function(ret) {						var cdbid = list[0].cartodb_id;
+						$.get("http://tbushman.cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM portfolio_tb WHERE cartodb_id="+data.cartodb_id, function(ret) {						var cdbid = list[0].cartodb_id;
 							
 							var cdbid = ret.rows[0].cartodb_id;
 							$('#'+cdbid+'.tltab').click();
