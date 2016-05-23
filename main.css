@@ -998,6 +998,7 @@ images {
 	height: auto;
 	pointer-events: none;
 	z-index: 14;
+	box-shadow: 1px 0px 1px 0px rgba(0,0,0,0.3);
 	-webkit-transform: translateZ(13);
 
 }
