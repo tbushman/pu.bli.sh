@@ -20,9 +20,9 @@ window.onload = function() {
 		var txt = $('#txt');
 		txt.html('');
 				
-		main();
+		main(this);
 
-		//txt.value = main + '';
+		txt.value = main + '';
 		txt.text(txt.value);
 
 
@@ -71,16 +71,35 @@ function main(){
 	});
 	$('#info').click(function(e, data){
 		
+		var mainlabel = $('#mainlabel');
+		mainlabel.html('');
+		mainlabel.removeClass('search');
+		mainlabel.removeClass('point');
+		mainlabel.removeClass('expand');
+		mainlabel.removeClass('list');
+    	$("#menu div div").slideUp(100); // hiding dropdown
+     	$("#menu .selected").removeClass("selected");
 		var helplabel = $('#helplabel');
 		helplabel.removeClass('one');
 		helplabel.removeClass('two');
 		helplabel.removeClass('three');
 		helplabel.addClass('one');
 		helplabel.html('');
-		helplabel.append('<help><h3 id="title"></h3><h4 id="blurb">Three ways to navigate the site</h4></help><steps><one><a href="#" id="one"><h1>1</h1></a></one><two><a href="#" id="two"><h1>2</h1></a></two><three><a href="#" id="three"><h1>3</h1></a></three><four><a href="#" id="four"><h7>x</h7></a></four></steps>');
+		helplabel.append('<help><h3 id="title"></h3><h4 id="blurb">Three ways to navigate the site</h4><br><hide><h6> The code for running the pu.bli.sh framework is on <a href="https://github.com/tbushman/pu.bli.sh" target="_blank" >GitHub</a>.</h6></hide></help><a href="#" id="about" class="info"></a><steps><one><a href="#" id="one"><h1>1</h1></a></one><two><a href="#" id="two"><h1>2</h1></a></two><three><a href="#" id="three"><h1>3</h1></a></three><four><a href="#" id="four"><h7>x</h7></a></four></steps>');
+		$('hide').hide();
+		$('#about').click(function(){
+			
+			helplabel.removeClass('one');
+			helplabel.removeClass('two');
+			helplabel.removeClass('three');
+			helplabel.addClass('one');
+			$('hide').show();
+			
+		});
 		$('#one').click(function(){
 			
 			$('.leaflet-control-zoom-in')[0].click();
+			$('hide').hide();
 			helplabel.removeClass('one');
 			helplabel.removeClass('two');
 			helplabel.removeClass('three');
@@ -93,11 +112,14 @@ function main(){
 			$('#title').html('');
 			$('#blurb').append('Use zoom, click on map features');
 			$('#title').append('MAP');
+	    	$("#menu div div").slideUp(100); // hiding dropdown
+	     	$("#menu .selected").removeClass("selected");
 			$('.leaflet-control-zoom-out')[0].click();
 			
 		});
 		$('#two').click(function(){
 			
+			$('hide').hide();
 			helplabel.removeClass('one');
 			helplabel.removeClass('two');
 			helplabel.removeClass('three');
@@ -110,11 +132,14 @@ function main(){
 			$('#title').html('');
 			$('#blurb').append('Click timeline / Arrows');
 			$('#title').append('TIMELINE');
+	    	$("#menu div div").slideUp(100); // hiding dropdown
+	     	$("#menu .selected").removeClass("selected");
 			$('.go').click();
 			
 		});
 		$('#three').click(function(){
 			
+			$('hide').hide();
 			helplabel.removeClass('one');
 			helplabel.removeClass('two');
 			helplabel.removeClass('three');
@@ -132,6 +157,7 @@ function main(){
 		});
 		$('#four').click(function(){
 		
+			$('hide').hide();
 			helplabel.removeClass('one');
 			helplabel.removeClass('two');
 			helplabel.removeClass('three');
@@ -158,6 +184,11 @@ function main(){
 
   		$("#menu div div").slideUp(100); // hiding dropdown
    		$("#menu .selected").removeClass("selected");
+		var helplabel = $('#helplabel');
+		helplabel.removeClass('one');
+		helplabel.removeClass('two');
+		helplabel.removeClass('three');
+		helplabel.html('');
 		var mainlabel = $('#mainlabel');
 		mainlabel.html('');
 		mainlabel.removeClass('search');
@@ -167,10 +198,15 @@ function main(){
 		mainlabel.addClass('expand');
 		mainlabel.append('<embed src="images/cv2015.pdf" type ="application/pdf" width="100%" height="100%" alt="pdf"></embed>').appendTo('#mainlabel');
 	});
-	$('#about').click(function(){ //click on 'ABOUT' for short intro and external links
+	$('#contact').click(function(){ //click on 'ABOUT' for short intro and external links
 
       	$("#menu div div").slideUp(100); // hiding dropdown
       	$("#menu .selected").removeClass("selected");
+		var helplabel = $('#helplabel');
+		helplabel.removeClass('one');
+		helplabel.removeClass('two');
+		helplabel.removeClass('three');
+		helplabel.html('');
 		var mainlabel = $('#mainlabel');
 		mainlabel.html('');
 		mainlabel.removeClass('search');
@@ -199,6 +235,11 @@ function main(){
       	$("#menu .selected").removeClass("selected");
 		var mainlabel = $('#mainlabel');
 		mainlabel.html('');
+		var helplabel = $('#helplabel');
+		helplabel.removeClass('one');
+		helplabel.removeClass('two');
+		helplabel.removeClass('three');
+		helplabel.html('');
 		mainlabel.removeClass('expand');
 		mainlabel.removeClass('point');
 		mainlabel.removeClass('search');
@@ -207,7 +248,7 @@ function main(){
 		$.get("http://"+user_id+".cartodb.com/api/v2/sql?q=select cartodb_id, name, title, description, pic1_thumb, pic2_thumb, pic3_thumb, pic4_thumb, pic5_thumb, iframe_thumb, datebegin, dateend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM "+table_name+"", function(ret) {
 			var list = ret.rows;
 			var i = 0;
-  		for (i in list){
+  			for (i in list){
 
 				item = ret.rows[i];
 				var lightboxobject = $('<a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic1" name="'+item.title+'"><img src="'+item.pic1_thumb+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic2" name="'+item.title+'"><img src="'+item.pic2_thumb+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic3" name="'+item.title+'"><img src="'+item.pic3_thumb+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic4" name="'+item.title+'"><img src="'+item.pic4_thumb+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items pic5" name="'+item.title+'"><img src="'+item.pic5_thumb+'"></img></a><a href="#'+item.cartodb_id+'" id="'+item.cartodb_id+'" class="items iframe" name="'+item.title+'"><img src="'+item.iframe_thumb+'"></img></a>');
@@ -398,6 +439,7 @@ function main(){
 
 
 	$("#menu > li > a").click(function (e, data) { // menu icon init dropdown
+
 
 	    if ($(this).parent().hasClass('selected')) {
 
@@ -626,6 +668,12 @@ function main(){
 
 				$('.iframe').off('click').on('click', function(e) {
 
+					var mainlabel = $('#mainlabel');
+					mainlabel.removeClass('search');
+					mainlabel.removeClass('point');
+					mainlabel.removeClass('expand');
+					mainlabel.removeClass('list');
+					mainlabel.addClass('expand');
 					$('#blurb').html('');
 					$('lightbox').html('');
 					var clicked = [$(this).attr('id')];
@@ -806,6 +854,11 @@ function main(){
 
 			var cdbid = ret.rows[0].cartodb_id; //first in list is next on tl
 
+			var helplabel = $('#helplabel');
+			helplabel.removeClass('one');
+			helplabel.removeClass('two');
+			helplabel.removeClass('three');
+			helplabel.html('');
 			var mainlabel = $('#mainlabel');
 			mainlabel.html('');
 			mainlabel.removeClass('search');
@@ -832,6 +885,11 @@ function main(){
 
 			var cdbid = ret.rows[0].cartodb_id; //first in list is one previous on tl
 
+			var helplabel = $('#helplabel');
+			helplabel.removeClass('one');
+			helplabel.removeClass('two');
+			helplabel.removeClass('three');
+			helplabel.html('');
 			var mainlabel = $('#mainlabel');
 			mainlabel.html('');
 			mainlabel.removeClass('search');
@@ -858,6 +916,11 @@ function main(){
 
 				var list = ret.rows;
 
+				var helplabel = $('#helplabel');
+				helplabel.removeClass('one');
+				helplabel.removeClass('two');
+				helplabel.removeClass('three');
+				helplabel.html('');
 				var mainlabel = $('#mainlabel');
 				mainlabel.html('');
 				mainlabel.removeClass('search');
@@ -1027,6 +1090,11 @@ function main(){
 	    //when feature clicked, move to location, then append items to sidepanel:
 	    sublayer.bind('featureClick', function (e, latlon, pxPos, data, layer) {
 
+			var helplabel = $('#helplabel');
+			helplabel.removeClass('one');
+			helplabel.removeClass('two');
+			helplabel.removeClass('three');
+			helplabel.html('');
 			var mainlabel = $('#mainlabel');
 
 			var sql_init = new cartodb.SQL({ user: ''+user_id+'' });
