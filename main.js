@@ -478,7 +478,7 @@ function main(){
 	  	center: [40.75, -111.9],
 	  	zoom: 11,
 		minZoom: 2,
-	  	maxZoom: 18
+	  	maxZoom: 14
 	});
 
 	// add a base layer with names layer
@@ -1090,11 +1090,6 @@ function main(){
 	    //when feature clicked, move to location, then append items to sidepanel:
 	    sublayer.bind('featureClick', function (e, latlon, pxPos, data, layer) {
 
-			var helplabel = $('#helplabel');
-			helplabel.removeClass('one');
-			helplabel.removeClass('two');
-			helplabel.removeClass('three');
-			helplabel.html('');
 			var mainlabel = $('#mainlabel');
 
 			var sql_init = new cartodb.SQL({ user: ''+user_id+'' });
@@ -1117,9 +1112,9 @@ function main(){
 		   		console.log(zoom);
 		 		map.setView(new L.LatLng(lat, lon), 11); //zoom to top-clicked feature
 
-				var sql_init = new cartodb.SQL({ user: "'+user_id+'" });
+				var sql_init = new cartodb.SQL({ user: ''+user_id+'' });
 				//pixel distance from selected feature sql query
-				var bounds_select = "select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend, monthbegin, monthend from "+table_name+" where st_distance( the_geom, st_GeomFromText('POINT("+lon+" "+lat+")', 4326), true ) < (SELECT CDB_XYZ_Resolution("+zoom+")*(("+zoom+")*1.15)) ";
+				var bounds_select = "select cartodb_id, name, title, description, pic1, pic2, pic3, pic4, pic5, datebegin, dateend from "+table_name+" where st_distance( the_geom, st_GeomFromText('POINT("+lon+" "+lat+")', 4326), true ) < (SELECT CDB_XYZ_Resolution("+zoom+")*(("+zoom+")*1.15)) ";
 				//query for euclidian nearby features
 				sql_init.execute(bounds_select).done(function(ret) {
 
