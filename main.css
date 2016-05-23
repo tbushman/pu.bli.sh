@@ -30,6 +30,17 @@ body {
 	display: block;
 }
 
+form, #txt {
+	
+	display: none;
+	
+}
+
+h1 {
+	
+	margin: 0;
+	
+}
 
 h2 {
 
@@ -53,8 +64,9 @@ h2 {
 
 h3 {
 	font-weight: 300;
-    font-size: 1em ;
-    line-height: 2em;
+    font-size: .9em ;
+    line-height: .9em;
+	letter-spacing: .09em;
     color: #000;
 	padding: 0;
 	margin: 0;
@@ -98,6 +110,19 @@ h6 {
 	margin: 0;
 	letter-spacing: .03em;
 
+}
+
+h7 {
+	
+	font-weight: 700;
+    font-size: 1em ;
+    line-height: .7em;
+    color: #fff;
+	margin-top: -.1em;
+	text-align: right;
+	display: inline-block;
+	float: right;
+	
 }
 
 ul {
@@ -198,8 +223,8 @@ why a {
 	pointer-events: auto;
 	position: absolute;
 	margin-left: 36px;
-	width: 28px;
-	height: 28px;
+	width: 25px;
+	height: 25px;
 	top: 1px;
 	right: auto;
 	bottom: auto;
@@ -210,7 +235,11 @@ why a {
       rgba(0, 0, 0, 0)
     ),
     url("images/refresh.svg");
-    background-color: #cccccc;
+    background-color: #fff;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	z-index: 13;
+	-webkit-transform: translateZ(12);	
 
 }
 
@@ -222,6 +251,228 @@ why a {
       rgba(0, 0, 0, 0.08)
     ),
     url("images/refresh.svg");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	
+}
+
+.info {
+	
+	pointer-events: auto;
+	position: absolute;
+	margin-left: 66px;
+	width: 25px;
+	height: 25px;
+	top: 1px;
+	right: auto;
+	bottom: auto;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.35);	
+    background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0), 
+      rgba(0, 0, 0, 0)
+    ),
+    url("images/info.svg");
+    background-color: #fff;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	z-index: 13;
+	-webkit-transform: translateZ(12);	
+	
+}
+
+.info:hover {
+	
+	background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.08), 
+      rgba(0, 0, 0, 0.08)
+    ),
+    url("images/info.svg");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	
+}
+
+.moreinfo {
+	
+	pointer-events: auto;
+	position: absolute;
+	margin-left: 0;
+	width: 22px;
+	height: 22px;
+	top: 25px;
+	right: 0;
+	bottom: 0;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.35);	
+    background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0), 
+      rgba(0, 0, 0, 0)
+    ),
+    url("images/info.svg");
+    background-color: #cccccc;
+	z-index: 13;
+	-webkit-transform: translateZ(12);	
+	
+}
+
+one, two, three {
+	
+	display: inline-block;
+	float: left;
+	margin: 0 auto;
+	width: 25px;
+	text-align: right;
+	height: 100%;
+}
+
+one a, two a, three a, four a {
+	
+	text-decoration: none;
+	color: #EEF4DE;
+	
+}
+
+.highlight {
+	
+	color: #555555;
+	
+}
+
+four {
+	
+	background-color: #EEF4DE;
+	display: inline-block;
+	float: right;
+	margin: 0 auto;
+	width: 22px;
+	text-align: right;
+	height: 22px;
+	
+}
+
+four a {
+	
+	height: 22px;
+	width: 22px;
+	position: relative;
+	display: inline-block;
+	padding: 5px 5px 0 0;
+	
+}
+
+one a:hover, two a:hover, three a:hover, four a h7:hover {
+	
+	color: #ccc;
+	
+}
+
+
+help {
+	
+	width: auto;
+	position: relative;
+	display: inline-block;
+	margin: 0 auto;
+	float: left;
+	padding: 10px;
+
+}
+
+steps {
+
+	width: 100px;
+	position: relative;
+	display: inline-block;
+	margin: 0 auto;
+	float: right;
+	padding: 0;
+}
+
+#helplabel {
+	
+	left: auto;
+	width: auto;
+	right: auto;
+	float: none;
+	position: fixed;
+	height: auto;
+	top: auto;
+	bottom: auto;
+	display: block;
+	pointer-events: none;
+	z-index: 11;
+	-webkit-transform: translateZ(10);	
+	
+}
+
+#helplabel.one {
+	
+	left: 37px;
+	width: auto;
+	right: auto;
+	float: none;
+	position: fixed;
+	background-color: #fff;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	height: auto;
+	top: 68px;
+	bottom: auto;
+	display: block;
+	pointer-events: none;
+	border-left: 1px solid #D93B20;
+	outline: 0px solid #fff;
+	box-shadow: 1px 0px 1px 0px rgba(0,0,0,0.3);
+	z-index: 11;
+	-webkit-transform: translateZ(10);	
+	
+}
+
+#helplabel.two {
+	
+	left: 37px;
+	width: auto;
+	right: 50%;
+	float: none;
+	position: fixed;
+	background-color: #fff;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	height: auto;
+	top: auto;
+	bottom: 50%;
+	display: block;
+	pointer-events: none;
+	border-bottom: 1px solid #D93B20;
+	outline: 0px solid #fff;
+	box-shadow: 1px 0px 1px 0px rgba(0,0,0,0.3);
+	z-index: 11;
+	-webkit-transform: translateZ(10);	
+	
+}
+
+#helplabel.three {
+	
+	left: auto;
+	width: auto;
+	right: 170px;
+	float: none;
+	position: fixed;
+	background-color: #fff;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	height: auto;
+	top: 10px;
+	bottom: auto;
+	display: block;
+	pointer-events: none;
+	border-right: 1px solid #D93B20;
+	outline: 0px solid #fff;
+	box-shadow: 1px 0px 1px 0px rgba(0,0,0,0.3);
+	z-index: 11;
+	-webkit-transform: translateZ(10);	
 	
 }
 
