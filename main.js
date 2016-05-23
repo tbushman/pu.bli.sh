@@ -302,7 +302,7 @@ function main(){
 						var blurb = item.description;
 						var height = $('lightbox').css('height');
 						var width = $('lightbox').css('width');
-						$('lightbox').append('<embed src="'+iframe+'" type ="iframe" width="'+width+'" height="'+height+'" alt="'+iframe+'"></embed>');
+						$('lightbox').append('<embed src="'+iframe+'" width="'+width+'" height="'+height+'" alt="'+iframe+'"></embed>');
 						$('#blurb').append(blurb);
 
 					});
