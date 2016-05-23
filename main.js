@@ -569,7 +569,7 @@ function main(){
 		   	delete item.lon;
 		   	var zoom = map.getZoom(zoom);
 		   	console.log(zoom);
-		 	map.setView(new L.LatLng(lat, lon), 12); //zoom to single feature
+		 	map.setView(new L.LatLng(lat, lon), zoom+1); //zoom to single feature
 
 			var item = ret.rows[0];
 			var name = item.name;
