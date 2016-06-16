@@ -151,7 +151,7 @@ function main(){
 			});
 
 			$('lightbox').append('<img src="images/landing_branding-01.svg" style="width:100%"></img>'); //intro image
-						
+			//var cdbid = 0;
 			$('.iframe').hover(function(){
 
 				$('#external').html('');
@@ -165,6 +165,7 @@ function main(){
 					$('#blurb').html('');
 					$('#range').html('');
 					var cdbid = [$(this).attr('id')];
+					console.log(cdbid);
 					var sql_init = new cartodb.SQL({ user: ''+user_id+'' });
 					//get pic1 where cartodb_id = 'cdbid'
 					var sql_select = "SELECT cartodb_id, name, title, description, iframe, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM "+table_name+" WHERE cartodb_id = "+ cdbid +"";
@@ -180,22 +181,23 @@ function main(){
 						$('lightbox').append('<embed src="'+iframe+'" width="'+width+'" height="'+height+'" alt="iframe"></embed>');
 						$('lightbox').show();
 						var blurb = item.description;
-						var cdbid = item.cartodb_id;
-						console.log(cdbid);
 						$('#blurb').append(blurb);
 						var title = item.name;
 						$('#title').append(title);
 						var subtitle = item.title;
 						$('#external').append(subtitle);
 						$('#range').append(subtitle);
-						$('.close').click(function(){
+						$('.close').click(function(e, latlon, pxPos, data, layer){
 
+							$('.tltab').removeClass('selected');
+							//var cdbid = item.cartodb_id;
+							//$('#'+cdbid+'.tltab')[0].addClass('selected');
 							var mainlabel = $('#mainlabel');
 							mainlabel.html('');
 							mainlabel.removeClass('expand');
 							mainlabel.removeClass('point');
 							mainlabel.removeClass('search');
-							$('#'+cdbid+'.tltab')[0].click();
+							$('#'+cdbid+'.tltab').click();
 
 						});
 					});
@@ -204,7 +206,6 @@ function main(){
 				});			
 
 			});
-
 			$('.pic1').hover(function(){
 
 				$('#external').html('');
@@ -220,6 +221,7 @@ function main(){
 					$('lightbox').html('');
 					$('#range').html('');
 					var cdbid = [$(this).attr('id')];
+					console.log(cdbid);
 					var sql_init = new cartodb.SQL({ user: ''+user_id+'' });
 					//get pic1 where cartodb_id = 'cdbid'
 					var sql_select = "SELECT cartodb_id, name, title, description, pic1, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM "+table_name+" WHERE cartodb_id = "+ cdbid +"";
@@ -228,8 +230,6 @@ function main(){
 						var item = ret.rows[0];
 						var pic1 = item.pic1;
 						var blurb = item.description;
-						var cdbid = item.cartodb_id;
-						console.log(cdbid);
 						$('lightbox').append('<img src="'+pic1+'"></img>');
 						$('#blurb').append(blurb);
 						var title = item.name;
@@ -237,17 +237,21 @@ function main(){
 						var subtitle = item.title;
 						$('#external').append(subtitle);
 						$('#range').append(subtitle);
-						$('.close').click(function(){
 
+						$('.close').click(function(e, latlon, pxPos, data, layer){
+
+							$('.tltab').removeClass('selected');
+							//var cdbid = item.cartodb_id;
+							//$('#'+cdbid+'.tltab')[0].addClass('selected');
 							var mainlabel = $('#mainlabel');
 							mainlabel.html('');
 							mainlabel.removeClass('expand');
 							mainlabel.removeClass('point');
 							mainlabel.removeClass('search');
-							$('#'+cdbid+'.tltab')[0].click();
+							$('#'+cdbid+'.tltab').click();
 
+							e.preventDefault();
 						});
-
 					});
 					e.preventDefault();
 				});
@@ -266,6 +270,7 @@ function main(){
 					$('lightbox').html('');
 					$('#range').html('');
 					var cdbid = [$(this).attr('id')];
+					console.log(cdbid);
 					var sql_init = new cartodb.SQL({ user: ''+user_id+'' });
 					var sql_select = "SELECT cartodb_id, name, title, description, pic2, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM "+table_name+" WHERE cartodb_id = "+ cdbid +"";
 					sql_init.execute(sql_select).done(function(ret){
@@ -273,8 +278,6 @@ function main(){
 						var item = ret.rows[0];
 						var pic2 = item.pic2;
 						var blurb = item.description;
-						var cdbid = item.cartodb_id;
-						console.log(cdbid);
 						$('lightbox').append('<img src="'+pic2+'"></img>');
 						$('#blurb').append(blurb);
 						var title = item.name;
@@ -282,17 +285,21 @@ function main(){
 						var subtitle = item.title;
 						$('#external').append(subtitle);
 						$('#range').append(subtitle);
-						$('.close').click(function(){
 
+						$('.close').click(function(e, latlon, pxPos, data, layer){
+
+							$('.tltab').removeClass('selected');
+							//var cdbid = item.cartodb_id;
+							//$('#'+cdbid+'.tltab')[0].addClass('selected');
 							var mainlabel = $('#mainlabel');
 							mainlabel.html('');
 							mainlabel.removeClass('expand');
 							mainlabel.removeClass('point');
 							mainlabel.removeClass('search');
-							$('#'+cdbid+'.tltab')[0].click();
+							$('#'+cdbid+'.tltab').click();
 
+							e.preventDefault();
 						});
-
 					});
 					e.preventDefault();
 				});
@@ -311,6 +318,7 @@ function main(){
 					$('lightbox').html('');
 					$('#range').html('');
 					var cdbid = [$(this).attr('id')];
+					console.log(cdbid);
 					var sql_init = new cartodb.SQL({ user: ''+user_id+'' });
 					var sql_select = "SELECT cartodb_id, name, title, description, pic3, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM "+table_name+" WHERE cartodb_id = "+ cdbid +"";
 					sql_init.execute(sql_select).done(function(ret){
@@ -318,8 +326,6 @@ function main(){
 						var item = ret.rows[0];
 						var pic3 = item.pic3;
 						var blurb = item.description;
-						var cdbid = item.cartodb_id;
-						console.log(cdbid);
 						$('lightbox').append('<img src="'+pic3+'"></img>');
 						$('#blurb').append(blurb);
 						var title = item.name;
@@ -327,17 +333,21 @@ function main(){
 						var subtitle = item.title;
 						$('#external').append(subtitle);
 						$('#range').append(subtitle);
-						$('.close').click(function(){
 
+						$('.close').click(function(e, latlon, pxPos, data, layer){
+
+							$('.tltab').removeClass('selected');
+							//var cdbid = item.cartodb_id;
+							//$('#'+cdbid+'.tltab')[0].addClass('selected');
 							var mainlabel = $('#mainlabel');
 							mainlabel.html('');
 							mainlabel.removeClass('expand');
 							mainlabel.removeClass('point');
 							mainlabel.removeClass('search');
-							$('#'+cdbid+'.tltab')[0].click();
+							$('#'+cdbid+'.tltab').click();
 
+							e.preventDefault();
 						});
-
 					});
 					e.preventDefault();
 				});
@@ -356,15 +366,14 @@ function main(){
 					$('lightbox').html('');
 					$('#range').html('');
 					var cdbid = [$(this).attr('id')];
+					console.log(cdbid);
 					var sql_init = new cartodb.SQL({ user: ''+user_id+'' });
-					var sql_select = "SELECT cartodb_id, name, title, description, pic4, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM "+table_name+" WHERE cartodb_id = "+ cdbid +"";
+					var sql_select = "SELECT cartodb_id, name, title, description, pic4, datebegin, dateend, title, place, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM "+table_name+" WHERE cartodb_id = "+ cdbid +"";
 					sql_init.execute(sql_select).done(function(ret){
 
 						var item = ret.rows[0];
 						var pic4 = item.pic4;
 						var blurb = item.description;
-						var cdbid = item.cartodb_id;
-						console.log(cdbid);
 						$('lightbox').append('<img src="'+pic4+'"></img>');
 						$('#blurb').append(blurb);
 						var title = item.name;
@@ -372,17 +381,21 @@ function main(){
 						var subtitle = item.title;
 						$('#external').append(subtitle);
 						$('#range').append(subtitle);
-						$('.close').click(function(){
 
+						$('.close').click(function(e, latlon, pxPos, data, layer){
+
+							$('.tltab').removeClass('selected');
+							//var cdbid = item.cartodb_id;
+							//$('#'+cdbid+'.tltab')[0].addClass('selected');
 							var mainlabel = $('#mainlabel');
 							mainlabel.html('');
 							mainlabel.removeClass('expand');
 							mainlabel.removeClass('point');
 							mainlabel.removeClass('search');
-							$('#'+cdbid+'.tltab')[0].click();
+							$('#'+cdbid+'.tltab').click();
 
+							e.preventDefault();
 						});
-
 					});
 					e.preventDefault();
 				});
@@ -401,6 +414,7 @@ function main(){
 					$('lightbox').html('');
 					$('#range').html('');
 					var cdbid = [$(this).attr('id')];
+					console.log(cdbid);
 					var sql_init = new cartodb.SQL({ user: ''+user_id+'' });
 					var sql_select = "SELECT cartodb_id, name, title, description, pic5, ST_X(the_geom) lon, ST_Y(the_geom) lat FROM "+table_name+" WHERE cartodb_id = "+ cdbid +"";
 					sql_init.execute(sql_select).done(function(ret){
@@ -408,8 +422,6 @@ function main(){
 						var item = ret.rows[0];
 						var pic5 = item.pic5;
 						var blurb = item.description;
-						var cdbid = item.cartodb_id;
-						console.log(cdbid);
 						$('lightbox').append('<img src="'+pic5+'"></img>');
 						$('#blurb').append(blurb);
 						var title = item.name;
@@ -417,15 +429,20 @@ function main(){
 						var subtitle = item.title;
 						$('#external').append(subtitle);
 						$('#range').append(subtitle);
-						$('.close').click(function(){
 
+						$('.close').click(function(e, latlon, pxPos, data, layer){
+
+							$('.tltab').removeClass('selected');
+							//var cdbid = item.cartodb_id;
+							//$('#'+cdbid+'.tltab')[0].addClass('selected');
 							var mainlabel = $('#mainlabel');
 							mainlabel.html('');
 							mainlabel.removeClass('expand');
 							mainlabel.removeClass('point');
 							mainlabel.removeClass('search');
-							$('#'+cdbid+'.tltab')[0].click();
+							$('#'+cdbid+'.tltab').click();
 
+							e.preventDefault();
 						});
 					});
 					e.preventDefault();
@@ -536,8 +553,7 @@ function main(){
 			var first = ret.rows[0];
 			console.log(first);
 			var list = ret.rows;
-			var cdbid = first.cartodb_id;
-			console.log(cdbid);	
+			var cdbid = first.cartodb_id;	
 			var lat = first.lat;
 			console.log(lat);
 		   	delete first.lat;
@@ -607,8 +623,7 @@ function main(){
 	    	console.log(link);
 			var linktext = item.linktext;
 			console.log(linktext);
-			var cdbid = item.cartodb_id;
-			console.log(cdbid);				
+			var cdbid = item.cartodb_id;				
 
 			var header = $('<lightbox></lightbox><here></here><h6 id="range">'+(monthbegin+1)+'/'+yearbegin+' – '+(monthend+1)+'/'+yearend+'</h6><text></text><a href="' + link + '" target="_blank" class="link">'+linktext+'</a><images></images>');
 			console.log(header);
@@ -673,6 +688,7 @@ function main(){
 				}
 			});
 
+			//var cdbid = 0;
 			$('.iframe').hover(function(){
 
 				$('#external').html('');
@@ -704,15 +720,19 @@ function main(){
 						var width = $('lightbox').css('width');
 						$('lightbox').append('<embed src="'+iframe+'" type ="iframe" width="'+width+'" height="'+height+'" alt="'+iframe+'"></embed>');
 						$('#blurb').append(blurb);
-						$('.close').click(function(){
+						$('.close').click(function(e, latlon, pxPos, data, layer){
 
+							$('.tltab').removeClass('selected');
+							//var cdbid = item.cartodb_id;
+							//$('#'+cdbid+'.tltab')[0].addClass('selected');
 							var mainlabel = $('#mainlabel');
 							mainlabel.html('');
 							mainlabel.removeClass('expand');
 							mainlabel.removeClass('point');
 							mainlabel.removeClass('search');
-							$('#'+cdbid+'.tltab')[0].click();
+							$('#'+cdbid+'.tltab').click();
 
+							e.preventDefault();
 						});
 
 					});
@@ -749,15 +769,19 @@ function main(){
 						var item = ret.rows[0];
 						var pic1 = item.pic1;
 						$('lightbox').append('<img src="'+pic1+'"></img>');
-						$('.close').click(function(){
+						$('.close').click(function(e, latlon, pxPos, data, layer){
 
+							$('.tltab').removeClass('selected');
+							//var cdbid = item.cartodb_id;
+							//$('#'+cdbid+'.tltab')[0].addClass('selected');
 							var mainlabel = $('#mainlabel');
 							mainlabel.html('');
 							mainlabel.removeClass('expand');
 							mainlabel.removeClass('point');
 							mainlabel.removeClass('search');
-							$('#'+cdbid+'.tltab')[0].click();
+							$('#'+cdbid+'.tltab').click();
 
+							e.preventDefault();
 						});
 
 					});
@@ -790,15 +814,19 @@ function main(){
 						var item = ret.rows[0];
 						var pic2 = item.pic2;
 						$('lightbox').append('<img src="'+pic2+'"></img>');
-						$('.close').click(function(){
+						$('.close').click(function(e, latlon, pxPos, data, layer){
 
+							$('.tltab').removeClass('selected');
+							//var cdbid = item.cartodb_id;
+							//$('#'+cdbid+'.tltab')[0].addClass('selected');
 							var mainlabel = $('#mainlabel');
 							mainlabel.html('');
 							mainlabel.removeClass('expand');
 							mainlabel.removeClass('point');
 							mainlabel.removeClass('search');
-							$('#'+cdbid+'.tltab')[0].click();
+							$('#'+cdbid+'.tltab').click();
 
+							e.preventDefault();
 						});
 
 					});
@@ -832,15 +860,19 @@ function main(){
 						var pic3 = item.pic3;
 						$('lightbox').append('<img src="'+pic3+'"></img>');
 
-						$('.close').click(function(){
+						$('.close').click(function(e, latlon, pxPos, data, layer){
 
+							$('.tltab').removeClass('selected');
+							//var cdbid = item.cartodb_id;
+							//$('#'+cdbid+'.tltab')[0].addClass('selected');
 							var mainlabel = $('#mainlabel');
 							mainlabel.html('');
 							mainlabel.removeClass('expand');
 							mainlabel.removeClass('point');
 							mainlabel.removeClass('search');
-							$('#'+cdbid+'.tltab')[0].click();
+							$('#'+cdbid+'.tltab').click();
 
+							e.preventDefault();
 						});
 					});
 					e.preventDefault();
@@ -873,15 +905,19 @@ function main(){
 						var pic4 = item.pic4;
 						$('lightbox').append('<img src="'+pic4+'"></img>');
 
-						$('.close').click(function(){
+						$('.close').click(function(e, latlon, pxPos, data, layer){
 
+							$('.tltab').removeClass('selected');
+							//var cdbid = item.cartodb_id;
+							//$('#'+cdbid+'.tltab')[0].addClass('selected');
 							var mainlabel = $('#mainlabel');
 							mainlabel.html('');
 							mainlabel.removeClass('expand');
 							mainlabel.removeClass('point');
 							mainlabel.removeClass('search');
-							$('#'+cdbid+'.tltab')[0].click();
+							$('#'+cdbid+'.tltab').click();
 
+							e.preventDefault();
 						});
 					});
 					e.preventDefault();
@@ -914,15 +950,19 @@ function main(){
 						var pic5 = item.pic5;
 						$('lightbox').append('<img src="'+pic5+'"></img>');
 
-						$('.close').click(function(){
+						$('.close').click(function(e, latlon, pxPos, data, layer){
 
+							$('.tltab').removeClass('selected');
+							//var cdbid = item.cartodb_id;
+							//$('#'+cdbid+'.tltab')[0].addClass('selected');
 							var mainlabel = $('#mainlabel');
 							mainlabel.html('');
 							mainlabel.removeClass('expand');
 							mainlabel.removeClass('point');
 							mainlabel.removeClass('search');
-							$('#'+cdbid+'.tltab')[0].click();
+							$('#'+cdbid+'.tltab').click();
 
+							e.preventDefault();
 						});
 					});
 					e.preventDefault();
@@ -1014,7 +1054,7 @@ function main(){
 					var item = ret.rows[i];
 					console.log(item);
 					var cdbid = item.cartodb_id;
-					console.log(cdbid);
+					
 
 					var $listelement = $('<a href="#'+cdbid+'" id="'+cdbid+'" class="cartodb_id"><h5>'+item.title+'</h5><h6>'+item.name+'</h6></a>');
 					$('ul').append($listelement); //list of matching search queries
@@ -1210,7 +1250,6 @@ function main(){
 							console.log(item);
 
 							var cdbid = item.cartodb_id;
-							console.log(cdbid);
 
 							//build feature list
 							var $listelement = $('<a href="#'+cdbid+'" id="'+cdbid+'" class="cartodb_id"><h5>'+item.title+'</h5><h6>'+item.name+'</h6></a>');

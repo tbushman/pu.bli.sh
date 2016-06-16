@@ -337,6 +337,10 @@ why a {
 where {
 
 	width: 100%;
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
 	height: 100%;
 	display: inline-block;
 	position: absolute;
@@ -1278,6 +1282,13 @@ images {
 		height: auto;
 		min-height: auto;
 
+	}
+	
+	lightbox img {
+		
+		min-height: 97%;
+		max-height: 100%;
+		
 	}
 	
 	#mainlabel.point > images {
