@@ -36,20 +36,12 @@ form, #txt {
 	
 }
 
-h1 {
-	
-	margin: 0;
-	
-}
-
 h2 {
 
 	font-size: 1em;
-	margin-bottom: .3em;
-	height: auto;
-	line-height: .95em;
+	line-height: 1em;
 	position: relative;
-	top: 0px;
+	top: 0;
 	bottom: auto;
 	padding: 0;
 	font-weight: 300;
@@ -57,16 +49,15 @@ h2 {
 	width: 100%;
 	display: inline-block;
 	float: left;
-	margin-top: -.1em;
-	margin-bottom: .3em;
+	margin: 0;
 
 }
 
 h3 {
 	font-weight: 300;
     font-size: .9em ;
-    line-height: .9em;
-	letter-spacing: .09em;
+    line-height: 2em;
+	letter-spacing: .02em;
     color: #000;
 	padding: 0;
 	margin: 0;
@@ -74,16 +65,15 @@ h3 {
 
 h4 {
 
-	font-size: .53em;
+	font-size: .58em;
 	position: relative;
 	display: inline-block;
 	height: auto;
 	float: left;
 	font-weight: 400;
-	line-height: 1.4em;
+	line-height: 1.5em;
     color: #444;
-    padding: 0;
-	padding-bottom: .3em;
+    padding: 10px 10px 10px 0;
 	width: auto;
 	height: auto;
 	margin: 0;
@@ -93,21 +83,24 @@ h4 {
 h5 {
 	font-weight: 300;
     font-size: .66em ;
-	line-height: .89em;
+	line-height: 2em;
     color: #000;
     padding:   0 0 0.33em 0 ;
-	margin: 0;
+	margin: 0, auto;
+	letter-spacing: 0.03em;
 }
 
 h6 {
 
 	font-size: .6em;
-    padding: 0 0 1.6em 0; 
-	height: auto;
+    padding: 0 0 10px 0; 
+	min-height: 1em;
+	margin: 0;
+	bottom: auto;
+	top: auto;
 	font-weight: 600;
 	line-height: 1em;
     color: #555;
-	margin: 0;
 	letter-spacing: .03em;
 
 }
@@ -137,9 +130,33 @@ ul a {
 	text-decoration: none;
 	margin: 0;
 	padding: 0;
+	line-height: 1em;
+	height: 1em;
 
 }
 
+ul h5, ul h6 {
+	
+	margin: 0;
+	padding-left: 10px;
+}
+ul h6 {
+	
+	padding-top: 0;
+	padding-bottom: 25px;
+}
+#mainlabel.search > h6 {
+
+	margin-top: 0;
+	padding-left: 10px;
+	padding-top: 10px;
+	
+}
+#mainlabel.list > h6 {
+	
+	padding: 10px;
+	
+}
 li {
 	list-style-type: none;
 	line-height: 2em;
@@ -187,8 +204,8 @@ why {
 	overflow-y: hidden;
 	overflow-x: hidden;
 	pointer-events:none;
-	z-index: 4;
-	-webkit-transform: translateZ(3);
+	z-index: 5;
+	-webkit-transform: translateZ(4);
 
 }
 why a {
@@ -202,7 +219,7 @@ why a {
 	position: fixed;
 	left: auto;
 	top: auto;
-	bottom: 34px;
+	bottom: 20px;
 	right: 10px;
 	display: block;
 	width: 150px;
@@ -218,16 +235,16 @@ why a {
 	margin: 0;
 }
 
-.go {
+#go {
 	
 	pointer-events: auto;
 	position: absolute;
-	margin-left: 36px;
+	margin: 0, auto;
 	width: 25px;
 	height: 25px;
-	top: 1px;
-	right: auto;
-	bottom: auto;
+	top: 27px;
+	right: 0;
+	bottom: 0;
 	box-shadow: 0 1px 2px rgba(0,0,0,0.35);	
     background: 
     linear-gradient(
@@ -243,7 +260,7 @@ why a {
 
 }
 
-.go:hover {
+#go:hover {
 	
 	background: 
     linear-gradient(
@@ -256,222 +273,37 @@ why a {
 	
 }
 
-.info {
-	
-	pointer-events: auto;
-	position: absolute;
-	width: 22px;
-	height: 22px;
-	top: auto;
-	right: 0;
-	bottom: 0;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.35);	
-    background: 
-    linear-gradient(
-      rgba(0, 0, 0, 0), 
-      rgba(0, 0, 0, 0)
-    ),
-    url("images/info.svg");
-    background-color: #fff;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	z-index: 13;
-	-webkit-transform: translateZ(12);	
-	
-}
-
-.info:hover {
+#go.close {
 	
 	background: 
     linear-gradient(
-      rgba(0, 0, 0, 0.08), 
-      rgba(0, 0, 0, 0.08)
-    ),
-    url("images/info.svg");
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	
-}
-
-.moreinfo {
-	
-	pointer-events: auto;
-	position: absolute;
-	margin-left: 0;
-	width: 22px;
-	height: 22px;
-	top: 25px;
-	right: 0;
-	bottom: 0;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.35);	
-    background: 
-    linear-gradient(
       rgba(0, 0, 0, 0), 
       rgba(0, 0, 0, 0)
     ),
-    url("images/info.svg");
-    background-color: #cccccc;
-	z-index: 13;
-	-webkit-transform: translateZ(12);	
+    url("images/ex.svg");
+    background-color: #fff;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	z-index: 15;
+	-webkit-transform: translateZ(14);		
 	
 }
+.username {
 
-one, two, three {
-	
+	position: absolute;	
 	display: inline-block;
-	float: left;
-	margin: 0 auto;
-	width: 30px;
-	text-align: right;
-	height: 100%;
-}
-
-one a, two a, three a, four a {
-	
-	text-decoration: none;
+	margin: 0, auto;
+	width: auto;
+	height: 25px;
+	top: 27px;
+	left: 66px;
+	font-size: 20px;
+	font-size: 3.2vmax;
+	max-width: 30%;
+	bottom: 0;
+	float: right;
 	color: #EEF4DE;
-	
-}
-
-.highlight {
-	
-	color: #555555;
-	
-}
-
-four {
-	
-	background-color: #EEF4DE;
-	display: inline-block;
-	float: right;
-	margin: 0 auto;
-	width: 22px;
-	text-align: right;
-	height: 22px;
-	
-}
-
-four a {
-	
-	height: 22px;
-	width: 22px;
-	position: relative;
-	display: inline-block;
-	padding: 5px 5px 0 0;
-	
-}
-
-one a:hover, two a:hover, three a:hover, four a h7:hover {
-	
-	color: #ccc;
-	
-}
-
-
-help {
-	
-	width: auto;
-	position: relative;
-	display: inline-block;
-	margin: 0 auto;
-	float: left;
-	padding: 10px;
-
-}
-
-steps {
-
-	width: 120px;
-	position: relative;
-	display: inline-block;
-	margin: 0 auto;
-	float: right;
-	padding: 0;
-}
-
-#helplabel {
-	
-	left: auto;
-	width: auto;
-	right: auto;
-	float: none;
-	position: fixed;
-	height: auto;
-	top: auto;
-	bottom: auto;
-	display: block;
-	pointer-events: none;
-	z-index: 11;
-	-webkit-transform: translateZ(10);	
-	
-}
-
-#helplabel.one {
-	
-	left: 37px;
-	width: auto;
-	right: 55%;
-	float: none;
-	position: fixed;
-	background-color: #fff;
-	overflow-y: hidden;
-	overflow-x: hidden;
-	height: auto;
-	top: 72px;
-	bottom: auto;
-	display: block;
-	pointer-events: none;
-	border-left: 1px solid #D93B20;
-	outline: 0px solid #fff;
-	box-shadow: 1px 0px 1px 0px rgba(0,0,0,0.3);
-	z-index: 11;
-	-webkit-transform: translateZ(10);	
-	
-}
-
-#helplabel.two {
-	
-	left: 37px;
-	width: auto;
-	right: 50%;
-	float: none;
-	position: fixed;
-	background-color: #fff;
-	overflow-y: hidden;
-	overflow-x: hidden;
-	height: auto;
-	top: auto;
-	bottom: 50%;
-	display: block;
-	pointer-events: none;
-	border-bottom: 1px solid #D93B20;
-	outline: 0px solid #fff;
-	box-shadow: 1px 0px 1px 0px rgba(0,0,0,0.3);
-	z-index: 11;
-	-webkit-transform: translateZ(10);	
-	
-}
-
-#helplabel.three {
-	
-	left: auto;
-	width: auto;
-	right: 170px;
-	float: none;
-	position: fixed;
-	background-color: #fff;
-	overflow-y: hidden;
-	overflow-x: hidden;
-	height: auto;
-	top: 10px;
-	bottom: auto;
-	display: block;
-	pointer-events: none;
-	border-right: 1px solid #D93B20;
-	outline: 0px solid #fff;
-	box-shadow: 1px 0px 1px 0px rgba(0,0,0,0.3);
-	z-index: 11;
-	-webkit-transform: translateZ(10);	
+	text-decoration: none;	
 	
 }
 
@@ -516,69 +348,95 @@ where {
 	overflow: hidden;
 
 }
-
-#mainlabel {
-
-	left: 50%;
-	width: auto;
-	right: 10px;
-	float: none;
-	position: fixed;
-	background-color: none;
-	overflow-y: hidden;
-	overflow-x: hidden;
-	height: 0;
-	top: 10px;
+there {
+	
+	overflow-y: scroll;
+	height: auto;
+	position: relative;
+	display: inline-block;
+	float: left;
 	bottom: 50%;
+	top: 0;
+	margin: 0, auto;
+	width: 100%;
+}
+#mainlabel {
+	
 	display: block;
+	height: 0;
+	background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0), 
+      rgba(0, 0, 0, 0)
+    ),
+    url("images/arrow_main.svg");
+    background-color: none;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	top: 50%;
+	width: 100%;
+	bottom: auto;
+	position: fixed;
+    float: none;
 	pointer-events: none;
-	box-shadow: 1px 0px 1px 0px rgba(0,0,0,0.3);
 	z-index: 11;
-	-webkit-transform: translateZ(10);
-
+	-webkit-transform: translateZ(10);	
 }
 
 #mainlabel.point {
 
-	left: 50%;
-	width: auto;
-	right: 10px;
-	float: none;
-	position: fixed;
-	background-color: none;
-	background-image:
-	radial-gradient(circle at 0 100%, rgba(255, 255, 255, 0) 15px, #fff 15px);
-	overflow-y: hidden;
-	overflow-x: hidden;
-	height: auto;
-	top: 72px;
 	display: block;
+	height: auto;
+	background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0), 
+      rgba(255, 255, 255, 0)
+    ),
+    url("");
+    background-color: none;
+	background-position: 50% 0%;
+	background-repeat: no-repeat;
+	background-size: 100% 120px;
+	top: 50%;
+	width: 80%;
+	bottom: auto;
+	height: auto;
+	min-height: 170px;
+	right: 10%;
+	left: 10%;
+	position: fixed;
+    float: none;
 	pointer-events: none;
-	bottom: 50%;
-	max-height: 50%;
-	z-index: 11;
-	-webkit-transform: translateZ(10);
+	z-index: 0;
+	-webkit-transform: translateZ(0);	
 
 }
 
 #mainlabel.expand {
 
+	display: block;
+	height: auto;
+	background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0), 
+      rgba(255, 255, 255, 0)
+    ),
+    url("");
+    background-color: #fff;
+	background-position: 50% 0%;
+	background-repeat: no-repeat;
+	background-size: 100% 120px;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.35);	
+	top: 72px;
+	width: auto;
+	bottom: 15px;
 	right: 10px;
 	left: 10px;
-	width: auto;
-	float: none;
 	position: fixed;
-	background-color: #fff;
-	background-image: none;
-	overflow-y: hidden;
-	overflow-x: hidden;
-	height: auto;
-	top: 72px;
-	display: block;
+    float: none;
 	pointer-events: none;
-	bottom: 34px!important;
-	z-index: 13;
-	-webkit-transform: translateZ(12);
+	z-index: 11;
+	-webkit-transform: translateZ(10);	
 
 }
 
@@ -612,7 +470,7 @@ where {
 	position: fixed;
 	background-color: none;
 	background-image:
-	radial-gradient(circle at 0 100%, rgba(255, 255, 255, 0) 15px, #fff 15px);
+	radial-gradient(circle at 0 100%, rgba(255, 255, 255, 0) 10px, #fff 9px);
 	overflow-y: hidden;
 	overflow-x: hidden;
 	height: auto;
@@ -625,166 +483,209 @@ where {
 	-webkit-transform: translateZ(10);
 	
 }
+#mainlabel.list here, #mainlabel.list there, #mainlabel.list text {
+	
+	display: inline-block;
+	z-index: 11;
+	-webkit-transform: translateZ(10);
+	
+}
+#mainlabel > a {
 
-#mainlabel.point > a, #mainlabel.expand > a {
-
+	position: relative;
+	display: none!important;
 	text-decoration: none;
+	text-align: right;
 	color: #EEF4DE;
-	bottom: 8px;
-	position: absolute;
-	width: auto;
-	right: auto;
 	font-size: .66em;
-	bottom: 15px;
-	left: 10px;
+	top: auto;
+	right: auto;
+	bottom: auto;
+	left: auto;
+	float: right;
+	width: 30%;
+	margin: 0 10px 0 0;
 	pointer-events: auto;
 	z-index: 11;
 	-webkit-transform: translateZ(10);
 
+}
+
+#range {
+	
+	position: absolute;
+	font-size: .56em;
+	right: auto;
+	left: 50%;
+	text-align: left;
+	width: auto;
+	letter-spacing: 0;
+	margin: 0 auto auto 12px;
+	height: 15px;
+	line-height: 15px;
+	color: #777;
+	text-shadow:
+	-1px -1px 0 #fff,  
+	1px -1px 0 #fff,
+	-1px 1px 0 #fff,
+	1px 1px 0 #fff;
+	background-color: rgba(255,255,255,0.4);
+}
+
+#mainlabel.expand > #range {
+	
+	position: relative;
+	display: inline-block;
+	float: right;
+	left: auto;
+	bottom: auto;
+	text-align: right;
+	line-height: 1em;
+	height: 1em;
+	margin: -1.1em auto 1em 0;
+	top: auto;
+	right: 10px;
+	width: auto;
+	
+}
+
+#title {
+	
+	width: 100%;
+	height: auto;
+}
+
+#external {
+
+	text-decoration: none;
+	right: 0;
+	position: relative;
+	display: inline-block;
+	pointer-events: auto;
+	top: auto;
+	right: auto;
+	bottom: auto;
+	float: left;
+	width: 100%;
+	margin: 10px, auto;
+	left: 10px;
+
+}
+
+.link {
+	
+	text-decoration: none;
+	text-align: right;
+	color: #EEF4DE;
+	font-size: .66em;
+	width: auto;
+	float: right;
+	margin: 0, auto;
+	display: inline-block;
+	bottom: 0;
+}
+
+.tl {
+	
+	text-decoration: none;
+	text-align: right;
+	color: #EEF4DE;
+	font-size: .66em;
+ 	width: auto;
+	left: 0;
+	right: auto;
+	float: left;
+	margin: 0, auto;
+	position: absolute;
+	display: inline-block;
 }
 
 
 here {
 
 	display: inline-block;
-	position: relative;
-	width: 100%;
-	max-height: 40%;
-	height: auto;
-	top: 0;
-	bottom: 0;
-	overflow-y: hidden;
-	overflow-x: hidden;
-	pointer-events: auto;
-	padding: .75em .5em 0 .6em;
-	z-index: 7;
-	-webkit-transform: translateZ(6);
-
-}
-
-there h6 {
-	
-	padding: 0 0 1.6em 0;
-	
-}
-
-here > h6 {
-
-    padding: .6em 0 0 0; 
-
-}
-
-here > h6 > a {
-
-	text-decoration: none;
-	color: #555;
-	width: 100%;
-	left: 20px;
-
-}
-
-here > a {
-
-	text-decoration: none;
-	color: #EEF4DE;
-	top: 10px;
 	position: absolute;
 	width: auto;
+	float: left;
+	left: 50%;
 	right: 10px;
-	font-size: .66em;
+	height: auto;
+	top: 35px;
 	bottom: auto;
-	left: auto;
+	margin: 0, auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 	pointer-events: auto;
-	z-index: 11;
-	-webkit-transform: translateZ(10);
+	padding: 10px 10px 10px 10px;
+	background-color: none;
+	z-index: 0;
+	-webkit-transform: translateZ(0);
+
+}
+here a {
+
+	text-decoration: none;
+	color: #000;	
+	
+}
+#git {
+	
+	text-decoration: none;
+	color: #EEF4DE;
+}
+#activate {
+
+	text-decoration: none;
+	margin: 0, auto;
+	min-height: 2em;
 
 }
 
-here > img {
+text {
 
-	display: inline-block;
+	display: none;
 	position: relative;
 	height: auto;
-	bottom: 10px;
-	top: 10px;
-	left: 0;
-	right: auto;
-	overflow-y: hidden;
-	max-height: 85%;
-	max-width: 100%;
-	pointer-events: auto;
-
-}
-
-there {
-
-	display: inline-block;
-	position: relative;
-	height: auto;
-	width: 100%;
-	margin: 0;
-	left: 0;
+	max-height: 21%;
+	width: auto;
+	float: left;
+	left: 10px;
+	right: 10px;
+	margin-right: 20px;
+	margin-top: 89px;
+	bottom: 0;
 	overflow-y: scroll;
-	bottom: auto;
-	right: 0;
-	padding: .1em .5em .5em .6em;
+	padding: 10px;
 	pointer-events: auto;
+	background-color: #fff;
 
 }
 
-#mainlabel.point text {
+
+#mainlabel.point here {
 	
-	height: 100%;
-	padding-bottom: 20px;	
-	
+	background-color: #fff;
+	min-height: 65px;
+	border-left: 1px solid #D93B20;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.35);	
 }
 
-#mainlabel.point there {
-
-	max-height: 60%;
-
-}
-
-#mainlabel.list there {
-	
-	max-height: 75%;
-	bottom: 10px;
-	top: 10px;
-	
-}
-
-#mainlabel.list here {
-	
-	max-height: 20%;
-	
-}
-
-#mainlabel.expand here {
-
-	height: auto;
-	max-height: auto;
-
-}
-
-#mainlabel.expand there {
-
-	height: auto;
-	max-height: 15%;
-	top: -.3em;
-	margin-bottom: 1em;
-}
-
-
-#mainlabel.search there {
-	
-	overflow-y: scroll;
-	height: 70%;
-	
-}
 
 embed {
 	
 	pointer-events: auto;
+	max-width: 100%;
+	width: 100%;
+	max-height: 100%;
+	display: inline-block;
+	float: left;
+	position: relative;
+	bottom: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: 0;
+	overflow-y: hidden;
 	
 }
 
@@ -792,12 +693,13 @@ lightbox {
 
 	display: block;
 	margin: 0 auto;
-	top: -1.2em;
+	top: 10px;
 	left: 0;
 	right: auto;
 	position: relative;
 	height: auto;
-	max-height: 60%;
+	min-height: 40%;
+	max-height: 98%;
 	width: auto;
 	float: left;
 	width: 100%;
@@ -825,18 +727,20 @@ lightbox img {
 
 }
 
+
 images {
 
 	position: absolute;
-	width: auto;
-	max-height: 72px;
+	width: 49.9%;
 	bottom: 0;
-	top: auto;
-	left: auto;
-	min-height: 50px;
+	top: 36px;
+	right: 50%;
+	left: 0;
+	height: 100%;
 	overflow: auto;
-	right: 0;
-	margin: 0, auto;
+	overflow-y: scroll;
+	margin: 0 0 10px 10px;
+	float: right;
 	
 	display: -webkit-box;
 	display: -moz-box;
@@ -849,34 +753,71 @@ images {
 	-webkit-box-flow: row wrap; 
 	-moz-box-flow: row wrap; 
 	flex-flow: row wrap;
-	
-	-webkit-box-align: end;
-	-webkit-justify-content: flex-end;
-	-moz-justify-content: flex-end;
-	-ms-justify-content: flex-end;
-	justify-content: flex-end; 
 
-	background-color: none;
+	background-color: #fff;
 	pointer-events: auto;	
-	float: right;
-	padding: 0 0 .5em .5em;
+	padding: 0 8px 10px 10px;
 	z-index: 13;
 
 } 
 
 #mainlabel.point images {
 	
-	width: 52px;
-	height: 52px;
+	overflow: auto;
+	height: 64px;
+}
+
+#mainlabel.expand here {
 	
+	overflow: auto;
+	position: relative;
+	height: auto;
+	min-height: 3em;
+	max-height: 100%;
+	padding-top: 0;
+	left: 0;
+	margin: 0, auto;
+	padding: 0, 10px;
+	bottom: 0;
+	width: 100%;
+	padding-right: 160px;
+	
+}
+
+#mainlabel.expand text {
+	
+	overflow: auto;
+	position: relative;
+	width: auto;
+	max-width: auto;
+	min-width: auto;
+	left: 10px;
+	right: 10px;
+	padding: 0 0 10px 0;
+	height: auto;
+	margin: 10px 10px 10px 0;
 }
 
 #mainlabel.expand images {
-	
-	overflow: auto;
+
+	overflow-y: scroll;
+	overflow-x: hidden;
+	top: auto;
+	position: absolute;
+	width: auto;
+	max-width: 100%;
+	right: auto;
+	bottom: 0;
+	height: auto;
+	max-height: 85px;
+	background-color: rgba(255,255,255,0)!important;
+	margin: 0 0 10px 0;
+	padding: 0 0 0 10px;
+	float: left;
+	left: 0;
+	height: 64px;
 	
 }
-
 #mainlabel a:hover {
 
 	 color: #D93B20;
@@ -896,8 +837,6 @@ images {
 	width: 44px;
 	height: 44px;
 	overflow: hidden;
-	width: 33px;
-	height: 33px;
 	margin-left: 0px;
 	margin-top: 10px;
 	margin-right: 10px;
@@ -917,16 +856,6 @@ images {
 .items a {
 	width: 100%;
 	height: 100%;
-	pointer-events: auto;
-
-}
-
-.external {
-
-	color: #EEF4DE;
-	text-decoration: none;
-	right: 0;
-	position: absolute;
 	pointer-events: auto;
 
 }
@@ -1049,7 +978,7 @@ images {
 	height: auto;
 	right: 25px;
 	left: 66px;
-	top: 40%;
+	top: 0;
 	bottom: 11px;
 	position: absolute;
 	text-align: left;
@@ -1113,8 +1042,8 @@ images {
 	padding: 0;
 	pointer-events: none;
 	float: none;
-	z-index: 3;
-	-webkit-transform: translateZ(2);
+	z-index: 4;
+	-webkit-transform: translateZ(3);
 
 }
 #wrapper a {
@@ -1157,8 +1086,7 @@ images {
 	position: absolute;
 	font-weight: 300;
     font-size: .65em ;
-    line-height: 35px;
-	border-left: 1px solid #fff;
+    line-height: 42px;
 	pointer-events:none;
 	padding: 8px 0 0 4.2px;
 
@@ -1184,12 +1112,11 @@ images {
 #prevarrow {
 
 	top:60%;
-	left:0;
+	left:10px;
 	right: auto;
 	bottom: auto;
 	position: fixed;
-	left: 2%;
-	width: 5%;
+	width: 30px;
 	pointer-events: auto;
 	border-left: 0px solid #fff;
 	z-index: 3;
@@ -1198,9 +1125,10 @@ images {
 
 #nextarrow {
 
-	top: 61%;
+	top: 60%;
 	position: fixed;
-	right: 10px;
+	right: 0;
+	left: auto;
 	width: 30px;
 	pointer-events: auto;
 	border-left: 0px solid #fff;
@@ -1238,19 +1166,22 @@ images {
 
 }
 .tltab.selected {
+	display: block;
 	background-image:
-	radial-gradient(circle at 0 0, rgba(255, 255, 255, 0) 14px, rgba(255, 255, 255, 0.7) 13px);
+	radial-gradient(circle at 0 0, rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, .7) 9px);
 	background-color: rgba(255, 255, 255, 0);
-	border-right: 1px solid #D93B20;
+	border-right: 2px solid #fff;
 	border-left: 1px solid #D93B20;
-	border-top: 1px solid #D93B20;
+	border-bottom: 1px solid #888;
 	outline: 0px solid #fff;
-	pointer-events: auto;
-	height: 35px;
+	height: 36px;
 	top: 0;
 	overflow-x: visible;
 	width: auto;
 	pointer-events: auto;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.35);	
+	z-index: 5;
+	-webkit-transform: translateZ(4);
 
 }
 .tltab span {	
@@ -1259,18 +1190,18 @@ images {
 	min-width:250px;
 	width: auto;
 	position:absolute;
-	top: 0px;
+	top: 12px;
 	font-weight: 400;
     font-size: .7em ;
     color: #000;
-    padding:   0 0 0 4.2px ;
+    padding:   0 0 0 12px ;
 	margin: 0;	
 	overflow-x: visible;
 	text-shadow:
-	   -1px -1px 0 #fff,  
-	    1px -1px 0 #fff,
-	    -1px 1px 0 #fff,
-	     1px 1px 0 #fff;
+	-1px -1px 0 #fff,  
+	1px -1px 0 #fff,
+	-1px 1px 0 #fff,
+	1px 1px 0 #fff;
 
 }
 .tltab:hover span, [title~="sfhover"] span {	
@@ -1279,6 +1210,7 @@ images {
 	min-width:250px;
 	width: auto;	
 }
+
 
 * html a span { /*this is for IE as it positions the box to the right of the image */
 	margin-left:-50px;
@@ -1289,19 +1221,12 @@ images {
 
 @media all and (min-width: 480px) {
 	
-	images {
-		
-		width: auto;
-		max-height: 23%;
-		
-	}
 	
  	#mainlabel.point images {
 	
 		width: auto;
 	
 	}
-	
 	#mainlabel.point > a, #mainlabel.expand > a {
 
 		top: 10px;
@@ -1315,90 +1240,16 @@ images {
 
 @media all and (min-width: 600px) {
 
-#mainlabel.list {
-	
-	right: 160px;
-	
-}
-
-#mainlabel.point there {
-
-	display: inline-block;
-
-}
-
+	#mainlabel.expand images {
+		
+		height: 85px;
+	}
 
 }
 
 @media all and (min-width: 768px) {
 
-	h2 {
 
-		font-size: 1.2em ;
-	    line-height: 1em;
-
-	}
-
-	h4 {
-
-		font-size: .6em;
-		overflow-y: hidden;
-
-	}
-
-	h6 {
-
-		font-size: .66em;
-
-	}
-
-	#mainlabel.point {
-
-		right: 10px;
-
-	}
-
-	#mainlabel.point there {
-
-		padding: 0 .5em 0 .6em;	
-
-	}
-
-	lightbox img {
-
-		width: auto;
-		max-height:88%;
-		max-width: 100%;
-		bottom: auto;
-		right: auto;
-
-	}
-
-	lightbox {
-
-		position: relative;
-		width: 75%;
-		float: left;
-		height: 100%;
-		max-height: 100%;
-		display: inline-block;
-		padding-left: .6em;
-		top: 0;
-
-	}
-
-	#mainlabel.expand images {
-
-		margin: 6px 5px 0 0;
-
-	}
-
-	.items {
-
-		width: 44px;
-		height: 44px;
-
-	}
 
 }
 
@@ -1412,215 +1263,186 @@ images {
 
     /* Styles for Landscape screen */
 
-	#mainlabel.point, #mainlabel.expand {
-
-		right: 10px;
-
-	}
 
 	lightbox {
 
-		max-height: 100%;
-		width: 60%!important;
+		max-height: auto;
+		width: auto!important;
+		max-width: 60%;
 		float: left;
 		margin: 0 auto;
 		display: inline-block;
 		top: .6em;
-		height: 100%;
-		min-height: 100%;
+		left: 0;
+		bottom: auto;
+		height: auto;
+		min-height: auto;
 
 	}
 	
-	#mainlabel.point text {
+	#mainlabel.point > images {
 		
-		display: inline-block;
-		pointer-events: auto;
-		width: 100%;
-		float: left;		
-		margin: 0 auto;
-		height: 100%;
-		right: 30%;
-		padding-bottom: 20px;	
+		bottom: 0;
+		width: 64px;
+		height: 64px;
+		float: right;
+		left: auto;
 		
 	}
-	
+	#mainlabel.point .items {
+		
+		margin-right: 0;
+		
+	}
+	#mainlabel.point text {
+		
+		left: 50%;
+		position: absolute;
+		width: auto;
+		float: left;
+		overflow-y: auto;
+		overflow-x: hidden;
+		pointer-events: auto;
+		top: 0;	
+		bottom: auto;
+		right: 0;
+		margin-right: 10px;
+		min-height: 64px;
+	}
+	#mainlabel.expand > a {
+
+		display: inline-block!important;
+		left: auto;
+		float: none;
+		right: 0;
+		bottom: 10px;
+		top: auto;
+		margin-top: auto;
+		margin: auto, 0;
+		position: absolute;
+
+	}
+	#mainlabel.expand #range {
+		
+		position: absolute;
+		top: 20px;
+		bottom: auto;
+		left: 70%;
+		margin: 0;
+		text-align: left;
+		padding: 0;
+		
+	}
+	#mainlabel.expand #external {
+		
+		position: absolute;
+		top: auto;
+		bottom: 85px;
+		left: 70%;
+		margin: 0;
+		text-align: left;
+		padding: 0;
+		
+	}
+	#mainlabel.expand here {
+		
+		position: absolute;
+		right: auto;
+		left: 70%;
+		width: 28%;
+		bottom: auto;
+		right: auto;
+		min-height: 4em;
+		height: auto;
+		z-index: 11;
+		padding-left: 0;
+		padding-right: 10px;
+		
+	}
+		
 	#mainlabel.expand text {
 
 		display: inline-block;
-		position: relative;
+		position: absolute;
 		pointer-events: auto;
-		width: 26%;
-		float: right;
-		margin: 0 auto;
-		right: 12%;	
-		height: 100%;
-		padding-bottom: 20px;
-
-	}
-
-	#mainlabel.point > a {
-
-		top: auto;
-		right: 10px;
-		bottom: 7px;
-		left: auto;
+		float: left;
+		left: 70%;
+		margin: 0;
+		right: 10px;	
+		max-height: 50%;
+		top: 4em;
+		bottom: 85px;
+		background-color: none;
 
 	}
 	
-	#mainlabel.expand > a {
-		
-		top: auto;
-		right: 52px;	
-		bottom: 7px;
-		left: auto;
-		
-	}
-	
-	#mainlabel.expand here, #mainlabel.expand there {
-
-		padding-right: 0;
-
-	}
-	
-	#mainlabel.expand here h6 {
-		
-		padding-bottom: .6em;
-		
-	}
-	
-	 #mainlabel.expand there {
-
-		min-height: 50%;
-		max-height: auto;
-		width: 100%;
-		height: auto;
-		bottom: 0;
-		padding: .06em 0 0 .6em;
-		overflow-y: scroll;			
-
-	}
-
 	#mainlabel.expand images {
 
 		position: absolute;
-		width: 13%;
+		right: auto;
+		left: auto;
+		top: auto;
+		bottom: 10px;
 		min-height: auto;
-		max-height: 100%;
+		max-height: 64px;
 		height: auto;
-		bottom: auto;
-		max-height: auto;
-		padding-bottom: .6em;
 		overflow-y: scroll;
+		margin: 0, auto;
+		float: left;
+		background-color: none;
+		text-align: left;
 
 	}
-	
-	#mainlabel.point images {
-		
-		position: absolute;
-		width: 30%;
-		height: 52px;
-		bottom: auto;
-		padding-bottom: .20px;
-		overflow-y: scroll;		
-		
-	}
-	
+			
 	#mainlabel.search > here {
 
 		padding: .675em;
 
 	}
 
-	#mainlabel.point here {
+	.username {
 
-		max-height: 55%;
+		font-size: 3.1vmin;
 
 	}
 
 
 	@media all and (min-width: 768px) {
 
-		#mainlabel.point images {
+		lightbox {
 
-			min-height: auto;
-			max-height: 100%;
-			height: auto;
-			bottom: auto;
-			max-height: auto;
 
 		}
-		
-		#mainlabel.point text {
-			
-			width: 70%;
-			
-		}
+		#mainlabel.expand #external {
 
-		#mainlabel.point there {
-
-			display: inline-block;
+			bottom: 32%;
 
 		}
+		#mainlabel.expand images {
 
+			left: 70%;
+			padding: 0;
+			max-height: 30%;
+		}
 		#mainlabel.expand > a {
-			
-			top: auto;
-			right: auto;
-			bottom: 15px;
-			left: 10px;
-			
-		} 
-		
-		#mainlabel.point > a {
 
-			top: auto;
-			right: auto;
-			bottom: 15px;
-			left: 10px;
+			bottom: auto;
+			top: 10px;
 
 		}
-		
+						
 	}
 
 	@media all and (min-width: 960px) {
 	
-		#mainlabel.point {
 
-			right: 170px;
-
-		}
-		
 		#mainlabel.expand images {
 			
-			width: 15%;
+			float: right;
+			right: 0;
+			text-align: right;
 			
 		}
-
-		#mainlabel.expand text {
-			
-			overflow-y: hidden;
-			width: 19%;
-			right: 15.5%;
-			
-		}
-
-		#mainlabel.expand lightbox{
-
-			top: .75em;
-			width: 66%!important;
-
-		}
-		
-		#mainlabel.expand > a {
-			
-			top: auto;
-			right: auto;
-			bottom: 15px;
-			left: 67%;
-			
-		} 
-
-
 	}
 
 
@@ -1644,7 +1466,7 @@ images {
 
 	}
 
-	#mainlabel.expand here, #mainlabel.expand there {
+	#mainlabel.expand here {
 
 		width: 100%;
 		float: left;
