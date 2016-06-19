@@ -346,7 +346,7 @@ where {
 	position: absolute;
 	margin: 0;
 	padding: 0;
-	background-color: #EEF4DE;
+	background-color: #FFF;
 	z-index: 0;
 	-webkit-transform: translateZ(0);
 	overflow: hidden;
@@ -487,10 +487,27 @@ there {
 	-webkit-transform: translateZ(10);
 	
 }
-#mainlabel.list here, #mainlabel.list there, #mainlabel.list text {
+#mainlabel.list h6 {
+	
+	z-index: 11;
+	width: 100%;
+	height: 1em;
+	-webkit-transform: translateZ(10);
+	
+}
+#mainlabel.list text {
 	
 	display: inline-block;
 	z-index: 11;
+	width: 100%;
+	height: auto;
+	min-height: 120px;
+	max-height: 100%;
+	bottom: 0;
+	top: auto;
+	left: 0;
+	margin-right: 10px;
+	margin-top: 10px;
 	-webkit-transform: translateZ(10);
 	
 }
@@ -656,7 +673,7 @@ text {
 	left: 10px;
 	right: 10px;
 	margin-right: 20px;
-	margin-top: 89px;
+	margin-top: 64px;
 	bottom: 0;
 	overflow-y: scroll;
 	padding: 10px;
@@ -828,7 +845,7 @@ images {
 
 }
 
-.items {
+.items, .iframe {
 
 	-webkit-box-flex: 1 0 10;
 	-moz-box-flex: 1 0 10;
@@ -847,7 +864,7 @@ images {
 	margin-bottom: 0px;
 
 }
-.items img {
+.items img, .iframe img {
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -857,7 +874,7 @@ images {
 	-ms-transform: translate(-50%,-50%);
 	transform: translate(-50%,-50%);
 }
-.items a {
+.items a, .iframe a {
 	width: 100%;
 	height: 100%;
 	pointer-events: auto;
@@ -1300,7 +1317,7 @@ images {
 		left: auto;
 		
 	}
-	#mainlabel.point .items {
+	#mainlabel.point .items, #mainlabel.point .iframe {
 		
 		margin-right: 0;
 		
