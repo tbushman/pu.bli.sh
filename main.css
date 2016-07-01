@@ -54,8 +54,8 @@ h2 {
 }
 
 h3 {
-	font-weight: 300;
-    font-size: .9em ;
+	font-weight: 400;
+    font-size: .8em ;
     line-height: 2em;
 	letter-spacing: .02em;
     color: #000;
@@ -237,6 +237,7 @@ why a {
 
 #go {
 	
+	display: none;
 	pointer-events: auto;
 	position: absolute;
 	margin: 0, auto;
@@ -275,6 +276,7 @@ why a {
 
 #go.close {
 	
+	display: block;
 	background: 
     linear-gradient(
       rgba(0, 0, 0, 0), 
@@ -297,8 +299,6 @@ why a {
 	height: 25px;
 	top: 27px;
 	left: 66px;
-	font-size: 20px;
-	font-size: 3.2vmax;
 	max-width: 30%;
 	bottom: 0;
 	float: right;
@@ -355,11 +355,11 @@ where {
 there {
 	
 	overflow-y: scroll;
-	height: auto;
+	height: 90%;
 	position: relative;
 	display: inline-block;
 	float: left;
-	bottom: 50%;
+	bottom: 0;
 	top: 0;
 	margin: 0, auto;
 	width: 100%;
@@ -368,15 +368,7 @@ there {
 	
 	display: block;
 	height: 0;
-	background: 
-    linear-gradient(
-      rgba(0, 0, 0, 0), 
-      rgba(0, 0, 0, 0)
-    ),
-    url("images/arrow_main.svg");
     background-color: none;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
 	top: 50%;
 	width: 100%;
 	bottom: auto;
@@ -391,16 +383,7 @@ there {
 
 	display: block;
 	height: auto;
-	background: 
-    linear-gradient(
-      rgba(0, 0, 0, 0), 
-      rgba(255, 255, 255, 0)
-    ),
-    url("");
     background-color: none;
-	background-position: 50% 0%;
-	background-repeat: no-repeat;
-	background-size: 100% 120px;
 	top: 50%;
 	width: 80%;
 	bottom: auto;
@@ -418,27 +401,18 @@ there {
 
 #mainlabel.expand {
 
-	display: block;
+	display: inline-block;
 	height: auto;
-	background: 
-    linear-gradient(
-      rgba(0, 0, 0, 0), 
-      rgba(255, 255, 255, 0)
-    ),
-    url("");
     background-color: #fff;
-	background-position: 50% 0%;
-	background-repeat: no-repeat;
-	background-size: 100% 120px;
 	box-shadow: 0 1px 2px rgba(0,0,0,0.35);	
-	top: 72px;
+	top: 64px;
 	width: auto;
-	bottom: 15px;
-	right: 10px;
-	left: 10px;
-	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	position: absolute;
     float: none;
-	pointer-events: none;
+	pointer-events: auto;
 	z-index: 11;
 	-webkit-transform: translateZ(10);	
 
@@ -448,19 +422,17 @@ there {
 
 	left: auto;
 	width: 160px;
-	bottom: 50%;
+	bottom: 36px;
 	right: 10px;
 	float: none;
 	position: fixed;
 	background-color: #fff;
-	background-image: none;
 	overflow-y: hidden;
 	overflow-x: hidden;
 	height: auto;
 	top: 72px;
 	display: block;
 	pointer-events: none;
-	max-height: 50%;
 	z-index: 12;
 	-webkit-transform: translateZ(11);
 }
@@ -508,6 +480,7 @@ there {
 	left: 0;
 	margin-right: 10px;
 	margin-top: 10px;
+	background-color: none;
 	-webkit-transform: translateZ(10);
 	
 }
@@ -545,6 +518,7 @@ there {
 	height: 15px;
 	line-height: 15px;
 	color: #777;
+	vertical-align: top;
 	text-shadow:
 	-1px -1px 0 #fff,  
 	1px -1px 0 #fff,
@@ -563,7 +537,7 @@ there {
 	text-align: right;
 	line-height: 1em;
 	height: 1em;
-	margin: -1.1em auto 1em 0;
+	margin: -2em auto 1em 0;
 	top: auto;
 	right: 10px;
 	width: auto;
@@ -588,8 +562,9 @@ there {
 	bottom: auto;
 	float: left;
 	width: 100%;
-	margin: 10px, auto;
+	margin: 5px, auto;
 	left: 10px;
+	line-height: 10px;
 
 }
 
@@ -629,7 +604,7 @@ here {
 	width: auto;
 	float: left;
 	left: 50%;
-	right: 10px;
+	right: 10%;
 	height: auto;
 	top: 35px;
 	bottom: auto;
@@ -649,16 +624,21 @@ here a {
 	color: #000;	
 	
 }
-#git {
+text a {
 	
 	text-decoration: none;
-	color: #EEF4DE;
+	width: 100%;
+	height: 100%;
 }
-#activate {
+
+.activate {
 
 	text-decoration: none;
 	margin: 0, auto;
-	min-height: 2em;
+	height: 100%;
+	width: 100%;
+	pointer-events: auto;
+	display: inline-block;
 
 }
 
@@ -667,13 +647,13 @@ text {
 	display: none;
 	position: relative;
 	height: auto;
-	max-height: 21%;
 	width: auto;
 	float: left;
 	left: 10px;
-	right: 10px;
-	margin-right: 20px;
-	margin-top: 64px;
+	margin-right: 10%;
+	margin-top: 85px;
+	margin-bottom: 36px;
+	top: auto;
 	bottom: 0;
 	overflow-y: scroll;
 	padding: 10px;
@@ -686,7 +666,7 @@ text {
 #mainlabel.point here {
 	
 	background-color: #fff;
-	min-height: 65px;
+	min-height: 50px;
 	border-left: 1px solid #D93B20;
 	box-shadow: 0 1px 1px rgba(0,0,0,0.35);	
 }
@@ -695,9 +675,6 @@ text {
 embed {
 	
 	pointer-events: auto;
-	max-width: 100%;
-	width: 100%;
-	max-height: 100%;
 	display: inline-block;
 	float: left;
 	position: relative;
@@ -718,14 +695,13 @@ lightbox {
 	left: 0;
 	right: auto;
 	position: relative;
-	height: auto;
-	min-height: 40%;
+	min-height: 60%;
 	max-height: 98%;
 	width: auto;
 	float: left;
 	width: 100%;
 	overflow-y: hidden;
-	bottom: auto;
+	bottom: 40%;
 	padding: 0 .5em .5em .5em;
 
 }
@@ -748,7 +724,6 @@ lightbox img {
 
 }
 
-
 images {
 
 	position: absolute;
@@ -756,7 +731,7 @@ images {
 	bottom: 0;
 	top: 36px;
 	right: 50%;
-	left: 0;
+	left: auto;
 	height: 100%;
 	overflow: auto;
 	overflow-y: scroll;
@@ -775,75 +750,12 @@ images {
 	-moz-box-flow: row wrap; 
 	flex-flow: row wrap;
 
-	background-color: #fff;
+	background-color: none;
 	pointer-events: auto;	
-	padding: 0 8px 10px 10px;
+	padding: 0 0 10px 10px;
 	z-index: 13;
 
 } 
-
-#mainlabel.point images {
-	
-	overflow: auto;
-	height: 64px;
-}
-
-#mainlabel.expand here {
-	
-	overflow: auto;
-	position: relative;
-	height: auto;
-	min-height: 3em;
-	max-height: 100%;
-	padding-top: 0;
-	left: 0;
-	margin: 0, auto;
-	padding: 0, 10px;
-	bottom: 0;
-	width: 100%;
-	padding-right: 160px;
-	
-}
-
-#mainlabel.expand text {
-	
-	overflow: auto;
-	position: relative;
-	width: auto;
-	max-width: auto;
-	min-width: auto;
-	left: 10px;
-	right: 10px;
-	padding: 0 0 10px 0;
-	height: auto;
-	margin: 10px 10px 10px 0;
-}
-
-#mainlabel.expand images {
-
-	overflow-y: scroll;
-	overflow-x: hidden;
-	top: auto;
-	position: absolute;
-	width: auto;
-	max-width: 100%;
-	right: auto;
-	bottom: 0;
-	height: auto;
-	max-height: 85px;
-	background-color: rgba(255,255,255,0)!important;
-	margin: 0 0 10px 0;
-	padding: 0 0 0 10px;
-	float: left;
-	left: 0;
-	height: 64px;
-	
-}
-#mainlabel a:hover {
-
-	 color: #D93B20;
-
-}
 
 .items, .iframe {
 
@@ -855,8 +767,8 @@ images {
 	pointer-events: auto;
 	float: right;
 	position: relative;
-	width: 44px;
-	height: 44px;
+	width: 28px;
+	height: 28px;
 	overflow: hidden;
 	margin-left: 0px;
 	margin-top: 10px;
@@ -878,6 +790,94 @@ images {
 	width: 100%;
 	height: 100%;
 	pointer-events: auto;
+
+}
+
+
+#mainlabel.point images {
+	
+	overflow: auto;
+	height: 48px;
+	width: 48px;
+	background-color: #fff;
+}
+
+#mainlabel.expand #external {
+	
+	position: relative;
+	top: 0;
+	bottom: auto;
+	left: auto;
+	margin: 0, auto;
+	text-align: left;
+	padding: 0;
+	width: 82%;
+	padding-left: 10px;
+	padding-top: 10px;
+	
+}
+#mainlabel.expand here {
+	
+	position: relative;
+	display: inline-block;
+	right: auto;
+	float: left;
+	left: auto;
+	top: 0;
+	width: 82%;
+	bottom: auto;
+	right: auto;
+	height: auto;
+	z-index: 11;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: 0, auto;
+	
+}
+	
+#mainlabel.expand text {
+
+	display: inline-block;
+	position: relative;
+	pointer-events: auto;
+	float: left;
+	width: 82%;
+	height: auto;
+	max-height: 24%;
+	margin: 0 0 auto 0;
+	top: auto;
+	bottom: 0;
+	padding: 0;
+	background-color: none;
+	overflow: auto;
+	overflow-y: scroll;
+
+}
+
+#mainlabel.expand images {
+
+	position: relative;
+	display: inline-block;
+	right: 0;
+	left: auto!important;
+	top: 0;
+	width: 13%;
+	bottom: 10px;
+	min-height: auto;
+	height: auto;
+	max-height: 34%;
+	overflow-y: scroll;
+	margin: 0, auto;
+	float: right;
+	background-color: none!important;
+	text-align: left;
+
+}
+
+
+a:hover {
+
+	 color: #D93B20;
 
 }
 
@@ -996,11 +996,11 @@ images {
 	height: 100%;
 	display: inline-block;
 	width: auto;
-	height: auto;
+	height: 25px;
 	right: 25px;
 	left: 66px;
 	top: 0;
-	bottom: 11px;
+	bottom: auto;
 	position: absolute;
 	text-align: left;
 	margin: 0 auto;
@@ -1243,11 +1243,6 @@ images {
 @media all and (min-width: 480px) {
 	
 	
- 	#mainlabel.point images {
-	
-		width: auto;
-	
-	}
 	#mainlabel.point > a, #mainlabel.expand > a {
 
 		top: 10px;
@@ -1256,6 +1251,16 @@ images {
 		left: auto;
 
 	}
+	#mainlabel.expand #external, #mainlabel.expand here, #mainlabel.expand text {
+
+		width: 64%;
+
+	}
+	#mainlabel.expand images {
+		
+		width: 32%;
+		
+	}
 
 }
 
@@ -1263,9 +1268,26 @@ images {
 
 	#mainlabel.expand images {
 		
-		height: 85px;
+		height: auto;
 	}
-
+	
+	.items, .iframe {
+		width: 44px;
+		height: 44px;
+	}
+	
+	images {
+		
+		min-height: 64px;
+	}
+	#mainlabel.point images {
+		
+		width: 64px;
+	}
+	#mainlabel.point here {
+		
+		min-height: 64px;
+	}
 }
 
 @media all and (min-width: 768px) {
@@ -1277,6 +1299,11 @@ images {
 @media all and (orientation:portrait) {
     /* Styles for Portrait screen */
 
+	#mainlabel.expand {
+
+		overflow-y: scroll;
+
+	}
 
 }
 
@@ -1287,6 +1314,7 @@ images {
 
 	lightbox {
 
+		position: relative;
 		max-height: auto;
 		width: auto!important;
 		max-width: 60%;
@@ -1331,10 +1359,7 @@ images {
 		overflow-y: auto;
 		overflow-x: hidden;
 		pointer-events: auto;
-		top: 0;	
 		bottom: auto;
-		right: 0;
-		margin-right: 10px;
 		min-height: 64px;
 	}
 	#mainlabel.expand > a {
@@ -1353,79 +1378,39 @@ images {
 	#mainlabel.expand #range {
 		
 		position: absolute;
-		top: 20px;
-		bottom: auto;
-		left: 70%;
-		margin: 0;
-		text-align: left;
-		padding: 0;
-		
-	}
-	#mainlabel.expand #external {
-		
-		position: absolute;
 		top: auto;
-		bottom: 85px;
+		bottom: auto;
 		left: 70%;
 		margin: 0;
 		text-align: left;
-		padding: 0;
+		padding: 10px 0 0 0;
 		
 	}
-	#mainlabel.expand here {
-		
-		position: absolute;
-		right: auto;
-		left: 70%;
-		width: 28%;
-		bottom: auto;
-		right: auto;
-		min-height: 4em;
-		height: auto;
-		z-index: 11;
-		padding-left: 0;
-		padding-right: 10px;
-		
-	}
-		
-	#mainlabel.expand text {
-
-		display: inline-block;
-		position: absolute;
-		pointer-events: auto;
-		float: left;
-		left: 70%;
-		margin: 0;
-		right: 10px;	
-		max-height: 50%;
-		top: 4em;
-		bottom: 85px;
-		background-color: none;
-
-	}
-	
 	#mainlabel.expand images {
-
-		position: absolute;
-		right: auto;
-		left: auto;
-		top: auto;
-		bottom: 10px;
-		min-height: auto;
-		max-height: 64px;
-		height: auto;
-		overflow-y: scroll;
-		margin: 0, auto;
-		float: left;
-		background-color: none;
-		text-align: left;
-
+		
+		max-height: 95%;
+		width: 10%;
+		
 	}
-			
+	#mainlabel.expand text {
+		
+		max-height: 33%!important;
+		height: auto!important;
+		bottom: 0;
+		top: 0;
+		margin: 0;
+	}
 	#mainlabel.search > here {
 
 		padding: .675em;
 
+	}
+	#mainlabel.expand #external, #mainlabel.expand here, #mainlabel.expand text {
+
+		width: 27%;
+		float: right;
+		margin-right: 10px;
+		padding-right: 10px;
 	}
 
 	.username {
@@ -1437,26 +1422,9 @@ images {
 
 	@media all and (min-width: 768px) {
 
-		lightbox {
+		#mainlabel.expand text {
 
-
-		}
-		#mainlabel.expand #external {
-
-			bottom: 32%;
-
-		}
-		#mainlabel.expand images {
-
-			left: 70%;
-			padding: 0;
-			max-height: 30%;
-		}
-		#mainlabel.expand > a {
-
-			bottom: auto;
-			top: 10px;
-
+			max-height: 60%!important;
 		}
 						
 	}
@@ -1464,13 +1432,6 @@ images {
 	@media all and (min-width: 960px) {
 	
 
-		#mainlabel.expand images {
-			
-			float: right;
-			right: 0;
-			text-align: right;
-			
-		}
 	}
 
 
@@ -1478,11 +1439,9 @@ images {
 
 	lightbox img {
 
-		margin: 0;
 		overflow-y: hidden;
 		min-height: auto!important;
 		max-height: 97.5%;
-		max-width: 100%;
 		bottom: 0;
 		top: 0;
 
@@ -1494,12 +1453,6 @@ images {
 
 	}
 
-	#mainlabel.expand here {
-
-		width: 100%;
-		float: left;
-
-	}
 
 }
 }
