@@ -30,12 +30,6 @@ body {
 	display: block;
 }
 
-form, #txt {
-	
-	display: none;
-	
-}
-
 h2 {
 
 	font-size: 1em;
@@ -46,7 +40,6 @@ h2 {
 	padding: 0;
 	font-weight: 300;
     color: rgba(0, 0, 0, 0.9);
-	width: 100%;
 	display: inline-block;
 	float: left;
 	margin: 0;
@@ -55,7 +48,7 @@ h2 {
 
 h3 {
 	font-weight: 400;
-    font-size: .8em ;
+    font-size: .75em ;
     line-height: 2em;
 	letter-spacing: .02em;
     color: #000;
@@ -73,7 +66,7 @@ h4 {
 	font-weight: 400;
 	line-height: 1.5em;
     color: #444;
-    padding: 10px 10px 10px 0;
+    padding: 0 10px 10px 0;
 	width: auto;
 	height: auto;
 	margin: 0;
@@ -85,9 +78,9 @@ h5 {
     font-size: .66em ;
 	line-height: 2em;
     color: #000;
-    padding:   0 0 0.33em 0 ;
-	margin: 0, auto;
+	margin: 0;
 	letter-spacing: 0.03em;
+    padding: 0 10px 10px 0;
 }
 
 h6 {
@@ -219,17 +212,17 @@ why a {
 	position: fixed;
 	left: auto;
 	top: auto;
-	bottom: 20px;
+	bottom: 0;
 	right: 10px;
 	display: block;
-	width: 150px;
-	height: auto;
+	width: auto;
+	height: 34px;
 	
 }
 #publish img {
 	
-	width: 100%;
-	height: auto;
+	width: auto;
+	height: 100%;
 	position: relative;
 	display: inline-block;
 	margin: 0;
@@ -237,13 +230,13 @@ why a {
 
 #go {
 	
-	display: none;
+	display: block;
 	pointer-events: auto;
 	position: absolute;
 	margin: 0, auto;
-	width: 25px;
-	height: 25px;
-	top: 27px;
+	width: 27px;
+	height: 27px;
+	top: 0;
 	right: 0;
 	bottom: 0;
 	box-shadow: 0 1px 2px rgba(0,0,0,0.35);	
@@ -256,11 +249,21 @@ why a {
     background-color: #fff;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
-	z-index: 13;
-	-webkit-transform: translateZ(12);	
+	z-index: 14;
+	-webkit-transform: translateZ(13);	
 
 }
 
+#go.init {
+
+	background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0), 
+      rgba(0, 0, 0, 0)
+    ),
+    url("images/ex.svg");
+		
+}
 #go:hover {
 	
 	background: 
@@ -273,7 +276,16 @@ why a {
 	background-repeat: no-repeat;
 	
 }
-
+#go.init:hover, #go.close:hover {
+	
+	background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.08), 
+      rgba(0, 0, 0, 0.08)
+    ),
+    url("images/ex.svg");
+	
+}
 #go.close {
 	
 	display: block;
@@ -292,33 +304,25 @@ why a {
 }
 .username {
 
-	position: absolute;	
+	position: relative;	
+	font-size: 100%;
 	display: inline-block;
 	margin: 0, auto;
-	width: auto;
+	width: 160px;
 	height: 25px;
-	top: 27px;
-	left: 66px;
-	max-width: 30%;
-	bottom: 0;
-	float: right;
+	top: 0;
+	left: 0;
+	bottom: auto;
+	float: left;
 	color: #EEF4DE;
 	text-decoration: none;	
 	
 }
 
-.leaflet-bar {
-
-	box-shadow: 0px 1px 2px #888888;
-	border-radius: 0px;
+.leaflet-bar a, .leaflet-bar a:hover {
 	
-}
-
-.leaflet-bar a {
-	
-	height: 25px;
-	width: 25px;
-	line-height: 25px;
+	float: right;
+	border-bottom: 0px solid #fff;
 	
 }
 
@@ -405,7 +409,7 @@ there {
 	height: auto;
     background-color: #fff;
 	box-shadow: 0 1px 2px rgba(0,0,0,0.35);	
-	top: 64px;
+	top: 36px;
 	width: auto;
 	bottom: 0;
 	right: 0;
@@ -413,8 +417,6 @@ there {
 	position: absolute;
     float: none;
 	pointer-events: auto;
-	z-index: 11;
-	-webkit-transform: translateZ(10);	
 
 }
 
@@ -430,7 +432,7 @@ there {
 	overflow-y: hidden;
 	overflow-x: hidden;
 	height: auto;
-	top: 72px;
+	top: 36px;
 	display: block;
 	pointer-events: none;
 	z-index: 12;
@@ -450,7 +452,7 @@ there {
 	overflow-y: hidden;
 	overflow-x: hidden;
 	height: auto;
-	top: 72px;
+	top: 36px;
 	display: block;
 	pointer-events: none;
 	bottom: 50%;
@@ -505,16 +507,37 @@ there {
 
 }
 
+credits {
+	
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	top: auto;
+	width: auto;
+	font-size: 11px;
+	color: #999;
+	display: inline;
+	margin: 10px 10px 3px 10px;
+	background-color: #fff;
+}
+
+credits a {
+	
+	color: #555;
+	text-decoration: none;
+}
+
 #range {
 	
 	position: absolute;
-	font-size: .56em;
 	right: auto;
 	left: 50%;
 	text-align: left;
 	width: auto;
 	letter-spacing: 0;
 	margin: 0 auto auto 12px;
+	top: 5px;
 	height: 15px;
 	line-height: 15px;
 	color: #777;
@@ -529,19 +552,21 @@ there {
 
 #mainlabel.expand > #range {
 	
+	text-decoration: none;
 	position: relative;
-	display: inline-block;
-	float: right;
 	left: auto;
 	bottom: auto;
-	text-align: right;
-	line-height: 1em;
-	height: 1em;
-	margin: -2em auto 1em 0;
+	float: left;
+	text-align: left;
 	top: auto;
 	right: 10px;
 	width: auto;
-	
+	padding-left: 10px;
+	padding-top: 10px;
+	margin: 0, auto;
+	pointer-events: auto;
+	height: 1em;
+	height: 25px;
 }
 
 #title {
@@ -564,7 +589,7 @@ there {
 	width: 100%;
 	margin: 5px, auto;
 	left: 10px;
-	line-height: 10px;
+	height: 25px;
 
 }
 
@@ -604,16 +629,16 @@ here {
 	width: auto;
 	float: left;
 	left: 50%;
-	right: 10%;
+	right: 0;
 	height: auto;
-	top: 35px;
+	top: 49px;
 	bottom: auto;
 	margin: 0, auto;
 	overflow-y: auto;
 	overflow-x: hidden;
 	pointer-events: auto;
 	padding: 10px 10px 10px 10px;
-	background-color: none;
+	background-color: #fff;
 	z-index: 0;
 	-webkit-transform: translateZ(0);
 
@@ -631,46 +656,29 @@ text a {
 	height: 100%;
 }
 
-.activate {
-
-	text-decoration: none;
-	margin: 0, auto;
-	height: 100%;
-	width: 100%;
-	pointer-events: auto;
-	display: inline-block;
-
-}
-
 text {
 
 	display: none;
 	position: relative;
-	height: auto;
 	width: auto;
-	float: left;
+	height: auto;
 	left: 10px;
-	margin-right: 10%;
-	margin-top: 85px;
-	margin-bottom: 36px;
-	top: auto;
-	bottom: 0;
-	overflow-y: scroll;
-	padding: 10px;
+	right: 10px;
+	top: 0;
+	bottom: auto;
+	overflow: auto;
+	overflow-y: auto;
 	pointer-events: auto;
 	background-color: #fff;
+	padding: 0;
+	margin: 0;
+	margin-right: 10px;
+	margin-bottom: 36px;
+	min-height: 36px;
+	max-height: auto;
+	overflow: auto;
 
 }
-
-
-#mainlabel.point here {
-	
-	background-color: #fff;
-	min-height: 50px;
-	border-left: 1px solid #D93B20;
-	box-shadow: 0 1px 1px rgba(0,0,0,0.35);	
-}
-
 
 embed {
 	
@@ -729,7 +737,7 @@ images {
 	position: absolute;
 	width: 49.9%;
 	bottom: 0;
-	top: 36px;
+	top: 50px;
 	right: 50%;
 	left: auto;
 	height: 100%;
@@ -793,13 +801,35 @@ images {
 
 }
 
-
+#mainlabel.point here {
+	background-color: #fff;
+	min-height: 50px;
+	border-left: 2px solid #D93B20;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.35);	
+}
+#mainlabel.point here a {
+	display: inline-block;
+	float: left;
+	margin-right: 64px;
+	left: 0;
+	position: relative;
+	margin: 0, auto;
+}
 #mainlabel.point images {
 	
+	max-width: auto;
+	float: right;
 	overflow: auto;
 	height: 48px;
 	width: 48px;
-	background-color: #fff;
+	background-color: none;
+	margin: 0, auto;
+	top: 0;
+	right: 0;
+	bottom: auto;
+	margin-bottom: 10px;
+	left: auto;
+	z-index: 999999999999;
 }
 
 #mainlabel.expand #external {
@@ -824,56 +854,50 @@ images {
 	float: left;
 	left: auto;
 	top: 0;
-	width: 82%;
+	width: 100%;
 	bottom: auto;
 	right: auto;
 	height: auto;
 	z-index: 11;
 	padding-left: 10px;
-	padding-right: 10px;
 	margin: 0, auto;
 	
-}
-	
-#mainlabel.expand text {
-
-	display: inline-block;
-	position: relative;
-	pointer-events: auto;
-	float: left;
-	width: 82%;
-	height: auto;
-	max-height: 24%;
-	margin: 0 0 auto 0;
-	top: auto;
-	bottom: 0;
-	padding: 0;
-	background-color: none;
-	overflow: auto;
-	overflow-y: scroll;
-
 }
 
 #mainlabel.expand images {
 
-	position: relative;
-	display: inline-block;
+	position: fixed;
+	display: block;
+	left: 10px;
 	right: 0;
-	left: auto!important;
-	top: 0;
-	width: 13%;
-	bottom: 10px;
+	top: auto;
+	width: auto;
+	bottom: 36px;
 	min-height: auto;
 	height: auto;
-	max-height: 34%;
-	overflow-y: scroll;
-	margin: 0, auto;
-	float: right;
-	background-color: none!important;
+	max-height: 36px;
+	overflow-y: hidden;
+	overflow-x: scroll;
+	margin: 0 10px 10px 0!important;
+	float: left;
+	background-color: #fff;
+	background: repeating-linear-gradient(
+		to right,
+		#fff,
+		#E8E8E8,
+		#fff
+	);
+	
 	text-align: left;
 
 }
 
+#mainlabel.expand images:hover {
+	
+	max-height: 52px;
+	overflow-y: scroll;
+	
+}
 
 a:hover {
 
@@ -882,6 +906,7 @@ a:hover {
 }
 
 #menu {
+
     background-color: none;
 	list-style-type:none;
 	margin: 0, auto;
@@ -912,15 +937,15 @@ a:hover {
 	background-color:none;
 	display:inline-block;
 	text-decoration:none;
-    height: 52px;
+    height: 22px;
     position: relative;
 	pointer-events: auto;
 }
 #menu > li > a > img {
 	
-	height: 100%;
+	height: 28px;
 	width: auto;
-	
+	margin: 0;
 }
 #menu .button {
     width: 54px;
@@ -949,6 +974,7 @@ a:hover {
 	z-index: 14;
 	box-shadow: 1px 0px 1px 0px rgba(0,0,0,0.3);
 	-webkit-transform: translateZ(13);
+	margin-top: -2px;
 
 }
 
@@ -996,9 +1022,9 @@ a:hover {
 	height: 100%;
 	display: inline-block;
 	width: auto;
-	height: 25px;
-	right: 25px;
-	left: 66px;
+	height: 28px;
+	right: auto;
+	left: 36px;
 	top: 0;
 	bottom: auto;
 	position: absolute;
@@ -1100,16 +1126,17 @@ a:hover {
 .tllabel {
 
 	background-color: none;
-	border: 0px solid white;
+	border-right: 1px solid white;
 	width: 10%;
-	height: 50px;
+	height: 100%;
 	display: inline-block;
 	position: absolute;
 	font-weight: 300;
     font-size: .65em ;
-    line-height: 42px;
+    line-height: 64px;
 	pointer-events:none;
 	padding: 8px 0 0 4.2px;
+	overflow-x: visible;
 
 }
 
@@ -1127,12 +1154,14 @@ a:hover {
 	margin: 0;
 	padding: 0;
 	pointer-events:none;
+	z-index: 6;
+	-webkit-transform: translateZ(5);
 
 }
 
 #prevarrow {
 
-	top:60%;
+	top:61%;
 	left:10px;
 	right: auto;
 	bottom: auto;
@@ -1146,7 +1175,7 @@ a:hover {
 
 #nextarrow {
 
-	top: 60%;
+	top: 61%;
 	position: fixed;
 	right: 0;
 	left: auto;
@@ -1163,15 +1192,17 @@ a:hover {
 	border-right: 1px solid #fff;
 	border-left: 1px solid #fff;
 	min-width: 20px;
-	height: 20px;
+	height: 30px;
 	display: inline-block;
 	position: absolute;
 	cursor: pointer;
 	pointer-events: auto;
-	top: 15px;
+	top: 20px;
 	overflow: visible;
 	pointer-events: auto;
 	box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.3);
+	z-index: 5;
+	-webkit-transform: translateZ(4);
 	
 }
 .tltab:hover {
@@ -1184,6 +1215,8 @@ a:hover {
 	overflow-x: visible;
 	width: auto;
 	pointer-events: auto;
+	z-index: 6;
+	-webkit-transform: translateZ(5);	
 
 }
 .tltab.selected {
@@ -1192,17 +1225,15 @@ a:hover {
 	radial-gradient(circle at 0 0, rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, .7) 9px);
 	background-color: rgba(255, 255, 255, 0);
 	border-right: 2px solid #fff;
-	border-left: 1px solid #D93B20;
+	border-left: 2px solid #D93B20;
 	border-bottom: 1px solid #888;
 	outline: 0px solid #fff;
-	height: 36px;
+	height: 50px;
 	top: 0;
 	overflow-x: visible;
 	width: auto;
 	pointer-events: auto;
 	box-shadow: 0 1px 1px rgba(0,0,0,0.35);	
-	z-index: 5;
-	-webkit-transform: translateZ(4);
 
 }
 .tltab span {	
@@ -1211,11 +1242,11 @@ a:hover {
 	min-width:250px;
 	width: auto;
 	position:absolute;
-	top: 12px;
+	top: 20px;
 	font-weight: 400;
-    font-size: .7em ;
-    color: #000;
-    padding:   0 0 0 12px ;
+    font-size: .8em ;
+    color: #555;
+    padding:   4px 0 0 11px ;
 	margin: 0;	
 	overflow-x: visible;
 	text-shadow:
@@ -1251,16 +1282,6 @@ a:hover {
 		left: auto;
 
 	}
-	#mainlabel.expand #external, #mainlabel.expand here, #mainlabel.expand text {
-
-		width: 64%;
-
-	}
-	#mainlabel.expand images {
-		
-		width: 32%;
-		
-	}
 
 }
 
@@ -1280,43 +1301,70 @@ a:hover {
 		
 		min-height: 64px;
 	}
-	#mainlabel.point images {
+	#mainlabel.point here images {
 		
 		width: 64px;
 	}
 	#mainlabel.point here {
 		
-		min-height: 64px;
+		height: 64px;
+		right: 10%;
 	}
 }
 
 @media all and (min-width: 768px) {
 
+	#mainlabel.point here {
+		
+		right: 20%;
+		
+	}
 
+}
+
+@media all and (min-width: 960px) {
+
+	#mainlabel.point here {
+		
+		right: 25%;
+		
+	}
 
 }
 
 @media all and (orientation:portrait) {
     /* Styles for Portrait screen */
+	text {
+		
+		max-height: 15%;
+		
+	}
+	@media all and (min-height: 500px) {
 
-	#mainlabel.expand {
-
-		overflow-y: scroll;
+		text {
+			
+			max-height: 20%;
+		}
 
 	}
+	@media all and (min-height: 600px) {
 
+		text {
+			
+			max-height: 30%;
+		}
+
+	}
 }
 
 @media all and (orientation:landscape) {
 
     /* Styles for Landscape screen */
 
-
 	lightbox {
 
 		position: relative;
 		max-height: auto;
-		width: auto!important;
 		max-width: 60%;
 		float: left;
 		margin: 0 auto;
@@ -1325,7 +1373,6 @@ a:hover {
 		left: 0;
 		bottom: auto;
 		height: auto;
-		min-height: auto;
 
 	}
 	
@@ -1375,26 +1422,10 @@ a:hover {
 		position: absolute;
 
 	}
-	#mainlabel.expand #range {
+
+	text {
 		
-		position: absolute;
-		top: auto;
-		bottom: auto;
-		left: 70%;
-		margin: 0;
-		text-align: left;
-		padding: 10px 0 0 0;
-		
-	}
-	#mainlabel.expand images {
-		
-		max-height: 95%;
-		width: 10%;
-		
-	}
-	#mainlabel.expand text {
-		
-		max-height: 33%!important;
+		max-height: 50%!important;
 		height: auto!important;
 		bottom: 0;
 		top: 0;
@@ -1405,19 +1436,14 @@ a:hover {
 		padding: .675em;
 
 	}
-	#mainlabel.expand #external, #mainlabel.expand here, #mainlabel.expand text {
+	#mainlabel.expand #external, #mainlabel.expand #range, #mainlabel.expand here, #mainlabel.expand text {
 
 		width: 27%;
-		float: right;
+		float: left;
 		margin-right: 10px;
 		padding-right: 10px;
 	}
 
-	.username {
-
-		font-size: 3.1vmin;
-
-	}
 
 
 	@media all and (min-width: 768px) {
